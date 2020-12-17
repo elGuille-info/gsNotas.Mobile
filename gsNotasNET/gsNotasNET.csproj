@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <Description>Utilidad para tomar notas, versión para Android.
+Se utiliza una base de datos para guardar las notas.
+Lamentablemente no se pueden copiar las notas a Google Drive.
+
+(para .NET Standard 2.0 revisión del 17-dic-2020)</Description>
+    <Copyright>(c) Guillermo Som (elGuille), 2020</Copyright>
+    <PackageProjectUrl>http://www.elguillemola.com/utilidades-net/utilidades-para-net-framework-4-8/gsnotasnetf/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/elGuille-info/gsNotasNETF</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>notas; notes;</PackageTags>
+    <PackageReleaseNotes>Primera versión para Android</PackageReleaseNotes>
+    <NeutralLanguage>es-ES</NeutralLanguage>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+      <PackageVersion>1.0.0.7</PackageVersion>
+      <Version>1.0.0.7</Version>
+      <FileVersion>1.0.0.7</FileVersion>
+    <!--<SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>E:\gsCodigo_00\elGuille\elGuille.snk</AssemblyOriginatorKeyFile>-->
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis" Version="1.49.0" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.49.0" />
+    <PackageReference Include="Google.Apis.Core" Version="1.49.0" />
+    <PackageReference Include="Google.Apis.Docs.v1" Version="1.49.0.2170" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.49.0.2166" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.0-beta" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1791-pre5" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.0-rc1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="NoteEntryPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="NotesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
