@@ -5,3 +5,7 @@ Las notas se guardan en una base de datos de SQLLite.
 
 Por ahora no funciona la copia de notas en google Docs.
 
+Una captura del programa funcionando en mi móvil Google Pixel 4a:
+
+![alt text](http://www.elguillemola.com/img/img2020/gsNotasNET.Android.png "Captura de la aplicación en funcionamiento")
+
