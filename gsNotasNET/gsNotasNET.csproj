@@ -13,12 +13,12 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
     <RepositoryUrl>https://github.com/elGuille-info/gsNotasNETF</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>notas; notes;</PackageTags>
-    <PackageReleaseNotes>v1.0.0.8 18-dic-2020 Añado credenciales para usar en Android.</PackageReleaseNotes>
+    <PackageReleaseNotes>v1.0.0.18 19-dic-2020 Cambio el icono de la aplicación</PackageReleaseNotes>
     <NeutralLanguage>es-ES</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-      <PackageVersion>1.0.0.17</PackageVersion>
-      <Version>1.0.0.17</Version>
-      <FileVersion>1.0.0.17</FileVersion>
+      <PackageVersion>1.0.0.18</PackageVersion>
+      <Version>1.0.0.18</Version>
+      <FileVersion>1.0.0.18</FileVersion>
     <!--<SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>E:\gsCodigo_00\elGuille\elGuille.snk</AssemblyOriginatorKeyFile>-->
   </PropertyGroup>

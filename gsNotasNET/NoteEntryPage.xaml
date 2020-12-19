@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="gsNotasNET.NoteEntryPage"
              BindingContextChanged="ContentPage_BindingContextChanged"
-             Title="Editar Nota">
+             Title="Escribir nueva Nota">
     <ContentPage.Resources>
         <!-- Implicit styles -->
         <Style TargetType="{x:Type Editor}">

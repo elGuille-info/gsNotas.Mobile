@@ -21,7 +21,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="+Docs" Clicked="CopiarEnDrive_Clicked" />
-        <ToolbarItem Text="+"
+        <ToolbarItem Text="+Nota"
                      Clicked="OnNoteAddedClicked" />
         
     </ContentPage.ToolbarItems>

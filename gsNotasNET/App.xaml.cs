@@ -10,7 +10,7 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v1..17";
+        public static string AppVersion { get; } = "v1..18";
 
         /// <summary>
         /// Los datos de las credenciales obtenidas del directorio Assets
