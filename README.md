@@ -7,7 +7,7 @@ Por ahora no funciona la copia de notas en google Docs.
 
 Unas capturas del programa funcionando en mi móvil Google Pixel 4a: 
 
-> Actualizadas las capturas a la versión 1.0.0.137
+> Actualizadas las capturas a la versión 1.0.0.17
 
 ![alt text](http://www.elguillemola.com/img/img2020/gsNotasNET.Android-04.png "Captura de la aplicación en funcionamiento")
 
