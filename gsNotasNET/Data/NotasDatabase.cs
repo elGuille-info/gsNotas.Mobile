@@ -56,9 +56,39 @@ namespace gsNotasNET.Data
                                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Devuelve las notas, clasificadas (espero)
+        /// </summary>
+        /// <returns></returns>
         public Task<List<Nota>> GetNotesAsync()
         {
-            return _database.Table<Nota>().ToListAsync();
+            //return _database.Table<Nota>().ToListAsync();
+
+            // Clasificar el contenido de la lista
+            var lista = _database.Table<Nota>().ToListAsync();
+            var lista2 = new List<Nota>();
+            foreach (var n in lista.Result)
+                lista2.Add(n);
+
+            // Código adaptado de un ejemplo en:
+            // https://tinyurl.com/y9zvt22t
+            // This shows calling the Sort(Comparison(T) overload using
+            // an anonymous method for the Comparison delegate.
+            // This method treats null as the lesser of two values.
+            lista2.Sort(delegate (Nota x, Nota y)
+            {
+                if (x.Grupo == null && y.Grupo == null) return 0;
+                else if (x.Grupo == null) return -1;
+                else if (y.Grupo == null) return 1;
+                else return x.Grupo.CompareTo(y.Grupo);
+            });
+            lista.Result.Clear(); // Borraba los de lista2
+            foreach (var n in lista2)
+                lista.Result.Add(n); // lo añadía a lista2
+
+            return lista;
+
+            
         }
 
         public Task<Nota> GetNoteAsync(int id)

@@ -48,6 +48,9 @@ namespace gsNotasNET
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
             //this.Title = $"gsNotasNET - Hay {App.Database.CountAsync().Result} notas";
+            var lista = App.Database.GetNotesAsync().Result;
+
+
             TituloNotas();
         }
 
@@ -55,13 +58,6 @@ namespace gsNotasNET
         {
             string s = "";
             var total = App.Database.CountAsync().Result;
-            //if(total == 0)
-            //    s = $"gsNotasNET - No hay notas";
-            //else if(total == 1)
-            //    s = $"gsNotasNET - Hay 1 nota";
-            //else
-            //    s = $"gsNotasNET - Hay {total} notas";
-
             var nGrupos = App.Database.Grupos().Count();
             var sGrupo = "";
             if (nGrupos == 0)
@@ -82,7 +78,7 @@ namespace gsNotasNET
 
             s = sGrupo + s;
 
-            Current.Title = "gsNotasNET.Android";
+            Current.Title = $"gsNotasNET.Android {App.AppVersion}";
             Current.LabelInfo.Text = s;
         }
 
@@ -91,14 +87,6 @@ namespace gsNotasNET
             gsNotasNET.APIs.ApisDriveDocs.IniciadoGuardarNotasEnDrive += ApisDriveDocs_IniciadoGuardarNotasEnDrive;
             gsNotasNET.APIs.ApisDriveDocs.FinalizadoGuardarNotasEnDrive += ApisDriveDocs_FinalizadoGuardarNotasEnDrive;
             gsNotasNET.APIs.ApisDriveDocs.GuardandoNotas += ApisDriveDocs_GuardandoNotas;
-
-            //var url = "https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&response_type=code&client_id=497045764341-cromici7c1mpisc9ffcjt2buv9olfcq3.apps.googleusercontent.com&redirect_uri=http%3A%2F%2F127.0.0.1%3A42170%2Fauthorize%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdocuments%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.file";
-            //await Navigation.PushAsync(new NoteEntryPage
-            //{
-            //    BindingContext = new Nota() { Text = url, Grupo = "Drive-Docs" }
-            //}); ;
-
-            //return;
 
             var lasNotas = new Dictionary<string, List<string>>();
             var grupos = App.Database.Grupos();
@@ -126,11 +114,10 @@ namespace gsNotasNET
             }
             catch(Exception ex)
             {
-                var url = "https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&response_type=code&client_id=497045764341-cromici7c1mpisc9ffcjt2buv9olfcq3.apps.googleusercontent.com&redirect_uri=http%3A%2F%2F127.0.0.1%3A42170%2Fauthorize%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdocuments%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.file";
                 var crlf = "\r\n";
                 await Navigation.PushAsync(new NoteEntryPage
                 {
-                    BindingContext = new Nota() { Text =$"{url}{crlf}{crlf}Copia esa URL (o abre el navegador) para autorizar la aplicación.{crlf}{crlf}Error {ex.Message}", Grupo = "Drive-Docs" }
+                    BindingContext = new Nota() { Text = $"Error:{crlf}{ex.Message}", Grupo = "Drive-Docs" }
                 }); ;
                 ApisDriveDocs_FinalizadoGuardarNotasEnDrive();
             }

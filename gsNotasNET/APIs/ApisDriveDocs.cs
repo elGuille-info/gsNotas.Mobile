@@ -44,14 +44,7 @@ namespace gsNotasNET.APIs //gsGoogleDriveDocsAPINET
         // at ~/.credentials/docs.googleapis.com-dotnet-quickstart.json
         //static string[] Scopes = { DocsService.Scope.Documents, DocsService.Scope.DocumentsReadonly };
         static string[] Scopes = { DocsService.Scope.Documents, DocsService.Scope.DriveFile };
-        static string ApplicationName = "gsNotasNET - Google API";
-
-        // Credenciales del proyecto de correos.elguille.info@gmail.com
-        static ClientSecrets secrets = new ClientSecrets()
-        {
-            ClientId = "497045764341-cromici7c1mpisc9ffcjt2buv9olfcq3.apps.googleusercontent.com",
-            ClientSecret = "j2Wo12HOeWJUvZTpaMF6Mfql"
-        };
+        static string ApplicationName = "gsNotasNET.Android";
 
         static DocsService docService;
         static DriveService driveService;
@@ -109,17 +102,31 @@ namespace gsNotasNET.APIs //gsGoogleDriveDocsAPINET
             //var credPath = System.Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             // En Android usar:
             //Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "gsNotasNET.db3"
-            var credPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            credPath = System.IO.Path.Combine(credPath, ".credentials/gsNotasNET-2.0");
+            //var credDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            //var credDir = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            //var credDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            //var credPath = System.IO.Path.Combine(credDir, ".credentials/gsNotasNET-2.0");
+            //// Eliminar la carpeta y el contenido ya que se ve que sigue estando
+            //// esto solo para la que había antes
+            // Dice que no encuentra parte del path
+            // /data/user/0/com.elguille.gsnotasnet/files/.local/share/.credentials/gsNotasNET-2.0
+            //System.IO.Directory.Delete(credPath, true);
 
-            credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                secrets,
-                Scopes,
-                "user",
-                CancellationToken.None,
-                new FileDataStore(credPath, true)).Result;
+            // La nueva carpeta para las credenciales, a partir de v1.0.0.10
+            var credDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var credPath = System.IO.Path.Combine(credDir, ".credentials/gsNotasNET.Android");
 
-            //Console.WriteLine("Credential file saved to: " + credPath);
+            using (var stream = App.ClientSecretJson)
+            {
+                //string credPath = "token.json";
+
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None,
+                    new FileDataStore(credPath, true)).Result;
+            }
 
             // Create Google Docs API service.
             docService = new DocsService(new BaseClientService.Initializer()

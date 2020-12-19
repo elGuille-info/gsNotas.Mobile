@@ -14,6 +14,8 @@ namespace gsNotasNET.Droid
         {
             base.OnCreate(savedInstanceState);
 
+            App.ClientSecretJson = Assets.Open("client_secret_50463492690.json");
+
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());

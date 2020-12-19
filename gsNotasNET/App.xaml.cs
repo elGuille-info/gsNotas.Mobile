@@ -7,6 +7,16 @@ namespace gsNotasNET
 {
     public partial class App : Application
     {
+        /// <summary>
+        /// La versión de la aplicación
+        /// </summary>
+        public static string AppVersion { get; } = "v1..17";
+
+        /// <summary>
+        /// Los datos de las credenciales obtenidas del directorio Assets
+        /// </summary>
+        public static System.IO.Stream ClientSecretJson { get; set; }
+
         static NotasDatabase database;
 
         //static string DatabasePath;
@@ -19,7 +29,8 @@ namespace gsNotasNET
 
                 if (database == null)
                 {
-                    database = new NotasDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "gsNotasNET.db3"));
+                    //database = new NotasDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "gsNotasNET.db3"));
+                    database = new NotasDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "gsNotasNET.db3"));
                 }
                 return database;
             }
