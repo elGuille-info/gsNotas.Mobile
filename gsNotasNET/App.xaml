@@ -14,7 +14,9 @@
         <Color x:Key="AppTextColor">White</Color>
         <!-- Color x:Key="NavigationBarColor">#1976D2</ -->
         <Color x:Key="NavigationBarColor">#0063b1</Color>
-        <Color x:Key="NavigationBarTextColor">White</Color>
+        <Color x:Key="NavigationBarTextColor">Yellow</Color>
+        <Color x:Key="ButtonBackColor">AliceBlue</Color>
+        <Color x:Key="ButtonTextColor">#0063b1</Color>
 
         <!-- Implicit styles -->
         <Style TargetType="{x:Type NavigationPage}">

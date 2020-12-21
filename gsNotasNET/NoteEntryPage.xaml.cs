@@ -3,6 +3,8 @@ using System.IO;
 using Xamarin.Forms;
 using gsNotasNET.Models;
 using System.Xml;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace gsNotasNET
 {
@@ -15,27 +17,31 @@ namespace gsNotasNET
 
         async void OnSaveButtonClicked(object sender, EventArgs e)
         {
-            var note = (Nota)BindingContext;
+            var nota = (NotaSQL)BindingContext;
             // no guardar notas en blanco
-            if (string.IsNullOrEmpty(note.Text))
+            if (string.IsNullOrEmpty(nota.Texto))
             {
                 await Navigation.PopAsync();
                 return;
             }
 
-            note.Date = DateTime.UtcNow;
-            await App.Database.SaveNoteAsync(note);
+            nota.Modificada = DateTime.UtcNow;
+            nota.Archivada = false;
+
+
+            await NotaSQL.GuardarNotaAsync(nota);
             await Navigation.PopAsync();
-            //NotesPage.Current.Title = $"gsNotasNET - Hay {App.Database.CountAsync().Result} notas";
+            
             NotesPage.TituloNotas();
         }
 
         async void OnDeleteButtonClicked(object sender, EventArgs e)
         {
-            var note = (Nota)BindingContext;
-            await App.Database.DeleteNoteAsync(note);
+            var nota = (NotaSQL)BindingContext;
+
+            await NotaSQL.BorrarNotaAsync(nota);
             await Navigation.PopAsync();
-            //NotesPage.Current.Title = $"gsNotasNET - Hay {App.Database.CountAsync().Result} notas";
+            
             NotesPage.TituloNotas();
         }
 
@@ -44,24 +50,26 @@ namespace gsNotasNET
         /// </summary>
         private void ContentPage_BindingContextChanged(object sender, EventArgs e)
         {
-            //NotesPage.TituloNotas();
-
-            var note = (Nota)BindingContext;
-            if (!(note is null) && !string.IsNullOrWhiteSpace(note.Text))
+            var nota = (NotaSQL)BindingContext;
+            if (!(nota is null) && !string.IsNullOrWhiteSpace(nota.Texto))
             {
                 char[] returns = { '\r', '\n' };
-                if (note.Text.IndexOfAny(returns) > -1)
+                if (nota.Texto.IndexOfAny(returns) > -1)
                 {
-                    var s = note.Text.Split(returns, StringSplitOptions.RemoveEmptyEntries);
-                    //this.Title = s[0];
-                    this.Title = $"#{note.ID}, {note.Date.ToString("dd/MM/yy HH:mm")}, {note.Text.Length} c. {s.Length} l.";
+                    var s = nota.Texto.Split(returns, StringSplitOptions.RemoveEmptyEntries);
+                    
+                    this.Title = $"#{nota.ID}, {nota.Modificada.ToString("dd/MM/yy HH:mm")}, {nota.Texto.Length} c. {s.Length} l.";
                 }
                 else
                 {
-                    //this.Title = note.Text;
-                    this.Title = $"#{note.ID}, {note.Date.ToString("dd/MM/yy HH:mm")}, {note.Text.Length} c. 1 l.";
+                    this.Title = $"#{nota.ID}, {nota.Modificada.ToString("dd/MM/yy HH:mm")}, {nota.Texto.Length} c. 1 l.";
                 }
             }
+        }
+
+        private void btnPrivacidad_Clicked(object sender, EventArgs e)
+        {
+            _ = App.MostrarPoliticaPrivacidad();
         }
     }
 }
