@@ -42,6 +42,20 @@ namespace gsNotasNET
             }
         }
 
+        public static System.IO.Stream CredencialesGuille
+        {
+            set
+            {
+                using (var passwStream = new StreamReader(value))
+                {
+                    var s = passwStream.ReadLine();
+                    Login.Usuario = s;
+                    s = passwStream.ReadLine();
+                    Login.Password = s;
+                }
+            }
+        }
+
         /// <summary>
         /// Muestra la página de la política de privacidad en el navegador predeterminado.
         /// </summary>

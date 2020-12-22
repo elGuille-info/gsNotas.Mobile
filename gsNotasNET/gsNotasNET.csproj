@@ -47,8 +47,14 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="EditarNota.xaml.cs">
+      <DependentUpon>EditarNota.xaml</DependentUpon>
+    </Compile>
     <Compile Update="NoteEntryPage_ant.xaml.cs">
       <DependentUpon>NoteEntryPage_ant.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="ListaNotas.xaml.cs">
+      <DependentUpon>ListaNotas.xaml</DependentUpon>
     </Compile>
     <Compile Update="NotesPage_ant.xaml.cs">
       <DependentUpon>NotesPage_ant.xaml</DependentUpon>
@@ -59,10 +65,10 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
     <EmbeddedResource Update="Login.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="NoteEntryPage.xaml">
+    <EmbeddedResource Update="EditarNota.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="NotesPage.xaml">
+    <EmbeddedResource Update="ListaNotas.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

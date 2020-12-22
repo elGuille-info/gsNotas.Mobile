@@ -24,7 +24,7 @@ namespace gsNotasNET.Models
         public NotaSQL()
         {
             ID = 0;
-            idUsuario = UsuarioLogin.ID; // App.UsuarioLogin.ID;
+            idUsuario = UsuarioSQL.UsuarioLogin.ID; // App.UsuarioLogin.ID;
             idPrograma = 0;
             Texto = "";
             Modificada = DateTime.UtcNow;
@@ -316,7 +316,7 @@ namespace gsNotasNET.Models
         {
             int ret = 0;
 
-            var sel = $"SELECT Count(*) FROM {TablaUsuarios} WHERE idUsuario = {idUsuario} AND Eliminada = 0 ";
+            var sel = $"SELECT Count(*) FROM {TablaNotas} WHERE idUsuario = {idUsuario} AND Eliminada = 0 ";
             var con = new SqlConnection(CadenaConexion);
             try
             {
@@ -350,7 +350,7 @@ namespace gsNotasNET.Models
 
             var sel = $"SELECT * FROM {TablaNotas} " + 
                       $"WHERE idUsuario = {idUsuario} AND (Archivada = 0 AND Eliminada = 0) " + 
-                      "ORDER BY Grupo, Modificada, ID";
+                      "ORDER BY Grupo ASC, Modificada DESC, ID";
             var con = new SqlConnection(CadenaConexion);
             try
             {
@@ -431,8 +431,8 @@ namespace gsNotasNET.Models
             id = 0;
             int.TryParse(reader["idPrograma"].ToString(), out id);
             nota.idPrograma = id;
-            nota.Grupo = reader["Grupo"].ToString();
-            nota.Texto = reader["Texto"].ToString();
+            nota.Grupo = reader["Grupo"].ToString().TrimEnd();
+            nota.Texto = reader["Texto"].ToString().TrimEnd();
             var fec = DateTime.Now;
             DateTime.TryParse(reader["Modificada"].ToString(), out fec);
             nota.Modificada = fec;

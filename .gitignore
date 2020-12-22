@@ -6,7 +6,7 @@
 *.lnk
 *.zip
 *.snk
-encrypted-string.txt
+encrypted-string*.txt
 
 # User-specific files
 *.rsuser

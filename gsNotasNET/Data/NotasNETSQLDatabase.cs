@@ -32,16 +32,6 @@ namespace gsNotasNET.Data
         ///// </summary>
         //public static string TablaProgramas { get { return "GuilleDB.Programas"; } }
 
-        /// <summary>
-        /// El usuario que ha hecho Login.
-        /// </summary>
-        public static UsuarioSQL UsuarioLogin { get; set; }
-
-        /// <summary>
-        /// El password usado para hacer Loging.
-        /// </summary>
-        public static string PasswordUsuario { get; set; }
-
         private static string _CadenaConexion;
 
         /// <summary>

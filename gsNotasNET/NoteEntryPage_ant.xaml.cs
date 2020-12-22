@@ -26,8 +26,7 @@ namespace gsNotasNET
             note.Date = DateTime.UtcNow;
             await App.Database.SaveNoteAsync(note);
             await Navigation.PopAsync();
-            //NotesPage.Current.Title = $"gsNotasNET - Hay {App.Database.CountAsync().Result} notas";
-            NotesPage.TituloNotas();
+            NotesPage_ant.TituloNotas();
         }
 
         async void OnDeleteButtonClicked(object sender, EventArgs e)
@@ -35,8 +34,7 @@ namespace gsNotasNET
             var note = (Nota)BindingContext;
             await App.Database.DeleteNoteAsync(note);
             await Navigation.PopAsync();
-            //NotesPage.Current.Title = $"gsNotasNET - Hay {App.Database.CountAsync().Result} notas";
-            NotesPage.TituloNotas();
+            NotesPage_ant.TituloNotas();
         }
 
         /// <summary>
@@ -44,8 +42,6 @@ namespace gsNotasNET
         /// </summary>
         private void ContentPage_BindingContextChanged(object sender, EventArgs e)
         {
-            //NotesPage.TituloNotas();
-
             var note = (Nota)BindingContext;
             if (!(note is null) && !string.IsNullOrWhiteSpace(note.Text))
             {
@@ -53,12 +49,10 @@ namespace gsNotasNET
                 if (note.Text.IndexOfAny(returns) > -1)
                 {
                     var s = note.Text.Split(returns, StringSplitOptions.RemoveEmptyEntries);
-                    //this.Title = s[0];
                     this.Title = $"# {note.ID}, {note.Date.ToString("dd/MM/yy HH:mm")}, {note.Text.Length} car. {s.Length} lín.";
                 }
                 else
                 {
-                    //this.Title = note.Text;
                     this.Title = $"# {note.ID}, {note.Date.ToString("dd/MM/yy HH:mm")}, {note.Text.Length} car. 1 lín.";
                 }
             }

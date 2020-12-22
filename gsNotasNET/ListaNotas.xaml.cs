@@ -12,10 +12,10 @@ using Xamarin.Essentials;
 
 namespace gsNotasNET
 {
-    public partial class NotesPage : ContentPage
+    public partial class ListaNotas : ContentPage
     {
-        public static NotesPage Current;
-        public NotesPage()
+        public static ListaNotas Current;
+        public ListaNotas()
         {
             InitializeComponent();
             Current = this;
@@ -25,12 +25,12 @@ namespace gsNotasNET
         {
             base.OnAppearing();
 
-            listView.ItemsSource = NotaSQL.NotasUsuario(NotaSQL.UsuarioLogin.ID);
+            listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID);
         }
 
         async void OnNoteAddedClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new NoteEntryPage
+            await Navigation.PushAsync(new EditarNota
             {
                 BindingContext = new NotaSQL()
             });
@@ -40,7 +40,7 @@ namespace gsNotasNET
         {
             if (e.SelectedItem != null)
             {
-                await Navigation.PushAsync(new NoteEntryPage
+                await Navigation.PushAsync(new EditarNota
                 {
                     BindingContext = e.SelectedItem as NotaSQL
                 });
@@ -57,26 +57,26 @@ namespace gsNotasNET
         public static void TituloNotas()
         {
             string s = "";
-            var total = NotaSQL.Count(NotaSQL.UsuarioLogin.ID);
-            var nGrupos = NotaSQL.Grupos(NotaSQL.UsuarioLogin.ID).Count();
+            var total = NotaSQL.Count(UsuarioSQL.UsuarioLogin.ID);
+            var nGrupos = NotaSQL.Grupos(UsuarioSQL.UsuarioLogin.ID).Count();
             var sGrupo = "";
             if (nGrupos == 0)
-                sGrupo = "No hay grupos";
+                sGrupo = "sin grupos";
             else if (nGrupos == 1)
-                sGrupo = "Hay 1 grupo";
+                sGrupo = "en 1 grupo";
             else
-                sGrupo = $"Hay {nGrupos} grupos";
+                sGrupo = $"en {nGrupos} grupos";
 
-            sGrupo += " y ";
+            //sGrupo += " y ";
 
             if (total == 0)
-                s = "ninguna nota.";
+                s = "ninguna nota";
             else if (total == 1)
-                s = "1 nota.";
+                s = "1 nota";
             else
-                s = $"{total} notas.";
+                s = $"{total} notas";
 
-            s = sGrupo + s;
+            s = $"{UsuarioSQL.UsuarioLogin.Email} - con {s} {sGrupo}.";
 
             Current.Title = $"gsNotasNET.Android {App.AppVersion}";
             Current.LabelInfo.Text = s;
@@ -85,7 +85,7 @@ namespace gsNotasNET
         private async void CopiarEnDrive_Clicked(object sender, EventArgs e)
         {
             // Por ahora no usarlo
-            await Navigation.PushAsync(new NoteEntryPage
+            await Navigation.PushAsync(new EditarNota
             {
                 BindingContext = new NotaSQL() { Texto = $"Por ahora no se sincroniza el contenido con GoogleDrive.", Grupo = "Drive-Docs" }
             }); ;

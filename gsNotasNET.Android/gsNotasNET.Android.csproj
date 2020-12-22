@@ -106,6 +106,9 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\encrypted-string.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\encrypted-string-guille.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

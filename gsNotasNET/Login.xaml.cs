@@ -22,26 +22,33 @@ namespace gsNotasNET
     public partial class Login : ContentPage
     {
         public static Login Current;
+        public static string Usuario;
+        public static string Password;
         public Login()
         {
             InitializeComponent();
             Current = this;
+
+#if true // Para probar sin tener que indicar mi usuario y password
+            email.Text = Usuario;
+            password.Text = Password;
+
+#else
+            email.Text = "prueba";
+            password.Text = "1234";
+#endif
         }
 
         private void btnAcceder_Clicked(object sender, EventArgs e)
         {
-            UsuarioSQL.PasswordUsuario = password.Text;
             LabelInfo.IsVisible = false;
 
             if (UsuarioSQL.ComprobarContraseña(email.Text, password.Text))
             {
-                AbrirPaginaPrincipal(email.Text);
-
-                //// Asignar el usuario que se ha legueado
-                //App.UsuarioLogin = UsuarioSQL.Usuario(email.Text);
-
-                //// abrir la página principal
-                //Application.Current.MainPage = new NavigationPage(new NotesPage());
+                // si se quiere poder volver al Login
+                //Current.Navigation.PushAsync(new ListaNotas());
+                // Mostrarla sin páginas anteriores
+                Application.Current.MainPage = new NavigationPage(new ListaNotas());
             }
             else
             {
@@ -52,24 +59,17 @@ namespace gsNotasNET
             }
         }
 
-        private static void AbrirPaginaPrincipal(string email)
-        {
-            // Asignar el usuario que se ha legueado
-            UsuarioSQL.UsuarioLogin = UsuarioSQL.Usuario(email);
-
-            //Debug.WriteLine(App.UsuarioLogin.Email);
-
-            // abrir la página principal
-            //Application.Current.MainPage = new NavigationPage(new NotesPage());
-            Current.Navigation.PushAsync(new NotesPage());
-        }
-
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
             Title = $"gsNotasNET.Android {App.AppVersion}";
 
+        }
+
+        private void btnPrivacidad_Clicked(object sender, EventArgs e)
+        {
+            _ = App.MostrarPoliticaPrivacidad();
         }
     }
 }

@@ -4,7 +4,7 @@
              x:Class="gsNotasNET.Login"
              Title="gsNotasNET.Android">
     <ContentPage.Content>
-        <StackLayout BackgroundColor="{StaticResource AppTextColor}">
+        <StackLayout BackgroundColor="{StaticResource AppTextColor}" Margin="4">
             <Label BackgroundColor="{StaticResource AppTextColor}" 
                    TextColor="{StaticResource AppBackgroundColor}"
                    VerticalOptions="StartAndExpand" Padding="10">
@@ -26,7 +26,11 @@ Gracias.</Label.Text>
                     BackgroundColor="{StaticResource AppBackgroundColor}" 
                     TextColor="{StaticResource AppTextColor}"
                     Clicked="btnAcceder_Clicked" />
-            <Label x:Name="LabelInfo" Text="Para probar, usa el usuario 'prueba' y el password '1234'" 
+            <Button x:Name="btnPrivacidad" Text="Política de privacidad" 
+                    Grid.Row="1" HeightRequest="35"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="btnPrivacidad_Clicked" />
+            <Label x:Name="LabelInfo" Text=" Para probar, usa el usuario 'prueba' y el password '1234'" 
                    BackgroundColor="Firebrick" TextColor="White" />
         </StackLayout>
     </ContentPage.Content>

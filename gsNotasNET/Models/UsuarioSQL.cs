@@ -34,6 +34,16 @@ namespace gsNotasNET.Models
         }
 
         /// <summary>
+        /// El usuario que ha hecho Login.
+        /// </summary>
+        public static UsuarioSQL UsuarioLogin { get; set; }
+
+        /// <summary>
+        /// El password usado para hacer Loging.
+        /// </summary>
+        public static string PasswordUsuario { get; set; }
+
+        /// <summary>
         /// Guarda o actualiza la nota indicada. 
         /// Si el ID no es cero, la actualiza, si es cero la crea.
         /// </summary>
@@ -419,30 +429,40 @@ namespace gsNotasNET.Models
         public static bool ComprobarContraseña(string email, string password)
         {
             var claveSHA = GenerarClaveSHA1(email, password);
-
-            var sel = $"SELECT * FROM {TablaUsuarios} " +
-                      $"WHERE Email = '{email}' AND ClaveSHA = '{claveSHA}' ORDER BY ID";
+            var usuario = Usuario(email);
             
-            SqlConnection con = null;
-            try
+            if(claveSHA == usuario.ClaveSHA)
             {
-                con = new SqlConnection(CadenaConexion);
-                con.Open();
-                var cmd = new SqlCommand(sel, con);
-
-                var t = (int)cmd.ExecuteScalar();
-                return t > 0;
+                UsuarioSQL.UsuarioLogin = usuario;
+                UsuarioSQL.PasswordUsuario = password;
+                return true;
             }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
+            else
                 return false;
-            }
-            finally
-            {
-                if (!(con is null))
-                    con.Close();
-            }
+
+            //var sel = $"SELECT * FROM {TablaUsuarios} " +
+            //          $"WHERE Email = '{email}' AND ClaveSHA = '{claveSHA}' ORDER BY ID";
+
+            //SqlConnection con = null;
+            //try
+            //{
+            //    con = new SqlConnection(CadenaConexion);
+            //    con.Open();
+            //    var cmd = new SqlCommand(sel, con);
+
+            //    var t = (int)cmd.ExecuteScalar();
+            //    return t > 0;
+            //}
+            //catch (Exception ex)
+            //{
+            //    Debug.WriteLine(ex.Message);
+            //    return false;
+            //}
+            //finally
+            //{
+            //    if (!(con is null))
+            //        con.Close();
+            //}
         }
 
         /// <summary>
@@ -457,8 +477,8 @@ namespace gsNotasNET.Models
             var id = 0;
             int.TryParse(reader["ID"].ToString(), out id);
             usuario.ID = id;
-            usuario.Email = reader["Email"].ToString();
-            usuario.Nombre = reader["Nombre"].ToString();
+            usuario.Email = reader["Email"].ToString().TrimEnd();
+            usuario.Nombre = reader["Nombre"].ToString().TrimEnd();
             usuario.ClaveSHA = reader["ClaveSHA"].ToString();
             var fec = new DateTime(1900, 1, 1);
             DateTime.TryParse(reader["Alta"].ToString(), out fec);

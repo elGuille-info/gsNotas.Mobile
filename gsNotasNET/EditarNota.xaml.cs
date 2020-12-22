@@ -8,9 +8,9 @@ using Xamarin.Essentials;
 
 namespace gsNotasNET
 {
-    public partial class NoteEntryPage : ContentPage
+    public partial class EditarNota : ContentPage
     {
-        public NoteEntryPage()
+        public EditarNota()
         {
             InitializeComponent();
         }
@@ -32,7 +32,7 @@ namespace gsNotasNET
             NotaSQL.GuardarNota(nota);
             await Navigation.PopAsync();
             
-            NotesPage.TituloNotas();
+            ListaNotas.TituloNotas();
         }
 
         async void OnDeleteButtonClicked(object sender, EventArgs e)
@@ -41,8 +41,8 @@ namespace gsNotasNET
 
             NotaSQL.Delete(nota);
             await Navigation.PopAsync();
-            
-            NotesPage.TituloNotas();
+
+            ListaNotas.TituloNotas();
         }
 
         /// <summary>
