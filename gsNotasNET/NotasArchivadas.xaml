@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="gsNotasNET.ListaNotas"
+             x:Class="gsNotasNET.NotasArchivadas" 
              Appearing="ContentPage_Appearing"
-             IconImageSource="XNota_Azul.png"
-             Title="gsNotasNET - Notas">
+             Title="Notas Archivadas"
+             IconImageSource="XGrupos.png">
     <ContentPage.Resources>
         <!-- Implicit styles -->
         <Style TargetType="{x:Type ListView}">
@@ -13,10 +13,6 @@
         </Style>
     </ContentPage.Resources>
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text=">Docs" Clicked="CopiarEnDrive_Clicked" />
-        <ToolbarItem Text="+Nota" Clicked="OnNoteAddedClicked" />
-    </ContentPage.ToolbarItems>
     <Grid Margin="{StaticResource PageMargin}">
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
@@ -45,5 +41,4 @@
                 Grid.Row="2" HeightRequest="35"
                 HorizontalOptions="FillAndExpand"
                 Clicked="btnPrivacidad_Clicked" />
-    </Grid>
-</ContentPage>
+    </Grid></ContentPage>

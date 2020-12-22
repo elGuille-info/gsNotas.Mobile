@@ -24,7 +24,16 @@ namespace gsNotasNET
 
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
-            if (UsuarioSQL.UsuarioLogin.NotasCopiadas)
+            // Si se está usando desde el IDE de VS
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                if (UsuarioSQL.UsuarioLogin.NotasCopiadas)
+                {
+                    VolverAMain();
+                    return;
+                }
+            }
+            else if (UsuarioSQL.UsuarioLogin.NotasCopiadas)
             {
                 VolverAMain();
                 return;

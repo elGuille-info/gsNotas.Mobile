@@ -31,7 +31,6 @@ namespace gsNotasNET
                 Navigation.PushAsync(new Login(Current));
                 return;
             }
-
             listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID);
         }
 
@@ -62,7 +61,6 @@ namespace gsNotasNET
                 Navigation.PushAsync(new Login(Current));
                 return;
             }
-
             TituloNotas();
         }
 
@@ -90,7 +88,7 @@ namespace gsNotasNET
 
             s = $"{UsuarioSQL.UsuarioLogin.Email} - con {s} {sGrupo}.";
 
-            Current.Title = $"gsNotasNET.Android {App.AppVersion}";
+            Current.Title = $"{App.AppName} {App.AppVersion}";
             Current.LabelInfo.Text = s;
         }
 

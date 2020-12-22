@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.MostrarUsuarios" 
+             Appearing="ContentPage_Appearing"
+             Title="Usuarios" IconImageSource="XUsuarios.png">
+    <ContentPage.Resources>
+        <!-- Implicit styles -->
+        <Style TargetType="{x:Type ListView}">
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource AppBackgroundColor}" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid Margin="{StaticResource PageMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="35" />
+        </Grid.RowDefinitions>
+        <Label x:Name="LabelInfo" Text="" Grid.Row="0" Padding="2" Margin="1" />
+        <ListView x:Name="listView" Grid.Row="1"
+            ItemTapped="Handle_ItemTapped"
+            CachingStrategy="RecycleElement">
+            <!--Custom View Cells-->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding Email}" 
+                   Style="{DynamicResource ListItemTextStyle}" />
+                            <Label Text="{Binding Nombre}" 
+                   Style="{DynamicResource ListItemDetailTextStyle}"/>
+                            <Label Text="{Binding UltimoAcceso}" 
+                   Style="{DynamicResource ListItemTextStyle}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+    <!--Built in Cells-->
+    <!--
+    <ListView.ItemTemplate>
+        <DataTemplate>
+            <TextCell Text="{Binding Emal}" />
+        </DataTemplate>
+    </ListView.ItemTemplate>
+    -->
+    <!--
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <StackLayout>
+            <Label Text="{Binding Text}" 
+                   Style="{DynamicResource ListItemTextStyle}" />
+            <Label Text="{Binding Detail}" 
+                   Style="{DynamicResource ListItemDetailTextStyle}"/>
+          </StackLayout>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+    -->
+        </ListView>
+        <Button x:Name="btnPrivacidad" Text="Política de privacidad" 
+                Grid.Row="2" HeightRequest="35"
+                HorizontalOptions="FillAndExpand"
+                Clicked="btnPrivacidad_Clicked" />
+    </Grid>
+</ContentPage>

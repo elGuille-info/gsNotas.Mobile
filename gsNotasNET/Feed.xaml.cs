@@ -20,7 +20,7 @@ namespace gsNotasNET
                 Title = $"{titulo} - gsNotasNET.Android {App.AppVersion}";
             }
             else
-                Title = $"gsNotasNET.Android {App.AppVersion}";
+                Title = $"{App.AppName} {App.AppVersion}";
         }
     }
 }

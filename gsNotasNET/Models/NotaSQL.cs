@@ -335,17 +335,47 @@ namespace gsNotasNET.Models
             return ret; // new Task<int>(() => ret);
         }
 
+        internal static int CountArchivadas(int idUsuario)
+        {
+            int ret = 0;
+
+            var sel = $"SELECT Count(*) FROM {TablaNotas} " + 
+                      $"WHERE idUsuario = {idUsuario} AND (Archivada = 1 AND Eliminada = 0) ";
+            var con = new SqlConnection(CadenaConexion);
+            try
+            {
+                con.Open();
+                var cmd = new SqlCommand(sel, con);
+
+                var t = (int)cmd.ExecuteScalar();
+                ret = t;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (!(con is null))
+                    con.Close();
+            }
+
+            return ret; // new Task<int>(() => ret);
+        }
+
         /// <summary>
         /// Devuelve una lista de todas las notas del usuario indicado que no están archivadas ni eliminadas.
         /// </summary>
         /// <param name="idUsuario">El id del usuario.</param>
         /// <returns>Una colección de tipo HashSet con las notas.</returns>
-        public static List<NotaSQL> NotasUsuario(int idUsuario)
+        public static List<NotaSQL> NotasUsuario(int idUsuario, bool archivadas = false)
         {
             var colNotas = new List<NotaSQL>();
 
+            var bit = archivadas ? 1 : 0;
+
             var sel = $"SELECT * FROM {TablaNotas} " + 
-                      $"WHERE idUsuario = {idUsuario} AND (Archivada = 0 AND Eliminada = 0) " + 
+                      $"WHERE idUsuario = {idUsuario} AND (Archivada = {bit} AND Eliminada = 0) " + 
                       "ORDER BY Grupo ASC, Modificada DESC, ID";
             var con = new SqlConnection(CadenaConexion);
             try

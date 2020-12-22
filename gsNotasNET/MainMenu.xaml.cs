@@ -26,13 +26,13 @@ namespace gsNotasNET
             Detail = new Feed();
             List<Menu> menu = new List<Menu>
             {
-                new Menu{ Page= new Feed("Mi Perfil"), MenuTitle="Mi Perfil", MenuDetail="My Profile", Icon="Xperfil.png"},
-                new Menu{ Page= new Feed("Usuarios"), MenuTitle="Usuarios", MenuDetail="Users", Icon="Xcontactos.png"},
-                new Menu{ Page= new ListaNotas(), MenuTitle="Notas", MenuDetail="Notes", Icon="Xnota.png"},
-                new Menu{ Page= new Feed("Grupos"), MenuTitle="Grupos", MenuDetail="Groups", Icon="XTag_16x.svg"},
-                new Menu{ Page= new ListaNotas(), MenuTitle="Notas Archivadas", MenuDetail="Archived Notes", Icon="XGroupBox_16x.svg"},
-                new Menu{ Page= new Feed("Configuración"), MenuTitle="Configuración", MenuDetail="Settings", Icon="XSettings.png"},
-                new Menu{ Page= new Login(), MenuTitle="Cerrar Sesión", MenuDetail="Close Session", Icon="XClose_16x.svg"}
+                new Menu{ Page= new Feed("Mi Perfil"), MenuTitle="Mi Perfil", MenuDetail="My Profile", Icon="XConfigurar_usuario_clip.png"},
+                new Menu{ Page= new MostrarUsuarios(), MenuTitle="Usuarios", MenuDetail="Users", Icon="XUsuarios.png"},
+                new Menu{ Page= new ListaNotas(), MenuTitle="Notas", MenuDetail="Notes", Icon="XNota_Azul.png"},
+                new Menu{ Page= new NotasArchivadas(), MenuTitle="Notas Archivadas", MenuDetail="Archived Notes", Icon="XGrupos.png"},
+                new Menu{ Page= new Feed("Grupos"), MenuTitle="Grupos", MenuDetail="Groups", Icon="XSeleccionar_opciones.png"},
+                new Menu{ Page= new Feed("Configuración"), MenuTitle="Configuración", MenuDetail="Settings", Icon="XConfiguracion.png"},
+                new Menu{ Page= new Login(), MenuTitle="Cambiar de Usuario", MenuDetail="User Change", Icon="XLogin.png"}
             };
             ListMenu.ItemsSource = menu;
         }

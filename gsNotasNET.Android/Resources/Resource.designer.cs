@@ -8796,25 +8796,28 @@ namespace gsNotasNET.Droid
 			public const int tooltip_frame_light = 2131165311;
 			
 			// aapt resource value: 0x7F070080
-			public const int XClose_16x = 2131165312;
+			public const int XConfiguracion = 2131165312;
 			
 			// aapt resource value: 0x7F070081
-			public const int Xcontactos = 2131165313;
+			public const int XConfigurar_usuario_clip = 2131165313;
 			
 			// aapt resource value: 0x7F070082
-			public const int XGroupBox_16x = 2131165314;
+			public const int XEscribir_nota = 2131165314;
 			
 			// aapt resource value: 0x7F070083
-			public const int Xnota = 2131165315;
+			public const int XGrupos = 2131165315;
 			
 			// aapt resource value: 0x7F070084
-			public const int Xperfil = 2131165316;
+			public const int XLogin = 2131165316;
 			
 			// aapt resource value: 0x7F070085
-			public const int XSettings = 2131165317;
+			public const int XNota_Azul = 2131165317;
 			
 			// aapt resource value: 0x7F070086
-			public const int XTag_16x = 2131165318;
+			public const int XSeleccionar_opciones = 2131165318;
+			
+			// aapt resource value: 0x7F070087
+			public const int XUsuarios = 2131165319;
 			
 			static Drawable()
 			{

@@ -32,6 +32,8 @@ namespace gsNotasNET
             Current = this;
             _pagina = pagina;
 
+
+
 #if true // Para probar sin tener que indicar mi usuario y password
             email.Text = Usuario;
             password.Text = Password;
@@ -69,7 +71,7 @@ namespace gsNotasNET
         {
             base.OnAppearing();
 
-            Title = $"gsNotasNET.Android {App.AppVersion}";
+            Title = $"{App.AppName} {App.AppVersion}";
 
         }
 

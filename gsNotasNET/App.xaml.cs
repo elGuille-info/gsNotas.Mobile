@@ -13,7 +13,12 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2..10";
+        public static string AppVersion { get; } = "v2..15";
+
+        /// <summary>
+        /// El nombre de la aplicación
+        /// </summary>
+        public static string AppName = "gsNotasNET.Android";
 
         public static readonly string crlf = "\n\r";
 

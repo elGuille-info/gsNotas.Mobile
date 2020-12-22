@@ -5,6 +5,7 @@ using gsNotasNET.Models;
 using System.Xml;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using System.Linq;
 
 namespace gsNotasNET
 {
@@ -26,8 +27,7 @@ namespace gsNotasNET
             }
 
             nota.Modificada = DateTime.UtcNow;
-            nota.Archivada = false;
-
+            nota.Archivada = chkArchivada.IsToggled;
 
             NotaSQL.GuardarNota(nota);
             await Navigation.PopAsync();
@@ -51,7 +51,10 @@ namespace gsNotasNET
         private void ContentPage_BindingContextChanged(object sender, EventArgs e)
         {
             var nota = (NotaSQL)BindingContext;
-            if (!(nota is null) && !string.IsNullOrWhiteSpace(nota.Texto))
+            if (nota is null)
+                return;
+
+            if (nota.Texto.Any())
             {
                 char[] returns = { '\r', '\n' };
                 if (nota.Texto.IndexOfAny(returns) > -1)
@@ -65,6 +68,7 @@ namespace gsNotasNET
                     this.Title = $"#{nota.ID}, {nota.Modificada.ToString("dd/MM/yy HH:mm")}, {nota.Texto.Length} c. 1 l.";
                 }
             }
+            chkArchivada.IsToggled = nota.Archivada;
         }
 
         private void btnPrivacidad_Clicked(object sender, EventArgs e)

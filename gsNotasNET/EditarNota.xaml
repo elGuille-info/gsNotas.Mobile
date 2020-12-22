@@ -24,12 +24,18 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button Text="Guardar"
                     Clicked="OnSaveButtonClicked" />
             <Button Grid.Column="1"
                     Text="Eliminar"
                     Clicked="OnDeleteButtonClicked" />
+            <StackLayout Grid.Column="2">
+                <Label Text="Archivada: " />
+                <Switch x:Name="chkArchivada" 
+                        IsToggled="{Binding Archivada}"  />
+            </StackLayout>
             <Editor Placeholder="Grupo" Text="{Binding Grupo}" 
                     Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                     FontSize="Small" HeightRequest="35" />

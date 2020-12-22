@@ -9,14 +9,14 @@
             <Setter Property="AbsoluteLayout.HeightRequest" Value="25" />
         </Style>
     </ContentPage.Resources>
-    <ListView BackgroundColor="{StaticResource AppTextColor}" 
-                          x:Name="ListMenu" 
-                          ItemSelected="ListMenu_ItemSelected" >
+    <ListView BackgroundColor="{StaticResource AppTextColor}"
+              x:Name="ListMenu"
+              ItemSelected="ListMenu_ItemSelected" >
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ImageCell TextColor="{StaticResource ButtonTextColor}" 
-                           DetailColor="{StaticResource AppBackgroundColor}" 
-                           Height="25" 
+                           DetailColor="Firebrick"
+                           Height="20"
                            Text="{Binding MenuTitle}"
                            Detail="{Binding MenuDetail}"
                            ImageSource="{Binding Icon}">

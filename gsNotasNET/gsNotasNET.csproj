@@ -12,13 +12,13 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
     <PackageProjectUrl>http://www.elguillemola.com/utilidades-net/utilidades-para-net-framework-4-8/gsnotasnetf/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/elGuille-info/gsNotasNETF</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>notas; notes;</PackageTags>
-    <PackageReleaseNotes>v2.0.0.10 22-dic-2020 Si hay datos anteriores, se copian en la base de datos de SQL Server.</PackageReleaseNotes>
+    <PackageTags>notas notes dot-net dotnet net-core netcore xamarin android c# c-sharp csharp</PackageTags>
+    <PackageReleaseNotes>v2.0.0.15 22-dic-2020 Nuevos iconos en la página de selección y algunas páginas nuevas.</PackageReleaseNotes>
     <NeutralLanguage>es-ES</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-      <PackageVersion>2.0.0.10</PackageVersion>
-      <Version>2.0.0.10</Version>
-      <FileVersion>2.0.0.10</FileVersion>
+      <PackageVersion>2.0.0.15</PackageVersion>
+      <Version>2.0.0.15</Version>
+      <FileVersion>2.0.0.15</FileVersion>
     <!--<SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>E:\gsCodigo_00\elGuille\elGuille.snk</AssemblyOriginatorKeyFile>-->
   </PropertyGroup>
@@ -84,6 +84,12 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MainMenu.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MostrarUsuarios.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="NotasArchivadas.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

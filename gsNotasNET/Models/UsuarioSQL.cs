@@ -22,6 +22,7 @@ namespace gsNotasNET.Models
         public bool Eliminado { get; set; } = false;
         public bool Validado { get; set; } = false;
         public bool NotasCopiadas { get; set; } = false;
+        public bool NotasCopiadasAndroid { get; set; } = false;
 
         public UsuarioSQL()
         {
@@ -35,6 +36,7 @@ namespace gsNotasNET.Models
             Eliminado = false;
             Validado = false;
             NotasCopiadas = false;
+            NotasCopiadasAndroid = false;
         }
 
         /// <summary>
@@ -150,7 +152,7 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"UPDATE {TablaUsuarios} SET Email = @Email, Nombre = @Nombre, ClaveSHA = @ClaveSHA, Alta = @Alta, Baja = @Baja, UltimoAcceso = @UltimoAcceso, Eliminado = @Eliminado, Validado = @Validado, NotasCopiadas = @NotasCopiadas WHERE (ID = @ID)";
+                    sCommand = $"UPDATE {TablaUsuarios} SET Email = @Email, Nombre = @Nombre, ClaveSHA = @ClaveSHA, Alta = @Alta, Baja = @Baja, UltimoAcceso = @UltimoAcceso, Eliminado = @Eliminado, Validado = @Validado, NotasCopiadas = @NotasCopiadas, NotasCopiadasAndroid = @NotasCopiadasAndroid WHERE (ID = @ID)";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@ID", usuario.ID);
@@ -163,6 +165,7 @@ namespace gsNotasNET.Models
                     cmd.Parameters.AddWithValue("@Eliminado", usuario.Eliminado);
                     cmd.Parameters.AddWithValue("@Validado", usuario.Validado);
                     cmd.Parameters.AddWithValue("@NotasCopiadas", usuario.NotasCopiadas);
+                    cmd.Parameters.AddWithValue("@NotasCopiadasAndroid", usuario.NotasCopiadasAndroid);
 
                     cmd.Transaction = tran;
                     cmd.ExecuteNonQuery();
@@ -218,7 +221,7 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"INSERT INTO {TablaUsuarios} (Email, Nombre, ClaveSHA, Alta, Baja, UltimoAcceso, Eliminado, Validado, NotasCopiadas) VALUES(@Email, @Nombre, @ClaveSHA, @Alta, @Baja, @UltimoAcceso, @Eliminado, @Validado, @NotasCopiadas) SELECT @@Identity";
+                    sCommand = $"INSERT INTO {TablaUsuarios} (Email, Nombre, ClaveSHA, Alta, Baja, UltimoAcceso, Eliminado, Validado, NotasCopiadas, NotasCopiadasAndroid) VALUES(@Email, @Nombre, @ClaveSHA, @Alta, @Baja, @UltimoAcceso, @Eliminado, @Validado, @NotasCopiadas, @NotasCopiadasAndroid) SELECT @@Identity";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@Email", usuario.Email);
@@ -230,6 +233,7 @@ namespace gsNotasNET.Models
                     cmd.Parameters.AddWithValue("@Eliminado", usuario.Eliminado);
                     cmd.Parameters.AddWithValue("@Validado", usuario.Validado);
                     cmd.Parameters.AddWithValue("@NotasCopiadas", usuario.NotasCopiadas);
+                    cmd.Parameters.AddWithValue("@NotasCopiadasAndroid", usuario.NotasCopiadasAndroid);
 
                     cmd.Transaction = tran;
 
@@ -329,7 +333,33 @@ namespace gsNotasNET.Models
         {
             int ret = 0;
 
-            var sel = $"SELECT Count(*) FROM {TablaUsuarios} Eliminado = 0 ";
+            var sel = $"SELECT Count(*) FROM {TablaUsuarios} WHERE Eliminado = 0 ";
+            var con = new SqlConnection(CadenaConexion);
+            try
+            {
+                con.Open();
+                var cmd = new SqlCommand(sel, con);
+
+                var t = (int)cmd.ExecuteScalar();
+                ret = t;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (!(con is null))
+                    con.Close();
+            }
+            return ret; // new Task<int>(() => ret);
+        }
+
+        internal static int CountDeBaja()
+        {
+            int ret = 0;
+
+            var sel = $"SELECT Count(*) FROM {TablaUsuarios} WHERE (Eliminado = 1 OR Baja < '{DateTime.UtcNow}' ";
             var con = new SqlConnection(CadenaConexion);
             try
             {
@@ -361,7 +391,8 @@ namespace gsNotasNET.Models
         {
             var colUsers = new List<UsuarioSQL>();
 
-            var sel = $"SELECT * FROM {TablaUsuarios} ORDER BY ID";
+            var sel = $"SELECT * FROM {TablaUsuarios} " + 
+                      $"WHERE (Eliminado = 0 AND Baja < '{DateTime.UtcNow}' ) ORDER BY ID";
             var con = new SqlConnection(CadenaConexion);
             try 
             {
@@ -483,6 +514,9 @@ namespace gsNotasNET.Models
             valorBool = false;
             bool.TryParse(reader["NotasCopiadas"].ToString(), out valorBool);
             usuario.NotasCopiadas = valorBool;
+            valorBool = false;
+            bool.TryParse(reader["NotasCopiadasAndroid"].ToString(), out valorBool);
+            usuario.NotasCopiadasAndroid = valorBool;
 
             return usuario; // new Task<UsuarioSQL>(() => usuario);
         }

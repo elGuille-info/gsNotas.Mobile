@@ -95,9 +95,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\XClose_16x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\gsNotasNET\gsNotasNET.csproj">
       <Project>{C043CFA9-8BD2-4BB9-8757-855D17C715B7}</Project>
       <Name>gsNotasNET</Name>
@@ -110,31 +107,28 @@
     <AndroidAsset Include="Assets\encrypted-string-guille.txt" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\XSettings.png" />
+    <AndroidResource Include="Resources\drawable\XGrupos.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Xcontactos.png" />
+    <AndroidResource Include="Resources\drawable\XLogin.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Xnota.png" />
+    <AndroidResource Include="Resources\drawable\XNota_Azul.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Xperfil.png" />
+    <AndroidResource Include="Resources\drawable\XUsuarios.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\XGroupBox_16x.png" />
+    <AndroidResource Include="Resources\drawable\XConfiguracion.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\XTag_16x.png" />
+    <AndroidResource Include="Resources\drawable\XConfigurar_usuario_clip.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\XTag_16x.svg" />
+    <AndroidResource Include="Resources\drawable\XEscribir_nota.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\XClose_16x.svg" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\XGroupBox_16x.svg" />
+    <AndroidResource Include="Resources\drawable\XSeleccionar_opciones.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
