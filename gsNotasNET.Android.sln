@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30803.129
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gsNotasNET.Android", "gsNotasNET.Android\gsNotasNET.Android.csproj", "{C9E7B8EA-C127-4215-A09E-39A312337BC2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gsNotasNET.Android", "gsNotasNET\gsNotasNET.csproj", "{C043CFA9-8BD2-4BB9-8757-855D17C715B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gsNotasNET", "gsNotasNET\gsNotasNET.csproj", "{C043CFA9-8BD2-4BB9-8757-855D17C715B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

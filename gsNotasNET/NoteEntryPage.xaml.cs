@@ -29,7 +29,7 @@ namespace gsNotasNET
             nota.Archivada = false;
 
 
-            await NotaSQL.GuardarNotaAsync(nota);
+            NotaSQL.GuardarNota(nota);
             await Navigation.PopAsync();
             
             NotesPage.TituloNotas();
@@ -39,7 +39,7 @@ namespace gsNotasNET
         {
             var nota = (NotaSQL)BindingContext;
 
-            await NotaSQL.BorrarNotaAsync(nota);
+            NotaSQL.Delete(nota);
             await Navigation.PopAsync();
             
             NotesPage.TituloNotas();

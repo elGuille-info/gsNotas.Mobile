@@ -10,7 +10,7 @@ using gsNotasNET.Data;
 
 namespace gsNotasNET.Models
 {
-    public class UsuarioSQL: NotasNETSQLDatabase
+    public class UsuarioSQL : NotasNETSQLDatabase
     {
         public int ID { get; set; }
         public string Email { get; set; }
@@ -19,6 +19,7 @@ namespace gsNotasNET.Models
         public DateTime Alta { get; set; }
         public DateTime Baja { get; set; }
         public DateTime UltimoAcceso { get; set; }
+        public bool Eliminado { get; set; } = false;
 
         public UsuarioSQL()
         {
@@ -29,6 +30,7 @@ namespace gsNotasNET.Models
             Alta = DateTime.UtcNow;
             Baja = new DateTime(2099, 12, 31);
             UltimoAcceso = DateTime.UtcNow;
+            Eliminado = false;
         }
 
         /// <summary>
@@ -39,36 +41,20 @@ namespace gsNotasNET.Models
         /// <returns>
         /// El número de notas afectadas (0 si no se guardó o 1 si se actualizó o creó correctamente).
         /// </returns>
-        public static Task<int> GuardarUsuarioAsync(UsuarioSQL usuario)
+        public static int GuardarUsuario(UsuarioSQL usuario, string password)
         {
             if (usuario is null)
-                return new Task<int>(() => 0);
+                return 0; // new Task<int>(() => 0);
 
             if (usuario.ID == 0)
             {
-                usuario.ClaveSHA = GenerarClaveSHA1(usuario.Email, App.PasswordUsuario);
-                return InsertAsync(usuario);
+                usuario.ClaveSHA = GenerarClaveSHA1(usuario.Email, password);
+                return UsuarioSQL.Insert(usuario);
             }
             else
             {
-                return UpdateAsync(usuario);
+                return UsuarioSQL.Update(usuario);
             }
-        }
-
-        /// <summary>
-        /// Borrar el usuario indicado.
-        /// Si tiene un ID = 0, no se hace nada.
-        /// </summary>
-        /// <param name="usuario">El usuario a eliminar.</param>
-        /// <returns>
-        /// El número de usuarios afectados (0 si no se eliminó o 1 si se eliminó ).
-        /// </returns>
-        public static Task<int> BorrarNotaAsync(UsuarioSQL usuario)
-        {
-            if (usuario is null || usuario.ID == 0)
-                return new Task<int>(() => 0);
-
-            return DeleteAsync(usuario);
         }
 
         /// <summary>
@@ -76,14 +62,14 @@ namespace gsNotasNET.Models
         /// </summary>
         /// <param name="usuario">El usuario a actualizar.</param>
         /// <returns>El número de usuarios afectados (o cero si no se pudo actualizar).</returns>
-        public static Task<int> UpdateAsync(UsuarioSQL usuario)
+        internal static int Update(UsuarioSQL usuario)
         {
             var msg = Actualizar(usuario);
 
             if (msg.StartsWith("ERROR"))
-                return new Task<int>(() => 0);
+                return 0; // new Task<int>(() => 0);
 
-            return new Task<int>(() => 1);
+            return 1; // new Task<int>(() => 1);
         }
 
         /// <summary>
@@ -91,33 +77,35 @@ namespace gsNotasNET.Models
         /// </summary>
         /// <param name="usuario">El usuario a añadir.</param>
         /// <returns>El número de usuarios afectados (o cero si no se pudo insertar).</returns>
-        public static Task<int> InsertAsync(UsuarioSQL usuario)
+        internal static int Insert(UsuarioSQL usuario)
         {
             var msg = Crear(usuario);
 
             if (msg.StartsWith("ERROR"))
-                return new Task<int>(() => 0);
+                return 0; // new Task<int>(() => 0);
 
-            return new Task<int>(() => 1);
+            return 1; // new Task<int>(() => 1);
         }
 
         /// <summary>
         /// Elimina el usuario con el ID indicado.
-        /// En realidad no se elimina, se indica que está de baja con la fecha UTC actual.
+        /// En realidad no se elimina, se indica que está de baja con la fecha UTC actual y se marca Eliminado = true.
         /// </summary>
         /// <param name="usuario">El usuario a eliminar.</param>
         /// <returns>El número de usuarios afectados (o cero si no se pudo eliminar).</returns>
-        public static Task<int> DeleteAsync(UsuarioSQL usuario)
+        public static int Delete(UsuarioSQL usuario)
         {
             usuario.Baja = DateTime.UtcNow;
+            usuario.Eliminado = true;
             var msg = Actualizar(usuario);
 
-            //var sel = $"Baja = '{DateTime.UtcNow.ToString("yyyy-MM-dd")}'";
+            //var sel = $"ID = {usuario.ID}";
             //var msg = Borrar(sel);
-            if (msg.StartsWith("ERROR"))
-                return new Task<int>(() => 0);
 
-            return new Task<int>(() => 1);
+            if (msg.StartsWith("ERROR"))
+                return 0; // new Task<int>(() => 0);
+
+            return 1; // new Task<int>(() => 1);
         }
 
         /// <sumary>
@@ -127,7 +115,7 @@ namespace gsNotasNET.Models
         /// <remarks>
         /// Usando ExecuteNonQuery si la instancia no hace referencia a un registro existente, NO se creará uno nuevo.
         /// </remarks>
-        public static string Actualizar(UsuarioSQL usuario)
+        private static string Actualizar(UsuarioSQL usuario)
         {
             // Actualiza los datos indicados
             // El parámetro, que es una cadena de selección, indicará el criterio de actualización
@@ -147,7 +135,7 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = "UPDATE GuilleDB.Usuarios SET Email = @Email, Nombre = @Nombre, ClaveSHA = @ClaveSHA, Alta = @Alta, Baja = @Baja, UltimoAcceso = @UltimoAcceso  WHERE (ID = @ID)";
+                    sCommand = $"UPDATE {TablaUsuarios} SET Email = @Email, Nombre = @Nombre, ClaveSHA = @ClaveSHA, Alta = @Alta, Baja = @Baja, UltimoAcceso = @UltimoAcceso, Eliminado = @Eliminado  WHERE (ID = @ID)";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@ID", usuario.ID);
@@ -157,6 +145,7 @@ namespace gsNotasNET.Models
                     cmd.Parameters.AddWithValue("@Alta", usuario.Alta);
                     cmd.Parameters.AddWithValue("@Baja", usuario.Baja);
                     cmd.Parameters.AddWithValue("@UltimoAcceso", usuario.UltimoAcceso);
+                    cmd.Parameters.AddWithValue("@Eliminado", usuario.Eliminado);
 
                     cmd.Transaction = tran;
                     cmd.ExecuteNonQuery();
@@ -177,7 +166,7 @@ namespace gsNotasNET.Models
                     }
                     catch (Exception ex2)
                     {
-                        msg = $" (ERROR RollBack: {ex2.Message})";
+                        msg = $"ERROR RollBack: {ex2.Message})";
                     }
                 }
 
@@ -192,9 +181,9 @@ namespace gsNotasNET.Models
 
         /// <sumary>
         /// Crear un nuevo registro
-        /// En caso de error, devolverá la cadena de error empezando por ERROR:.
+        /// En caso de error, devolverá la cadena de error empezando por ERROR.
         /// </sumary>
-        public static string Crear(UsuarioSQL usuario)
+        private static string Crear(UsuarioSQL usuario)
         {
             string msg;
 
@@ -212,7 +201,7 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = "INSERT INTO GuilleDB.Usuarios (Email, Nombre, ClaveSHA, Alta, Baja, UltimoAcceso)  VALUES(@Email, @Nombre, @ClaveSHA, @Alta, @Baja, @UltimoAcceso) SELECT @@Identity";
+                    sCommand = $"INSERT INTO {TablaUsuarios} (Email, Nombre, ClaveSHA, Alta, Baja, UltimoAcceso, Eliminado)  VALUES(@Email, @Nombre, @ClaveSHA, @Alta, @Baja, @UltimoAcceso, @Eliminado) SELECT @@Identity";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@Email", usuario.Email);
@@ -221,6 +210,7 @@ namespace gsNotasNET.Models
                     cmd.Parameters.AddWithValue("@Alta", usuario.Alta);
                     cmd.Parameters.AddWithValue("@Baja", usuario.Baja);
                     cmd.Parameters.AddWithValue("@UltimoAcceso", usuario.UltimoAcceso);
+                    cmd.Parameters.AddWithValue("@Eliminado", usuario.Eliminado);
 
                     cmd.Transaction = tran;
 
@@ -243,7 +233,7 @@ namespace gsNotasNET.Models
                     }
                     catch (Exception ex2)
                     {
-                        msg = $" (ERROR RollBack: {ex2.Message})";
+                        msg = $"ERROR RollBack: {ex2.Message})";
                     }
                 }
 
@@ -261,12 +251,12 @@ namespace gsNotasNET.Models
         /// NOTA: En caso de que quieras usar otro criterio
         /// para comprobar cuál es el registro actual, cambia la comparación.
         /// </sumary>
-        public static string Borrar(string where)
+        private static string Borrar(string where)
         {
             string msg = "";
 
             string sCon = CadenaConexion;
-            string sel = "DELETE FROM GuilleDB.Usuarios WHERE " + where;
+            string sel = $"DELETE FROM {TablaUsuarios} WHERE {where}";
 
             using (SqlConnection con = new SqlConnection(sCon))
             {
@@ -315,48 +305,67 @@ namespace gsNotasNET.Models
         /// <summary>
         /// El número de elementos en la tabla.
         /// </summary>
-        /// <returns></returns>
-        public static Task<int> CountAsync()
+        /// <returns>Un valor entero con los elementos totales de la tabla.</returns>
+        internal static int Count()
         {
             int ret = 0;
-            
-            var sel = $"SELECT Count(*) FROM {TablaUsuarios} ";
+
+            var sel = $"SELECT Count(*) FROM {TablaUsuarios} Eliminado = 0 ";
+            var con = new SqlConnection(CadenaConexion);
             try
             {
-                var con = new SqlConnection(CadenaConexion);
+                con.Open();
                 var cmd = new SqlCommand(sel, con);
 
-                var t = cmd.ExecuteNonQuery();
+                var t = (int)cmd.ExecuteScalar();
                 ret = t;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (!(con is null))
+                    con.Close();
+            }
 
-            return new Task<int>(() => ret);
+            return ret; // new Task<int>(() => ret);
+
         }
 
         /// <summary>
         /// Devuelve una lista de todos los usuarios de la base de datos.
         /// </summary>
         /// <returns>Una colección de tipo HashSet con los usuarios.</returns>
-        public static Task<HashSet<UsuarioSQL>> UsuariosAsync()
+        internal static List<UsuarioSQL> Usuarios()
         {
-            var colUsers = new HashSet<UsuarioSQL>();
+            var colUsers = new List<UsuarioSQL>();
 
             var sel = $"SELECT * FROM {TablaUsuarios} ORDER BY ID";
+            var con = new SqlConnection(CadenaConexion);
             try 
             {
-                var con = new SqlConnection(CadenaConexion);
+                con.Open();
                 var cmd = new SqlCommand(sel, con);
 
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    colUsers.Add(AsignarUsuarioAsync(reader).Result);
+                    colUsers.Add(AsignarUsuario(reader));
                 }
-            } 
-            catch { }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (!(con is null))
+                    con.Close();
+            }
 
-            return new Task<HashSet<UsuarioSQL>>(() => colUsers);
+            return colUsers;
         }
 
         /// <summary>
@@ -370,21 +379,35 @@ namespace gsNotasNET.Models
         {
             var usuario = new UsuarioSQL();
 
-            var sel = $"SELECT * FROM {TablaUsuarios} WHERE Email = '{email}' ORDER BY ID";
+            var sel = $"SELECT * FROM {TablaUsuarios} " + 
+                      $"WHERE Email = '{email}' "+ // AND Eliminado = 0 " +
+                      "ORDER BY ID";
+            var con = new SqlConnection(CadenaConexion);
             try
             {
-                var con = new SqlConnection(CadenaConexion);
+                con.Open();
                 var cmd = new SqlCommand(sel, con);
 
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    usuario = AsignarUsuarioAsync(reader).Result;
+                    //usuario = await Task.Run<UsuarioSQL>(() => AsignarUsuario(reader));
+                    usuario = AsignarUsuario(reader);
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (!(con is null))
+                    con.Close();
+            }
 
-            return usuario;
+            UsuarioLogin = usuario;
+
+            return usuario; // new Task<UsuarioSQL>(()=> usuario);
         }
 
         /// <summary>
@@ -427,7 +450,7 @@ namespace gsNotasNET.Models
         /// </summary>
         /// <param name="reader">El SQLReader del que se sacará la información.</param>
         /// <returns>Un objeto del tipo <see cref="UsuarioSQL"/>.</returns>
-        private static Task<UsuarioSQL> AsignarUsuarioAsync(SqlDataReader reader)
+        private static UsuarioSQL AsignarUsuario(SqlDataReader reader)
         {
             var usuario = new UsuarioSQL();
 
@@ -446,8 +469,11 @@ namespace gsNotasNET.Models
             fec = DateTime.Now;
             DateTime.TryParse(reader["UltimoAcceso"].ToString(), out fec);
             usuario.UltimoAcceso = fec;
+            var eliminado = false;
+            bool.TryParse(reader["Eliminado"].ToString(), out eliminado);
+            usuario.Eliminado = eliminado;
 
-            return new Task<UsuarioSQL>(() => usuario);
+            return usuario; // new Task<UsuarioSQL>(() => usuario);
         }
     }
 }

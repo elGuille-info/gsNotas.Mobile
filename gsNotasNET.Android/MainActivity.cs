@@ -15,6 +15,7 @@ namespace gsNotasNET.Droid
             base.OnCreate(savedInstanceState);
 
             App.ClientSecretJson = Assets.Open("client_secret_50463492690.json");
+            App.CredencialesSQL = Assets.Open("encrypted-string.txt");
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

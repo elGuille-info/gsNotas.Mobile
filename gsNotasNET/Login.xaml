@@ -2,35 +2,32 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="gsNotasNET.Login"
-             BindingContext="UsuarioSQL" >
+             Title="gsNotasNET.Android">
     <ContentPage.Content>
         <StackLayout BackgroundColor="{StaticResource AppTextColor}">
             <Label BackgroundColor="{StaticResource AppTextColor}" 
                    TextColor="{StaticResource AppBackgroundColor}"
-                   VerticalOptions="StartAndExpand">
+                   VerticalOptions="StartAndExpand" Padding="10">
                 <Label.Text>Indica tu usuario y contraseña.
-Si es la primera vez que entras o no recuerdas tu contraseña,
-escríbeme un email a 'correos.elguille.info@gmail.com' solicitando 
-la nueva contraseña o el cambio de la misma, si compruebo que ya estabas
-registrado y tenías alguna nota, debes decirme el contenido
-de una de las notas (al menos algo del texto que hayas incluido).
+
+Si es la primera vez que entras o no recuerdas tu contraseña, escríbeme un email a 'correos.elguille.info@gmail.com' solicitando la nueva contraseña o el cambio de la misma.
+
 Si no estabas registrado, te registraré con ese correo y la contraseña que me indiques en ese email.
+
 Gracias.</Label.Text>
             </Label>
-            <Label x:Name="LabelUsuarios" Text="{Binding CountAsync}" />
-            <Entry x:Name="email" Placeholder="Correo"                     
-                   BackgroundColor="{StaticResource AppTextColor}" 
+            <Entry x:Name="email" Placeholder="Correo"
+                   BackgroundColor="{StaticResource AppTextColor}" IsTextPredictionEnabled="True" 
                    TextColor="{StaticResource AppBackgroundColor}" />
-            <Entry x:Name="password" Placeholder="Password" IsPassword="True"
-                    BackgroundColor="{StaticResource AppTextColor}" 
+            <Entry x:Name="password" Placeholder="Password" IsPassword="True" 
+                    BackgroundColor="{StaticResource AppTextColor}"
                     TextColor="{StaticResource AppBackgroundColor}" />
             <Button x:Name="btnAcceder" Text="Acceder" 
                     BackgroundColor="{StaticResource AppBackgroundColor}" 
                     TextColor="{StaticResource AppTextColor}"
                     Clicked="btnAcceder_Clicked" />
-            <Label x:Name="LabelInfo" Text="" 
-                   BackgroundColor="Firebrick" TextColor="White" 
-                   IsVisible="False" />
+            <Label x:Name="LabelInfo" Text="Para probar, usa el usuario 'prueba' y el password '1234'" 
+                   BackgroundColor="Firebrick" TextColor="White" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

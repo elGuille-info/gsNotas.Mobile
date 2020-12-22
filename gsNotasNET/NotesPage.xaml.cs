@@ -21,11 +21,11 @@ namespace gsNotasNET
             Current = this;
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            listView.ItemsSource = await NotaSQL.NotasUsuarioAsync(App.UsuarioLogin.ID);
+            listView.ItemsSource = NotaSQL.NotasUsuario(NotaSQL.UsuarioLogin.ID);
         }
 
         async void OnNoteAddedClicked(object sender, EventArgs e)
@@ -57,8 +57,8 @@ namespace gsNotasNET
         public static void TituloNotas()
         {
             string s = "";
-            var total = NotaSQL.CountAsync().Result;
-            var nGrupos = NotaSQL.Grupos().Count();
+            var total = NotaSQL.Count(NotaSQL.UsuarioLogin.ID);
+            var nGrupos = NotaSQL.Grupos(NotaSQL.UsuarioLogin.ID).Count();
             var sGrupo = "";
             if (nGrupos == 0)
                 sGrupo = "No hay grupos";

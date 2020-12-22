@@ -7,18 +7,18 @@
 Se utiliza una base de datos para guardar las notas.
 Lamentablemente no se pueden copiar las notas a Google Drive.
 
-(para .NET Standard 2.0 revisión del 21-dic-2020)</Description>
+(para .NET Standard 2.0 revisión del 22-dic-2020)</Description>
     <Copyright>(c) Guillermo Som (elGuille), 2020</Copyright>
     <PackageProjectUrl>http://www.elguillemola.com/utilidades-net/utilidades-para-net-framework-4-8/gsnotasnetf/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/elGuille-info/gsNotasNETF</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>notas; notes;</PackageTags>
-    <PackageReleaseNotes>v2.0.0.1 21-dic-2020 Mostrar correctamente los datos a mostrar usando la base de datos de SQL Server.</PackageReleaseNotes>
+    <PackageReleaseNotes>v2.0.0.2 22-dic-2020 Parece que ya funciona el programa con la base de SQL Server.</PackageReleaseNotes>
     <NeutralLanguage>es-ES</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-      <PackageVersion>2.0.0.1</PackageVersion>
-      <Version>2.0.0.1</Version>
-      <FileVersion>2.0.0.1</FileVersion>
+      <PackageVersion>2.0.0.2</PackageVersion>
+      <Version>2.0.0.2</Version>
+      <FileVersion>2.0.0.2</FileVersion>
     <!--<SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>E:\gsCodigo_00\elGuille\elGuille.snk</AssemblyOriginatorKeyFile>-->
   </PropertyGroup>
@@ -44,6 +44,15 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.1791-pre5" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.0-rc1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="NoteEntryPage_ant.xaml.cs">
+      <DependentUpon>NoteEntryPage_ant.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="NotesPage_ant.xaml.cs">
+      <DependentUpon>NotesPage_ant.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

@@ -8,9 +8,14 @@ using gsNotasNET.Models;
 using System.Linq;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
+using System.Diagnostics;
+using System.IO;
 
 namespace gsNotasNET.Data
 {
+    /// <summary>
+    /// Clase base para las clases usadas para acceder a las tablas de 8174979_NotasNET.
+    /// </summary>
     public class NotasNETSQLDatabase
     {
         /// <summary>
@@ -21,10 +26,23 @@ namespace gsNotasNET.Data
         /// Nombre de la tabla de Notas.
         /// </summary>
         public static string TablaNotas { get { return "GuilleDB.Notas"; } }
+        
+        ///// <summary>
+        ///// Nombre de la tabla de Programas.
+        ///// </summary>
+        //public static string TablaProgramas { get { return "GuilleDB.Programas"; } }
+
         /// <summary>
-        /// Nombre de la tabla de Programas.
+        /// El usuario que ha hecho Login.
         /// </summary>
-        public static string TablaProgramas { get { return "GuilleDB.Programas"; } }
+        public static UsuarioSQL UsuarioLogin { get; set; }
+
+        /// <summary>
+        /// El password usado para hacer Loging.
+        /// </summary>
+        public static string PasswordUsuario { get; set; }
+
+        private static string _CadenaConexion;
 
         /// <summary>
         /// La cadena de conexión a la base de SQL Server
@@ -34,14 +52,24 @@ namespace gsNotasNET.Data
         {
             get
             {
+                return _CadenaConexion;
+            }
+            set
+            {
                 var csb = new SqlConnectionStringBuilder();
+                
+                using (var passwStream = new StreamReader(App.CredencialesSQL))
+                {
+                    var s = passwStream.ReadLine();
+                    csb.UserID = s;
+                    s = passwStream.ReadLine();
+                    csb.Password = s;
+                }
                 csb.DataSource = "pmssql100.dns-servicio.com";
                 csb.InitialCatalog = "8174979_NotasNET";
                 csb.IntegratedSecurity = false;
-                csb.UserID = "UserNotasDB";
-                csb.Password = "jd1zD45!";
 
-                return csb.ConnectionString;
+                _CadenaConexion = csb.ConnectionString;
             }
         }
 
