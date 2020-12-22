@@ -29,7 +29,7 @@ namespace gsNotasNET
             InitializeComponent();
             Current = this;
 
-#if true // Para probar sin tener que indicar mi usuario y password
+#if false // Para probar sin tener que indicar mi usuario y password
             email.Text = Usuario;
             password.Text = Password;
 
