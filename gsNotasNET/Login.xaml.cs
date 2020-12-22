@@ -26,13 +26,6 @@ namespace gsNotasNET
         {
             InitializeComponent();
             Current = this;
-#if true
-            email.Text = "elguille.info@gmail.com";
-            password.Text = "Guille13@Riti";
-#else
-            email.Text = "prueba";
-            password.Text = "1234";
-#endif
         }
 
         private void btnAcceder_Clicked(object sender, EventArgs e)
