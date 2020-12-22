@@ -20,6 +20,10 @@ Ahora se accede a una base de datos de SQL Server.
 
 # Las cosas de la versión 1.0.0.*
 
+> **Nota:**<br>
+> La última versión que usa SQL Lite es la v1.0.0.18 y la puedes descargar de las **releases**<br>
+<br>
+
 Las notas se guardan en una base de datos de SQLLite.
 
 Por ahora no funciona la copia de notas en google Docs.
