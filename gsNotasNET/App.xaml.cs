@@ -13,7 +13,9 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2..02";
+        public static string AppVersion { get; } = "v2..10";
+
+        public static readonly string crlf = "\n\r";
 
         /// <summary>
         /// Los datos de las credenciales obtenidas del directorio Assets
@@ -88,7 +90,8 @@ namespace gsNotasNET
         {
             InitializeComponent();
             //MainPage = new NavigationPage(new NotesPage());
-            MainPage = new NavigationPage(new Login());
+            //MainPage = new NavigationPage(new Login());
+            MainPage = new NavigationPage(new MainMenu());
         }
 
         protected override void OnStart()

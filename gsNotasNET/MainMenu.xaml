@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.MainMenu" 
+             x:Name="Detail" Title="Menú" 
+             BackgroundColor="{StaticResource NavigationBarColor}" Padding="0,40,0,0" >
+    <ContentPage.Resources>
+        <Style TargetType="{x:Type ImageSource}">
+            <Setter Property="AbsoluteLayout.HeightRequest" Value="25" />
+        </Style>
+    </ContentPage.Resources>
+    <ListView BackgroundColor="{StaticResource AppTextColor}" 
+                          x:Name="ListMenu" 
+                          ItemSelected="ListMenu_ItemSelected" >
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ImageCell TextColor="{StaticResource ButtonTextColor}" 
+                           DetailColor="{StaticResource AppBackgroundColor}" 
+                           Height="25" 
+                           Text="{Binding MenuTitle}"
+                           Detail="{Binding MenuDetail}"
+                           ImageSource="{Binding Icon}">
+                </ImageCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

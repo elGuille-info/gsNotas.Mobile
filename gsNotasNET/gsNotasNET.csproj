@@ -13,12 +13,12 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
     <RepositoryUrl>https://github.com/elGuille-info/gsNotasNETF</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>notas; notes;</PackageTags>
-    <PackageReleaseNotes>v2.0.0.2 22-dic-2020 Parece que ya funciona el programa con la base de SQL Server.</PackageReleaseNotes>
+    <PackageReleaseNotes>v2.0.0.10 22-dic-2020 Si hay datos anteriores, se copian en la base de datos de SQL Server.</PackageReleaseNotes>
     <NeutralLanguage>es-ES</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-      <PackageVersion>2.0.0.2</PackageVersion>
-      <Version>2.0.0.2</Version>
-      <FileVersion>2.0.0.2</FileVersion>
+      <PackageVersion>2.0.0.10</PackageVersion>
+      <Version>2.0.0.10</Version>
+      <FileVersion>2.0.0.10</FileVersion>
     <!--<SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>E:\gsCodigo_00\elGuille\elGuille.snk</AssemblyOriginatorKeyFile>-->
   </PropertyGroup>
@@ -50,6 +50,9 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
     <Compile Update="EditarNota.xaml.cs">
       <DependentUpon>EditarNota.xaml</DependentUpon>
     </Compile>
+    <Compile Update="MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Update="NoteEntryPage_ant.xaml.cs">
       <DependentUpon>NoteEntryPage_ant.xaml</DependentUpon>
     </Compile>
@@ -62,6 +65,9 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Feed.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Login.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -69,6 +75,15 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="ListaNotas.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MasterDetailPage1Detail.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MasterDetailPage2Detail.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MainMenu.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

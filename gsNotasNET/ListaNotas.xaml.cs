@@ -25,6 +25,13 @@ namespace gsNotasNET
         {
             base.OnAppearing();
 
+            if (UsuarioSQL.UsuarioLogin is null)
+            {
+                //Application.Current.MainPage = new NavigationPage(new Login(Current));
+                Navigation.PushAsync(new Login(Current));
+                return;
+            }
+
             listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID);
         }
 
@@ -49,7 +56,12 @@ namespace gsNotasNET
 
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
-            //var lista = await NotaSQL.NotasUsuarioAsync(App.UsuarioLogin.ID);
+            if (UsuarioSQL.UsuarioLogin is null)
+            {
+                //Application.Current.MainPage = new NavigationPage(new Login(Current));
+                Navigation.PushAsync(new Login(Current));
+                return;
+            }
 
             TituloNotas();
         }

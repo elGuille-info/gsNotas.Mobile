@@ -24,12 +24,15 @@ namespace gsNotasNET
         public static Login Current;
         public static string Usuario;
         public static string Password;
-        public Login()
+
+        private ContentPage _pagina;
+        public Login(ContentPage pagina = null)
         {
             InitializeComponent();
             Current = this;
+            _pagina = pagina;
 
-#if false // Para probar sin tener que indicar mi usuario y password
+#if true // Para probar sin tener que indicar mi usuario y password
             email.Text = Usuario;
             password.Text = Password;
 
@@ -48,7 +51,10 @@ namespace gsNotasNET
                 // si se quiere poder volver al Login
                 //Current.Navigation.PushAsync(new ListaNotas());
                 // Mostrarla sin páginas anteriores
-                Application.Current.MainPage = new NavigationPage(new ListaNotas());
+                //Application.Current.MainPage = new NavigationPage(new ListaNotas());
+                // Mostrar la página de comprobación de copia de notas anteriores
+                //Application.Current.MainPage = new NavigationPage(new CopiarSQLLite(_pagina));
+                Navigation.PushAsync(new CopiarSQLLite(_pagina));
             }
             else
             {

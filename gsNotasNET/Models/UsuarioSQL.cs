@@ -20,6 +20,8 @@ namespace gsNotasNET.Models
         public DateTime Baja { get; set; }
         public DateTime UltimoAcceso { get; set; }
         public bool Eliminado { get; set; } = false;
+        public bool Validado { get; set; } = false;
+        public bool NotasCopiadas { get; set; } = false;
 
         public UsuarioSQL()
         {
@@ -31,6 +33,8 @@ namespace gsNotasNET.Models
             Baja = new DateTime(2099, 12, 31);
             UltimoAcceso = DateTime.UtcNow;
             Eliminado = false;
+            Validado = false;
+            NotasCopiadas = false;
         }
 
         /// <summary>
@@ -51,20 +55,21 @@ namespace gsNotasNET.Models
         /// <returns>
         /// El número de notas afectadas (0 si no se guardó o 1 si se actualizó o creó correctamente).
         /// </returns>
-        public static int GuardarUsuario(UsuarioSQL usuario, string password)
+        public static int GuardarUsuario(UsuarioSQL usuario, string password ="")
         {
             if (usuario is null)
                 return 0; // new Task<int>(() => 0);
 
-            if (usuario.ID == 0)
+            if (usuario.ID == 0 && password.Any())
             {
                 usuario.ClaveSHA = GenerarClaveSHA1(usuario.Email, password);
                 return UsuarioSQL.Insert(usuario);
             }
-            else
+            else if(usuario.ID != 0)
             {
                 return UsuarioSQL.Update(usuario);
             }
+            return 0;
         }
 
         /// <summary>
@@ -145,7 +150,7 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"UPDATE {TablaUsuarios} SET Email = @Email, Nombre = @Nombre, ClaveSHA = @ClaveSHA, Alta = @Alta, Baja = @Baja, UltimoAcceso = @UltimoAcceso, Eliminado = @Eliminado  WHERE (ID = @ID)";
+                    sCommand = $"UPDATE {TablaUsuarios} SET Email = @Email, Nombre = @Nombre, ClaveSHA = @ClaveSHA, Alta = @Alta, Baja = @Baja, UltimoAcceso = @UltimoAcceso, Eliminado = @Eliminado, Validado = @Validado, NotasCopiadas = @NotasCopiadas WHERE (ID = @ID)";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@ID", usuario.ID);
@@ -156,6 +161,8 @@ namespace gsNotasNET.Models
                     cmd.Parameters.AddWithValue("@Baja", usuario.Baja);
                     cmd.Parameters.AddWithValue("@UltimoAcceso", usuario.UltimoAcceso);
                     cmd.Parameters.AddWithValue("@Eliminado", usuario.Eliminado);
+                    cmd.Parameters.AddWithValue("@Validado", usuario.Validado);
+                    cmd.Parameters.AddWithValue("@NotasCopiadas", usuario.NotasCopiadas);
 
                     cmd.Transaction = tran;
                     cmd.ExecuteNonQuery();
@@ -211,7 +218,7 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"INSERT INTO {TablaUsuarios} (Email, Nombre, ClaveSHA, Alta, Baja, UltimoAcceso, Eliminado)  VALUES(@Email, @Nombre, @ClaveSHA, @Alta, @Baja, @UltimoAcceso, @Eliminado) SELECT @@Identity";
+                    sCommand = $"INSERT INTO {TablaUsuarios} (Email, Nombre, ClaveSHA, Alta, Baja, UltimoAcceso, Eliminado, Validado, NotasCopiadas) VALUES(@Email, @Nombre, @ClaveSHA, @Alta, @Baja, @UltimoAcceso, @Eliminado, @Validado, @NotasCopiadas) SELECT @@Identity";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@Email", usuario.Email);
@@ -221,6 +228,8 @@ namespace gsNotasNET.Models
                     cmd.Parameters.AddWithValue("@Baja", usuario.Baja);
                     cmd.Parameters.AddWithValue("@UltimoAcceso", usuario.UltimoAcceso);
                     cmd.Parameters.AddWithValue("@Eliminado", usuario.Eliminado);
+                    cmd.Parameters.AddWithValue("@Validado", usuario.Validado);
+                    cmd.Parameters.AddWithValue("@NotasCopiadas", usuario.NotasCopiadas);
 
                     cmd.Transaction = tran;
 
@@ -439,30 +448,6 @@ namespace gsNotasNET.Models
             }
             else
                 return false;
-
-            //var sel = $"SELECT * FROM {TablaUsuarios} " +
-            //          $"WHERE Email = '{email}' AND ClaveSHA = '{claveSHA}' ORDER BY ID";
-
-            //SqlConnection con = null;
-            //try
-            //{
-            //    con = new SqlConnection(CadenaConexion);
-            //    con.Open();
-            //    var cmd = new SqlCommand(sel, con);
-
-            //    var t = (int)cmd.ExecuteScalar();
-            //    return t > 0;
-            //}
-            //catch (Exception ex)
-            //{
-            //    Debug.WriteLine(ex.Message);
-            //    return false;
-            //}
-            //finally
-            //{
-            //    if (!(con is null))
-            //        con.Close();
-            //}
         }
 
         /// <summary>
@@ -489,9 +474,15 @@ namespace gsNotasNET.Models
             fec = DateTime.Now;
             DateTime.TryParse(reader["UltimoAcceso"].ToString(), out fec);
             usuario.UltimoAcceso = fec;
-            var eliminado = false;
-            bool.TryParse(reader["Eliminado"].ToString(), out eliminado);
-            usuario.Eliminado = eliminado;
+            var valorBool = false;
+            bool.TryParse(reader["Eliminado"].ToString(), out valorBool);
+            usuario.Eliminado = valorBool;
+            valorBool = false;
+            bool.TryParse(reader["Validado"].ToString(), out valorBool);
+            usuario.Validado = valorBool;
+            valorBool = false;
+            bool.TryParse(reader["NotasCopiadas"].ToString(), out valorBool);
+            usuario.NotasCopiadas = valorBool;
 
             return usuario; // new Task<UsuarioSQL>(() => usuario);
         }

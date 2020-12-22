@@ -10,12 +10,6 @@
             <Setter Property="BackgroundColor"
                     Value="{StaticResource AppBackgroundColor}" />
         </Style>
-        <Style TargetType="Label" 
-               ApplyToDerivedTypes="True" CanCascade="True">
-            <Setter Property="FontSize" Value="Small" />
-            <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
-            <Setter Property="TextColor" Value="{StaticResource NavigationBarTextColor}" />
-        </Style>
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
@@ -35,7 +29,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell TextColor="{StaticResource AppTextColor}" 
-                              DetailColor="{StaticResource NavigationBarTextColor}}"
+                              DetailColor="{StaticResource NavigationBarTextColor}"
                               Text="{Binding Texto}">
                         <TextCell.Detail>
                             <MultiBinding StringFormat="{}{0} - {1}">

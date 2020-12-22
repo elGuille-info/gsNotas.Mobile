@@ -14,7 +14,6 @@ namespace gsNotasNET.Models
     {
         public int ID { get; set; }
         public int idUsuario { get; set; }
-        public int idPrograma { get; set; }
         public string Texto { get; set; }
         public DateTime Modificada { get; set; }
         public string Grupo { get; set; }
@@ -25,7 +24,6 @@ namespace gsNotasNET.Models
         {
             ID = 0;
             idUsuario = UsuarioSQL.UsuarioLogin.ID; // App.UsuarioLogin.ID;
-            idPrograma = 0;
             Texto = "";
             Modificada = DateTime.UtcNow;
             Grupo = "";
@@ -135,12 +133,11 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"UPDATE {TablaNotas} SET idUsuario = @idUsuario, idPrograma = @idPrograma, Grupo = @Grupo, Texto = @Texto, Modificada = @Modificada, Archivada = @Archivada, Eliminada = @Eliminada  WHERE (ID = @ID)";
+                    sCommand = $"UPDATE {TablaNotas} SET idUsuario = @idUsuario, Grupo = @Grupo, Texto = @Texto, Modificada = @Modificada, Archivada = @Archivada, Eliminada = @Eliminada  WHERE (ID = @ID)";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@ID", nota.ID);
                     cmd.Parameters.AddWithValue("@idUsuario", nota.idUsuario);
-                    cmd.Parameters.AddWithValue("@idPrograma", nota.idPrograma);
                     cmd.Parameters.AddWithValue("@Grupo", nota.Grupo);
                     cmd.Parameters.AddWithValue("@Texto", nota.Texto);
                     cmd.Parameters.AddWithValue("@Modificada", nota.Modificada);
@@ -200,11 +197,10 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"INSERT INTO {TablaNotas} (idUsuario, idPrograma, Grupo, Texto, Modificada, Archivada, Eliminada) VALUES(@idUsuario, @idPrograma, @Grupo, @Texto, @Modificada, @Archivada, @Eliminada) SELECT @@Identity";
+                    sCommand = $"INSERT INTO {TablaNotas} (idUsuario, Grupo, Texto, Modificada, Archivada, Eliminada) VALUES(@idUsuario, @Grupo, @Texto, @Modificada, @Archivada, @Eliminada) SELECT @@Identity";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@idUsuario", nota.idUsuario);
-                    cmd.Parameters.AddWithValue("@idPrograma", nota.idPrograma);
                     cmd.Parameters.AddWithValue("@Grupo", nota.Grupo);
                     cmd.Parameters.AddWithValue("@Texto", nota.Texto);
                     cmd.Parameters.AddWithValue("@Modificada", nota.Modificada);
@@ -428,9 +424,6 @@ namespace gsNotasNET.Models
             id = 0;
             int.TryParse(reader["idUsuario"].ToString(), out id);
             nota.idUsuario = id;
-            id = 0;
-            int.TryParse(reader["idPrograma"].ToString(), out id);
-            nota.idPrograma = id;
             nota.Grupo = reader["Grupo"].ToString().TrimEnd();
             nota.Texto = reader["Texto"].ToString().TrimEnd();
             var fec = DateTime.Now;
