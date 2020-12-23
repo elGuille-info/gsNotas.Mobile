@@ -14,7 +14,7 @@
         <ListView x:Name="listView" Grid.Row="1"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement">
-            <ListView.ItemTemplate>
+            <!--<ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding Email}" TextColor="White" DetailColor="GhostWhite">
                         <TextCell.Detail>
@@ -33,12 +33,12 @@
                         </TextCell.Detail>
                     </TextCell>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-            <!--<ListView.ItemTemplate>
+            </ListView.ItemTemplate>-->
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Vertical">
-                            <Label Text="{Binding Email}" FontSize="Medium"
+                    <ViewCell Height="1000">
+                        <StackLayout Orientation="Vertical" HeightRequest="1000">
+                            <Label Text="{Binding Email}" FontAttributes="Bold"
                    Style="{DynamicResource ListItemTextStyle}" />
                             <Label Text="{Binding Nombre}" 
                    Style="{DynamicResource ListItemTextStyle}" />
@@ -61,7 +61,7 @@
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
-            </ListView.ItemTemplate>-->
+            </ListView.ItemTemplate>
         </ListView>
         <Button x:Name="btnPrivacidad" Text="Política de privacidad" 
                 Grid.Row="2" HeightRequest="35"

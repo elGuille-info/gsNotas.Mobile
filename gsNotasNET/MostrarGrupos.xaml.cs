@@ -28,11 +28,19 @@ namespace gsNotasNET
             if (_Grupos is null || _Grupos.Count == 0)
                 _Grupos = Grupo.Grupos(UsuarioSQL.UsuarioLogin);
             listView.ItemsSource = _Grupos;
+            TituloNotas();
         }
 
         private void btnPrivacidad_Clicked(object sender, EventArgs e)
         {
             _ = App.MostrarPoliticaPrivacidad();
         }
+
+        public static void TituloNotas()
+        {
+            Current.Title = $"{App.AppName} {App.AppVersion}";
+            Current.LabelInfo.Text = $"Hay {_Grupos.Count()} grupos."; ;
+        }
+
     }
 }

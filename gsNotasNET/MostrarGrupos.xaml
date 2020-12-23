@@ -12,7 +12,7 @@
         </Grid.RowDefinitions>
         <Label x:Name="LabelInfo" Text="" Grid.Row="0" Padding="2" Margin="1" />
         <ListView x:Name="listView" Grid.Row="1">
-            <ListView.Header>
+            <!--<ListView.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -27,28 +27,17 @@
                     <Label Grid.Column="3" Text="Archivadas" />
                     <Label Grid.Column="4" Text="Eliminadas" />
                 </Grid>
-            </ListView.Header>
+            </ListView.Header>-->
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                                   Text="{Binding Nombre}" FontAttributes="Bold" />
-                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Usuario}" />
-                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Notas}" />
-                            <Label Grid.Row="1" Grid.Column="2" Text="{Binding NotasArchivadas}" />
-                            <Label Grid.Row="1" Grid.Column="3" Text="{Binding NotasEliminadas}" />
-                        </Grid>
+                    <ViewCell Height="1000">
+                        <StackLayout Orientation="Vertical" HeightRequest="1000">
+                            <Label Text="{Binding Nombre}" FontAttributes="Bold" FontSize="Medium" />
+                            <Label Text="{Binding Usuario}" FontSize="Medium"/>
+                            <Label Text="{Binding Notas}" />
+                            <Label Text="{Binding NotasArchivadas}" />
+                            <Label Text="{Binding NotasEliminadas}" />
+                        </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
