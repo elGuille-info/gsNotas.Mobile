@@ -6,10 +6,11 @@
     <ContentPage.Content>
         <StackLayout>
             <Label x:Name="LabelInfo" Text="Comprobando si hay datos anteriores (en SQL Lite)..."
-                VerticalOptions="FillAndExpand"  FontSize="Medium"
-                HorizontalOptions="FillAndExpand" />
+                VerticalOptions="CenterAndExpand" FontSize="Large" Padding="20"
+                HorizontalOptions="CenterAndExpand" />
             <Button x:Name="btnFinalizar" Clicked="btnFinalizar_Clicked"
                     Text="Finalizar" IsVisible="False" />
+            <Label Text="---" />
             <Button x:Name="btnPrivacidad" Text="Política de privacidad" 
                     Grid.Row="1" HeightRequest="35"
                     HorizontalOptions="FillAndExpand"

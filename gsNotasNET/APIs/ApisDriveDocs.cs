@@ -44,7 +44,7 @@ namespace gsNotasNET.APIs //gsGoogleDriveDocsAPINET
         // at ~/.credentials/docs.googleapis.com-dotnet-quickstart.json
         //static string[] Scopes = { DocsService.Scope.Documents, DocsService.Scope.DocumentsReadonly };
         static string[] Scopes = { DocsService.Scope.Documents, DocsService.Scope.DriveFile };
-        static string ApplicationName = "gsNotasNET.Android";
+        static string ApplicationName = App.AppName;
 
         static DocsService docService;
         static DriveService driveService;

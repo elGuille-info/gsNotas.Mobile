@@ -18,7 +18,6 @@
         <Color x:Key="ButtonBackColor">AliceBlue</Color>
         <Color x:Key="ButtonTextColor">#0063b1</Color>
 
-        <!-- Implicit styles -->
         <Style TargetType="{x:Type NavigationPage}">
             <Setter Property="BarBackgroundColor"
                     Value="{StaticResource NavigationBarColor}" />
@@ -30,16 +29,20 @@
             <Setter Property="BackgroundColor"
                     Value="{StaticResource AppBackgroundColor}" />
         </Style>
-        <Style TargetType="Button"
-               ApplyToDerivedTypes="True"
-               CanCascade="True">
+        <Style TargetType="{x:Type ListView}">
+            <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
+        </Style>
+        <Style TargetType="TextCell" ApplyToDerivedTypes="True" CanCascade="True">
+            <Setter Property="TextColor" Value="{StaticResource AppTextColor}" />
+            <Setter Property="DetailColor" Value="{StaticResource NavigationBarTextColor}"/>
+        </Style>
+            <Style TargetType="Button" ApplyToDerivedTypes="True" CanCascade="True">
             <Setter Property="FontSize" Value="Small" />
             <Setter Property="BackgroundColor" Value="{StaticResource ButtonBackColor}" />
             <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
             <Setter Property="CornerRadius" Value="5" />
         </Style>
-        <Style TargetType="Label" 
-               ApplyToDerivedTypes="True" CanCascade="True">
+        <Style TargetType="Label" ApplyToDerivedTypes="True" CanCascade="True">
             <Setter Property="FontSize" Value="Small" />
             <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
             <Setter Property="TextColor" Value="{StaticResource NavigationBarTextColor}" />

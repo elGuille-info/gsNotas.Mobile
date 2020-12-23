@@ -13,12 +13,27 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2..15";
+        public static string AppVersion { get; } = "v2..18";
 
         /// <summary>
         /// El nombre de la aplicación
         /// </summary>
         public static string AppName = "gsNotasNET.Android";
+
+        public App()
+        {
+            InitializeComponent();
+
+            // Si se está usando desde el IDE de VS
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                AppName = "gsNotasNET.Android.Debug";
+            }
+            //MainPage = new NavigationPage(new NotesPage());
+            MainPage = new NavigationPage(new Login(new MainMenu()));
+            //MainPage = new NavigationPage(new MainMenu());
+        }
+
 
         public static readonly string crlf = "\n\r";
 
@@ -89,14 +104,6 @@ namespace gsNotasNET
                 }
                 return database;
             }
-        }
-
-        public App()
-        {
-            InitializeComponent();
-            //MainPage = new NavigationPage(new NotesPage());
-            //MainPage = new NavigationPage(new Login());
-            MainPage = new NavigationPage(new MainMenu());
         }
 
         protected override void OnStart()

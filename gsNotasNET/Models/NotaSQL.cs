@@ -296,7 +296,8 @@ namespace gsNotasNET.Models
         /// <returns>Una colección de tipo string</returns>
         public static List<string> Grupos(int idUsuario)
         {
-            var colNotas = NotasUsuario(idUsuario);
+            // todas las notas estén o no archivadas
+            var colNotas = NotasUsuario(idUsuario, true);
             var grupos = new List<string>();
             foreach (var s in colNotas)
             {
@@ -366,17 +367,38 @@ namespace gsNotasNET.Models
         /// <summary>
         /// Devuelve una lista de todas las notas del usuario indicado que no están archivadas ni eliminadas.
         /// </summary>
-        /// <param name="idUsuario">El id del usuario.</param>
+        /// <param name="idUsuario">El id del usuario. Si es cero, mostrar todas.</param>
+        /// <param name="archivadas">true para mostrar las archivadas.</param>
+        /// <param name="eliminadas">true para mostrar las eliminadas.</param>
         /// <returns>Una colección de tipo HashSet con las notas.</returns>
-        public static List<NotaSQL> NotasUsuario(int idUsuario, bool archivadas = false)
+        public static List<NotaSQL> NotasUsuario(int idUsuario, bool todas, bool archivadas = false, bool eliminadas = false)
         {
             var colNotas = new List<NotaSQL>();
 
-            var bit = archivadas ? 1 : 0;
+            var bitArchivada = archivadas ? 1 : 0;
+            var bitEliminada = eliminadas ? 1 : 0;
+            string sArchivadas = "1 = 1", sEliminadas = " 1 = 1";
 
-            var sel = $"SELECT * FROM {TablaNotas} " + 
-                      $"WHERE idUsuario = {idUsuario} AND (Archivada = {bit} AND Eliminada = 0) " + 
-                      "ORDER BY Grupo ASC, Modificada DESC, ID";
+            if (archivadas)
+            {
+                sArchivadas = $"(Archivada = {bitArchivada}) ";
+            }
+            if (eliminadas)
+            {
+                sEliminadas = $"(Eliminadas = {bitEliminada} ";
+            }
+
+            var sel = $"SELECT * FROM {TablaNotas} ";
+            if(idUsuario !=0)
+                sel += $"WHERE idUsuario = {idUsuario} AND "; 
+            else
+                sel += "WHERE ";
+            if(todas)
+                sel += "(Archivada = 1 OR Archivada = 0) ";
+            else
+                sel += $"({sArchivadas} AND {sEliminadas}) ";
+
+            sel += "ORDER BY Grupo ASC, Modificada DESC, ID";
             var con = new SqlConnection(CadenaConexion);
             try
             {

@@ -24,9 +24,7 @@
               ItemSelected="OnListViewItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell TextColor="{StaticResource AppTextColor}" 
-                              DetailColor="{StaticResource NavigationBarTextColor}"
-                              Text="{Binding Texto}">
+                    <TextCell Text="{Binding Texto}" TextColor="White" DetailColor="GhostWhite">
                         <TextCell.Detail>
                             <MultiBinding StringFormat="{}{0} - {1}">
                                 <Binding Path="Grupo"/>

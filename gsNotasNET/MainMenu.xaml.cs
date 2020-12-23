@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using gsNotasNET.Models;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,23 +19,26 @@ namespace gsNotasNET
         {
             InitializeComponent();
             Current = this;
-            MyMenu();
+            //MyMenu();
         }
 
         public void MyMenu()
         {
-            Title = $"Menú - gsNotasNET.Android {App.AppVersion}";
+            Title = $"Menú - {App.AppName} {App.AppVersion}";
             Detail = new Feed();
             List<Menu> menu = new List<Menu>
             {
-                new Menu{ Page= new Feed("Mi Perfil"), MenuTitle="Mi Perfil", MenuDetail="My Profile", Icon="XConfigurar_usuario_clip.png"},
-                new Menu{ Page= new MostrarUsuarios(), MenuTitle="Usuarios", MenuDetail="Users", Icon="XUsuarios.png"},
-                new Menu{ Page= new ListaNotas(), MenuTitle="Notas", MenuDetail="Notes", Icon="XNota_Azul.png"},
-                new Menu{ Page= new NotasArchivadas(), MenuTitle="Notas Archivadas", MenuDetail="Archived Notes", Icon="XGrupos.png"},
-                new Menu{ Page= new Feed("Grupos"), MenuTitle="Grupos", MenuDetail="Groups", Icon="XSeleccionar_opciones.png"},
-                new Menu{ Page= new Feed("Configuración"), MenuTitle="Configuración", MenuDetail="Settings", Icon="XConfiguracion.png"},
-                new Menu{ Page= new Login(), MenuTitle="Cambiar de Usuario", MenuDetail="User Change", Icon="XLogin.png"}
+                new Menu{ Page= new Feed("Perfil"), MenuTitle="Perfil", MenuDetail="Modifica el perfil del usuario actual", Icon="XConfigurar_usuario_clip.png"},
+                new Menu{ Page= new ListaNotas(), MenuTitle="Notas", MenuDetail="Muestra las notas no archivadas.", Icon="XNota_Azul.png"},
+                new Menu{ Page= new NotasArchivadas(), MenuTitle="Notas Archivadas", MenuDetail="Muestra las notas archivadas.", Icon="XGrupos.png"},
+                new Menu{ Page= new MostrarGrupos(), MenuTitle="Grupos", MenuDetail="Muestra los grupos creados con las notas.", Icon="XSeleccionar_opciones.png"}
             };
+            if (UsuarioSQL.UsuarioLogin.Email.ToLower().IndexOf("elguille.info@") > -1)
+            {
+                menu.Add(new Menu { Page = new MostrarUsuarios(), MenuTitle = "Usuarios", MenuDetail = "Muestra los usuarios activos.", Icon = "XUsuarios.png" });
+            }
+            menu.Add(new Menu { Page = new Feed("Configuración"), MenuTitle = "Configuración", MenuDetail = "Configuración del programa.", Icon = "XConfiguracion.png" });
+            menu.Add(new Menu { Page = new Login(), MenuTitle = "Cambiar de Usuario", MenuDetail = "Cambiar de usuario (ir a la página de Login).", Icon = "XLogin.png" });
             ListMenu.ItemsSource = menu;
         }
         private void ListMenu_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -52,6 +57,13 @@ namespace gsNotasNET
             public string MenuDetail { get; set; }
             public ImageSource Icon { get; set; }
             public ContentPage Page { get; set; }
+        }
+
+        private void Detail_Appearing(object sender, EventArgs e)
+        {
+            // Al mostrarsee, si el usuario no es elguille.info@
+            // no mostrar el menú de mostrar usuarios.
+            MyMenu();
         }
     }
 }

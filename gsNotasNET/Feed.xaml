@@ -4,7 +4,7 @@
              x:Class="gsNotasNET.Feed">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+            <Label x:Name="LabelInfo" Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" FontSize="Large"
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>

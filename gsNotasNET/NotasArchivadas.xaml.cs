@@ -21,16 +21,28 @@ namespace gsNotasNET
             Current = this;
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
+        //protected override void OnAppearing()
+        //{
+        //    base.OnAppearing();
 
+        //    if (UsuarioSQL.UsuarioLogin is null)
+        //    {
+        //        Navigation.PushAsync(new Login(Current));
+        //        return;
+        //    }
+        //    listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, true);
+        //}
+
+        private void ContentPage_Appearing(object sender, EventArgs e)
+        {
             if (UsuarioSQL.UsuarioLogin is null)
             {
                 Navigation.PushAsync(new Login(Current));
                 return;
             }
-            listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID);
+            // Solo las notas archivadas y no eliminadas
+            listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, todas: false, archivadas: true);
+            TituloNotas();
         }
 
         private void btnPrivacidad_Clicked(object sender, EventArgs e)
@@ -47,16 +59,6 @@ namespace gsNotasNET
                     BindingContext = e.SelectedItem as NotaSQL
                 });
             }
-        }
-
-        private void ContentPage_Appearing(object sender, EventArgs e)
-        {
-            if (UsuarioSQL.UsuarioLogin is null)
-            {
-                Navigation.PushAsync(new Login(Current));
-                return;
-            }
-            TituloNotas();
         }
 
         public static void TituloNotas()

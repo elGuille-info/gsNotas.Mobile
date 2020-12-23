@@ -23,6 +23,7 @@ namespace gsNotasNET.Models
         public bool Validado { get; set; } = false;
         public bool NotasCopiadas { get; set; } = false;
         public bool NotasCopiadasAndroid { get; set; } = false;
+        public string CrLf { get; } = "\r\n";
 
         public UsuarioSQL()
         {
@@ -387,12 +388,15 @@ namespace gsNotasNET.Models
         /// Devuelve una lista de todos los usuarios de la base de datos.
         /// </summary>
         /// <returns>Una colección de tipo HashSet con los usuarios.</returns>
-        internal static List<UsuarioSQL> Usuarios()
+        internal static List<UsuarioSQL> Usuarios(bool todos = false)
         {
             var colUsers = new List<UsuarioSQL>();
 
-            var sel = $"SELECT * FROM {TablaUsuarios} " + 
-                      $"WHERE (Eliminado = 0 AND Baja < '{DateTime.UtcNow}' ) ORDER BY ID";
+            var sel = $"SELECT * FROM {TablaUsuarios} ";
+                if(todos)
+                    sel += $"ORDER BY ID";
+                else
+                    sel += $"WHERE (Eliminado = 0 AND Baja > '{DateTime.UtcNow}' ) ORDER BY ID";
             var con = new SqlConnection(CadenaConexion);
             try 
             {

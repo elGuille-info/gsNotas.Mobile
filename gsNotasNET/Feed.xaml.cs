@@ -17,7 +17,8 @@ namespace gsNotasNET
             InitializeComponent();
             if (titulo.Any())
             {
-                Title = $"{titulo} - gsNotasNET.Android {App.AppVersion}";
+                Title = $"{titulo} - {App.AppName} {App.AppVersion}";
+                LabelInfo.Text += App.crlf + App.crlf + $"{titulo}";
             }
             else
                 Title = $"{App.AppName} {App.AppVersion}";

@@ -33,7 +33,7 @@ namespace gsNotasNET
                     return;
                 }
             }
-            else if (UsuarioSQL.UsuarioLogin.NotasCopiadas)
+            else if (UsuarioSQL.UsuarioLogin.NotasCopiadasAndroid)
             {
                 VolverAMain();
                 return;
@@ -48,7 +48,6 @@ namespace gsNotasNET
                 UsuarioSQL.UsuarioLogin.NotasCopiadas = true;
                 UsuarioSQL.GuardarUsuario(UsuarioSQL.UsuarioLogin);
                 btnFinalizar.IsVisible = true;
-                //VolverAMain();
                 return;
             }
             LabelInfo.Text = $"Copiando {tn.Result} notas anteriores.";
@@ -72,7 +71,6 @@ namespace gsNotasNET
             UsuarioSQL.UsuarioLogin.NotasCopiadas = true;
             UsuarioSQL.GuardarUsuario(UsuarioSQL.UsuarioLogin);
             btnFinalizar.IsVisible = true;
-            //VolverAMain();
         }
 
         private void btnFinalizar_Clicked(object sender, EventArgs e)
@@ -82,12 +80,8 @@ namespace gsNotasNET
 
         private void VolverAMain()
         {
-            //Application.Current.MainPage = new NavigationPage(new ListaNotas());
-
             if(_pagina is null)
                 Application.Current.MainPage = new NavigationPage(new MainMenu());
-            //Navigation.PushAsync(MainMenu.Current);
-            //Application.Current.MainPage = new NavigationPage(new MainMenu());
             else
             {
                 try
@@ -102,9 +96,6 @@ namespace gsNotasNET
                     VolverAMain();
                 }
             }
-                
-            //Application.Current.MainPage = new NavigationPage(_pagina);
-
         }
 
         private void btnPrivacidad_Clicked(object sender, EventArgs e)

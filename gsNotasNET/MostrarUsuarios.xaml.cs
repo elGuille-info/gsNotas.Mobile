@@ -25,20 +25,20 @@ namespace gsNotasNET
             Current = this;
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
+        //protected override void OnAppearing()
+        //{
+        //    base.OnAppearing();
 
-            if (UsuarioSQL.UsuarioLogin is null || 
-                    UsuarioSQL.UsuarioLogin.Email.ToLower().IndexOf("elguille.info@") == -1)
-            {
-                Navigation.PushAsync(new Login(Current));
-                return;
-            }
-            if (_Usuarios is null || _Usuarios.Count() == 0)
-                _Usuarios = UsuarioSQL.Usuarios();
-            listView.ItemsSource = _Usuarios;
-        }
+        //    if (UsuarioSQL.UsuarioLogin is null || 
+        //            UsuarioSQL.UsuarioLogin.Email.ToLower().IndexOf("elguille.info@") == -1)
+        //    {
+        //        Navigation.PushAsync(new Login(Current));
+        //        return;
+        //    }
+        //    if (_Usuarios is null || _Usuarios.Count() == 0)
+        //        _Usuarios = UsuarioSQL.Usuarios();
+        //    listView.ItemsSource = _Usuarios;
+        //}
 
         void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
@@ -57,19 +57,24 @@ namespace gsNotasNET
                     UsuarioSQL.UsuarioLogin.Email.ToLower().IndexOf("elguille.info@") == -1)
             {
                 Navigation.PushAsync(new Login(Current));
+                return;
             }
             if(_Usuarios is null || _Usuarios.Count() == 0)
             {
                 _Usuarios = UsuarioSQL.Usuarios();
-                listView.ItemsSource = _Usuarios;
             }
+            listView.ItemsSource = _Usuarios;
+
             TituloNotas();
         }
 
         public static void TituloNotas()
         {
             Current.Title = $"{App.AppName} {App.AppVersion}";
-            Current.LabelInfo.Text = $"Hay {_Usuarios.Count()} usuarios activos y {UsuarioSQL.CountDeBaja()} de baja o eliminados."; ;
+            if (!(_Usuarios is null))
+                Current.LabelInfo.Text = $"Hay {_Usuarios.Count()} usuarios activos y {UsuarioSQL.CountDeBaja()} de baja o eliminados.";
+            else
+                Current.LabelInfo.Text = $"No se puede acceder al total de usuarios.";
         }
 
         private void btnPrivacidad_Clicked(object sender, EventArgs e)

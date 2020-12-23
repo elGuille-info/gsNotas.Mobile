@@ -4,14 +4,6 @@
              x:Class="gsNotasNET.MostrarUsuarios" 
              Appearing="ContentPage_Appearing"
              Title="Usuarios" IconImageSource="XUsuarios.png">
-    <ContentPage.Resources>
-        <!-- Implicit styles -->
-        <Style TargetType="{x:Type ListView}">
-            <Setter Property="BackgroundColor"
-                    Value="{StaticResource AppBackgroundColor}" />
-        </Style>
-    </ContentPage.Resources>
-
     <Grid Margin="{StaticResource PageMargin}">
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
@@ -22,44 +14,54 @@
         <ListView x:Name="listView" Grid.Row="1"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement">
-            <!--Custom View Cells-->
             <ListView.ItemTemplate>
                 <DataTemplate>
+                    <TextCell Text="{Binding Email}" TextColor="White" DetailColor="GhostWhite">
+                        <TextCell.Detail>
+                            <MultiBinding StringFormat="{}{0}{9}Alta: {1}, Baja: {7} {2}, Último acceso: {3}{9}Validado: {4} - Notas copiadas: {5}, {6}{9}SHA: {8}">
+                                <Binding Path="Nombre"/>
+                                <Binding Path="Alta"/>
+                                <Binding Path="Baja"/>
+                                <Binding Path="UltimoAcceso"/>
+                                <Binding Path="Validado"/>
+                                <Binding Path="NotasCopiadas"/>
+                                <Binding Path="NotasCopiadasAndroid"/>
+                                <Binding Path="Eliminado"/>
+                                <Binding Path="ClaveSHA"/>
+                                <Binding Path="CrLf"/>
+                            </MultiBinding>
+                        </TextCell.Detail>
+                    </TextCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <!--<ListView.ItemTemplate>
+                <DataTemplate>
                     <ViewCell>
-                        <StackLayout>
-                            <Label Text="{Binding Email}" 
+                        <StackLayout Orientation="Vertical">
+                            <Label Text="{Binding Email}" FontSize="Medium"
                    Style="{DynamicResource ListItemTextStyle}" />
                             <Label Text="{Binding Nombre}" 
-                   Style="{DynamicResource ListItemDetailTextStyle}"/>
+                   Style="{DynamicResource ListItemTextStyle}" />
+                            <Label Text="{Binding Alta}" 
+                   Style="{DynamicResource ListItemTextStyle}" />
+                            <Label Text="{Binding Baja}" 
+                   Style="{DynamicResource ListItemTextStyle}" />
                             <Label Text="{Binding UltimoAcceso}" 
+                   Style="{DynamicResource ListItemTextStyle}" />
+                            <Label Text="{Binding ClaveSHA}" 
+                   Style="{DynamicResource ListItemTextStyle}" />
+                            <Label Text="{Binding Validado}" 
+                   Style="{DynamicResource ListItemTextStyle}" />
+                            <Label Text="{Binding NotasCopiadas}" 
+                   Style="{DynamicResource ListItemTextStyle}" />
+                            <Label Text="{Binding NotasCopiadasAndroid}" 
+                   Style="{DynamicResource ListItemTextStyle}" />
+                            <Label Text="{Binding Eliminado}" 
                    Style="{DynamicResource ListItemTextStyle}" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-
-    <!--Built in Cells-->
-    <!--
-    <ListView.ItemTemplate>
-        <DataTemplate>
-            <TextCell Text="{Binding Emal}" />
-        </DataTemplate>
-    </ListView.ItemTemplate>
-    -->
-    <!--
-    <ListView.ItemTemplate>
-      <DataTemplate>
-        <ViewCell>
-          <StackLayout>
-            <Label Text="{Binding Text}" 
-                   Style="{DynamicResource ListItemTextStyle}" />
-            <Label Text="{Binding Detail}" 
-                   Style="{DynamicResource ListItemDetailTextStyle}"/>
-          </StackLayout>
-        </ViewCell>
-      </DataTemplate>
-    </ListView.ItemTemplate>
-    -->
+            </ListView.ItemTemplate>-->
         </ListView>
         <Button x:Name="btnPrivacidad" Text="Política de privacidad" 
                 Grid.Row="2" HeightRequest="35"
