@@ -33,7 +33,7 @@ namespace gsNotasNET
 
         async public static void ComprobarCodigoValidar()
         {
-            if (Current.txtValidar.Text != CodigoValidar)
+            if (Current.txtValidar.Text.ToUpper() != CodigoValidar)
             {
                 UsuarioPerfil.Validado = false;
                 await Current.Navigation.PopAsync();

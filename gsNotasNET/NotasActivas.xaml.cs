@@ -21,24 +21,10 @@ namespace gsNotasNET
             Current = this;
         }
 
-        //protected override void OnAppearing()
-        //{
-        //    base.OnAppearing();
-
-        //    if (UsuarioSQL.UsuarioLogin is null)
-        //    {
-        //        //Application.Current.MainPage = new NavigationPage(new Login(Current));
-        //        Navigation.PushAsync(new Login(Current));
-        //        return;
-        //    }
-        //    listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID);
-        //}
-
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
             if (UsuarioSQL.UsuarioLogin is null)
             {
-                //Application.Current.MainPage = new NavigationPage(new Login(Current));
                 Navigation.PushAsync(new Login(Current));
                 return;
             }
@@ -170,8 +156,6 @@ namespace gsNotasNET
         {
             if (e.Item == null)
                 return;
-
-            //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;

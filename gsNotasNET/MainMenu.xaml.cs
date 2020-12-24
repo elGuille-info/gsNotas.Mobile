@@ -25,7 +25,7 @@ namespace gsNotasNET
         public void MyMenu()
         {
             Title = $"Menú - {App.AppName} {App.AppVersion}";
-            Detail = new Feed();
+            Detail = new Configuracion();
             List<Menu> menu = new List<Menu>
             {
                 new Menu{ Page= new UsuarioPerfil(UsuarioSQL.UsuarioLogin), MenuTitle="Perfil", MenuDetail="Modifica el perfil del usuario actual", Icon="XConfigurar_usuario_clip.png"},
@@ -37,7 +37,7 @@ namespace gsNotasNET
             {
                 menu.Add(new Menu { Page = new UsuariosMostrar(), MenuTitle = "Usuarios", MenuDetail = "Muestra los usuarios activos.", Icon = "XUsuarios.png" });
             }
-            menu.Add(new Menu { Page = new Feed("Configuración"), MenuTitle = "Configuración", MenuDetail = "Configuración del programa.", Icon = "XConfiguracion.png" });
+            menu.Add(new Menu { Page = new Configuracion(), MenuTitle = "Configuración", MenuDetail = "Configuración del programa.", Icon = "XConfiguracion.png" });
             menu.Add(new Menu { Page = new Login(), MenuTitle = "Cambiar de Usuario", MenuDetail = "Cambiar de usuario (ir a la página de Login).", Icon = "XLogin.png" });
             ListMenu.ItemsSource = menu;
         }

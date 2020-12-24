@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.Configuracion"
+             Appearing="ContentPage_Appearing"
+             Title="Configuración">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="35" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" x:Name="LabelInfo" BackgroundColor="{StaticResource AppTextColor}" 
+               TextColor="{StaticResource AppBackgroundColor}"
+               Text="Indica los valores de la configuración de la aplicación."/>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Text="Usuario:" Grid.Row="0" Grid.Column="0"/>
+            <Label x:Name="LabelUsuario" Text="" Grid.Row="0" Grid.Column="1"/>
+            <Label Text="Recordar usuario: " FontSize="Medium" Grid.Row="1" Grid.Column="0" />
+            <Switch x:Name="chkRecordarUsuario" IsToggled="False" Grid.Row="1" Grid.Column="1" />
+            <Label Text="Recordar password: " FontSize="Medium" Grid.Row="2" Grid.Column="0" />
+            <Switch x:Name="chkRecordarPassword" IsToggled="False" Grid.Row="2" Grid.Column="1" />
+            <Button x:Name="btnAplicar" Text="Aplicar"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                    Clicked="btnAplicar_Clicked" />
+        </Grid>
+        <Button x:Name="btnPrivacidad" Text="Política de privacidad" 
+                    Grid.Row="2" HeightRequest="35"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="btnPrivacidad_Clicked" />
+    </Grid>
+</ContentPage>

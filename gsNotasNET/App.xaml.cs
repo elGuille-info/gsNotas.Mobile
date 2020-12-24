@@ -18,7 +18,7 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2..20";
+        public static string AppVersion { get; } = "v2..24";
 
         /// <summary>
         /// El nombre de la aplicación
@@ -54,7 +54,7 @@ namespace gsNotasNET
         public static bool RecordarUsuario
         {
             get { return (bool)Application.Current.Properties["RecordarUsuario"]; }
-            set { Application.Current.Properties["RecordarPassword"] = value; }
+            set { Application.Current.Properties["RecordarUsuario"] = value; }
         }
         public static bool RecordarPassword 
         {
@@ -91,10 +91,12 @@ namespace gsNotasNET
             sb.AppendLine($"Indicalo en la aplicación '{App.AppName} {App.AppVersion}'.{App.crlf}");
             sb.AppendLine($"Gracias.{App.crlf}Guillermo.");
             sb.AppendLine();
-            sb.AppendLine("P.S.");
             sb.AppendLine($"Enviado a: {email}");
             sb.AppendLine();
-            sb.AppendFormat("Tienes hasta las {0} horas (UTC) para validar el correo.", DateTime.UtcNow.Hour);
+            sb.AppendFormat("Para validar el correo puedes indicar el código de validación durante las {0} horas (UTC).", DateTime.UtcNow.Hour);
+            sb.AppendLine();
+            sb.AppendLine("Cualquier bug o duda sobre el programa, por favor responde a este email.");
+            sb.AppendLine("Gracias.");
             sb.AppendLine();
 
             // Enviar el código de validación al email

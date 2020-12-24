@@ -27,14 +27,34 @@ namespace gsNotasNET
             Current = this;
             _pagina = pagina;
 
-#if true // Para probar sin tener que indicar mi usuario y password
-            email.Text = Usuario;
-            password.Text = Password;
-
+            if (App.RecordarUsuario)
+                email.Text = App.UltimoUsuario;
+            else
+            {
+#if true
+                email.Text = Usuario;
 #else
-            email.Text = "prueba";
-            password.Text = "1234";
+                email.Text = "prueba";
 #endif
+            }
+            if (App.RecordarPassword)
+                password.Text = App.UltimoPassword;
+            else
+            {
+#if true
+                password.Text = Password;
+#else
+                password.Text = "";
+#endif
+            }
+            //#if true // Para probar sin tener que indicar mi usuario y password
+            //            email.Text = Usuario;
+            //            password.Text = Password;
+
+            //#else
+            //            email.Text = "prueba";
+            //            password.Text = "1234";
+            //#endif
         }
 
         async private void btnAcceder_Clicked(object sender, EventArgs e)
@@ -50,12 +70,14 @@ namespace gsNotasNET
                 // Si no está validado, enviar código de validación
                 if (!UsuarioSQL.UsuarioLogin.Validado)
                 {
-                    await DialogService.ShowErrorAsync("Validar email.",
-                                                      $"Aún no has validado el correo.{App.crlf}" +
-                                                      $"Debes indicar el código de validación{App.crlf}" +
-                                                      $"(enviado a tu email){App.crlf}" +
-                                                      "para usar la aplicación.",
-                                                      "ACEPTAR", UsuarioValidar.CallBackAfertHide);
+                    //await DialogService.ShowErrorAsync("Validar email.",
+                    //                                  $"Aún no has validado el correo.{App.crlf}" +
+                    //                                  $"Debes indicar el código de validación{App.crlf}" +
+                    //                                  $"(enviado a tu email){App.crlf}" +
+                    //                                  "para usar la aplicación.",
+                    //                                  "ACEPTAR", UsuarioValidar.CallBackAfertHide);
+                    var uv = new UsuarioValidar(App.CodigoValidación(UsuarioSQL.UsuarioLogin.Email).Result, Current);
+                    await Current.Navigation.PushAsync(uv);
                 }
             }
             else
