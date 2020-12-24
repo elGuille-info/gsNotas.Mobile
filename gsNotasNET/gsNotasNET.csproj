@@ -7,22 +7,26 @@
 Se utiliza una base de datos para guardar las notas.
 Lamentablemente no se pueden copiar las notas a Google Drive.
 
-(para .NET Standard 2.0 revisión del 23-dic-2020)</Description>
+(para .NET Standard 2.0 revisión del 24-dic-2020)</Description>
     <Copyright>(c) Guillermo Som (elGuille), 2020</Copyright>
     <PackageProjectUrl>http://www.elguillemola.com/utilidades-net/utilidades-para-net-framework-4-8/gsnotasnetf/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/elGuille-info/gsNotasNETF</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>notas notes dot-net dotnet net-core netcore xamarin android c# c-sharp csharp</PackageTags>
-    <PackageReleaseNotes>v2.0.0.18 23-dic-2020 Cambio la forma de visualizar los datos.</PackageReleaseNotes>
+    <PackageReleaseNotes>v2.0.0.20 24-dic-2020 Finalizadas las modificaciones de visualización.</PackageReleaseNotes>
     <NeutralLanguage>es-ES</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-      <PackageVersion>2.0.0.18</PackageVersion>
-      <Version>2.0.0.18</Version>
-      <FileVersion>2.0.0.18</FileVersion>
+      <PackageVersion>2.0.0.20</PackageVersion>
+      <Version>2.0.0.20</Version>
+      <FileVersion>2.0.0.20</FileVersion>
     <!--<SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>E:\gsCodigo_00\elGuille\elGuille.snk</AssemblyOriginatorKeyFile>-->
   </PropertyGroup>
-
+    
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+    
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
@@ -47,17 +51,23 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="EditarNota.xaml.cs">
-      <DependentUpon>EditarNota.xaml</DependentUpon>
+    <Compile Update="NotaEditar.xaml.cs">
+      <DependentUpon>NotaEditar.xaml</DependentUpon>
     </Compile>
     <Compile Update="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Update="GruposMostrar.xaml.cs">
+      <DependentUpon>GruposMostrar.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UsuariosMostrar.xaml.cs">
+      <DependentUpon>UsuariosMostrar.xaml</DependentUpon>
+    </Compile>
     <Compile Update="NoteEntryPage_ant.xaml.cs">
       <DependentUpon>NoteEntryPage_ant.xaml</DependentUpon>
     </Compile>
-    <Compile Update="ListaNotas.xaml.cs">
-      <DependentUpon>ListaNotas.xaml</DependentUpon>
+    <Compile Update="NotasActivas.xaml.cs">
+      <DependentUpon>NotasActivas.xaml</DependentUpon>
     </Compile>
     <Compile Update="NotesPage_ant.xaml.cs">
       <DependentUpon>NotesPage_ant.xaml</DependentUpon>
@@ -68,13 +78,16 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
     <EmbeddedResource Update="Feed.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="GrupoVer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Login.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="EditarNota.xaml">
+    <EmbeddedResource Update="NotaEditar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="ListaNotas.xaml">
+    <EmbeddedResource Update="NotasActivas.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MasterDetailPage1Detail.xaml">
@@ -86,13 +99,25 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
     <EmbeddedResource Update="MainMenu.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MostrarGrupos.xaml">
+    <EmbeddedResource Update="GruposMostrar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MostrarUsuarios.xaml">
+    <EmbeddedResource Update="UsuarioNuevo.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UsuarioPerfil.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UsuariosMostrar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="NotasArchivadas.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UsuarioValidar.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UsuarioVer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

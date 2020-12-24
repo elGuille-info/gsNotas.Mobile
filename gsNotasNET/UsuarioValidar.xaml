@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.UsuarioValidar"
+             Title="Validar el usuario">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Indica el código de validación enviado a tu email."
+                   VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"
+                   FontAttributes="Bold" FontSize="Large" />
+            <Label Text="  " FontAttributes="Bold" FontSize="Large"/>
+            <Label Text="Código de validación:" />
+            <Editor x:Name="txtValidar" Placeholder="Código de validación" Text="" />
+            <Label Text="  " FontAttributes="Bold" FontSize="Large"/>
+            <Button x:Name="btnValidar" Text="Validar" Clicked="btnValidar_Clicked" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

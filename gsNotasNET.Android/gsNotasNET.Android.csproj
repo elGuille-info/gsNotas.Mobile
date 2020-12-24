@@ -101,10 +101,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\encrypted-string.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidAsset Include="Assets\encrypted-string-guille.txt" />
+    <AndroidAsset Include="Assets\encrypted-string.txt" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\XGrupos.png" />
@@ -129,6 +127,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\XSeleccionar_opciones.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\encrypted-string-correos-elguille.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

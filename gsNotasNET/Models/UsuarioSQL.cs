@@ -23,7 +23,7 @@ namespace gsNotasNET.Models
         public bool Validado { get; set; } = false;
         public bool NotasCopiadas { get; set; } = false;
         public bool NotasCopiadasAndroid { get; set; } = false;
-        public string CrLf { get; } = "\r\n";
+        //public string CrLf { get; } = "\r\n";
 
         public UsuarioSQL()
         {
@@ -428,7 +428,7 @@ namespace gsNotasNET.Models
         /// devolverá el último que se registró.
         /// </summary>
         /// <param name="email">El email del usuario a obtener.</param>
-        /// <returns>Un objeto del tipo <see cref="UsuarioSQL"/>.</returns>
+        /// <returns>Un objeto del tipo <see cref="UsuarioSQL"/>. Si el usuario no existe, el ID será 0.</returns>
         public static UsuarioSQL Usuario(string email)
         {
             var usuario = new UsuarioSQL();
@@ -465,24 +465,60 @@ namespace gsNotasNET.Models
         }
 
         /// <summary>
+        /// Comprueba si el email indicado está registrado.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>true si ya existe, false si no existe ese email.</returns>
+        public static bool Existe(string email)
+        {
+            var sel = $"SELECT Count(*) FROM {TablaUsuarios} " +
+                      $"WHERE Email = '{email}' ";
+            var res = false;
+            var con = new SqlConnection(CadenaConexion);
+            try
+            {
+                con.Open();
+                var cmd = new SqlCommand(sel, con);
+
+                var t = (int)cmd.ExecuteScalar();
+                res = t > 0;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (!(con is null))
+                    con.Close();
+            }
+            return res;
+        }
+
+        /// <summary>
         /// Comprueba si los datos de email y password son correctos.
         /// </summary>
         /// <param name="email">El email del usuario.</param>
         /// <param name="password">El password indicado por el usuario.</param>
         /// <returns>Un valor true si la combinación es correcta, false si no lo es.</returns>
+        /// <remarks>Se asigna UsuarioLogin, si el ID es cero es que el usuario no existe.</remarks>
         public static bool ComprobarContraseña(string email, string password)
         {
             var claveSHA = GenerarClaveSHA1(email, password);
             var usuario = Usuario(email);
             
-            if(claveSHA == usuario.ClaveSHA)
+            // Asignar el usuario, si no existe el ID será 0
+            UsuarioSQL.UsuarioLogin = usuario;
+            UsuarioSQL.PasswordUsuario = password;
+
+            if (claveSHA == usuario.ClaveSHA)
             {
-                UsuarioSQL.UsuarioLogin = usuario;
-                UsuarioSQL.PasswordUsuario = password;
                 return true;
             }
             else
+            {
                 return false;
+            }
         }
 
         /// <summary>

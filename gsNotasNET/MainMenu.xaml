@@ -10,8 +10,10 @@
             <Setter Property="AbsoluteLayout.HeightRequest" Value="25" />
         </Style>
     </ContentPage.Resources>
+    <!-- por motivos de rendimiento y memoria se debe especificar RecycleElement al construir una nueva vista de lista -->
     <ListView BackgroundColor="{StaticResource AppTextColor}"
               x:Name="ListMenu"
+              CachingStrategy="RecycleElement"
               ItemSelected="ListMenu_ItemSelected" >
         <ListView.ItemTemplate>
             <DataTemplate>

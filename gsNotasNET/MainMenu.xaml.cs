@@ -28,14 +28,14 @@ namespace gsNotasNET
             Detail = new Feed();
             List<Menu> menu = new List<Menu>
             {
-                new Menu{ Page= new Feed("Perfil"), MenuTitle="Perfil", MenuDetail="Modifica el perfil del usuario actual", Icon="XConfigurar_usuario_clip.png"},
-                new Menu{ Page= new ListaNotas(), MenuTitle="Notas", MenuDetail="Muestra las notas no archivadas.", Icon="XNota_Azul.png"},
+                new Menu{ Page= new UsuarioPerfil(UsuarioSQL.UsuarioLogin), MenuTitle="Perfil", MenuDetail="Modifica el perfil del usuario actual", Icon="XConfigurar_usuario_clip.png"},
+                new Menu{ Page= new NotasActivas(), MenuTitle="Notas", MenuDetail="Muestra las notas no archivadas.", Icon="XNota_Azul.png"},
                 new Menu{ Page= new NotasArchivadas(), MenuTitle="Notas Archivadas", MenuDetail="Muestra las notas archivadas.", Icon="XGrupos.png"},
-                new Menu{ Page= new MostrarGrupos(), MenuTitle="Grupos", MenuDetail="Muestra los grupos creados con las notas.", Icon="XSeleccionar_opciones.png"}
+                new Menu{ Page= new GruposMostrar(), MenuTitle="Grupos", MenuDetail="Muestra los grupos creados con las notas.", Icon="XSeleccionar_opciones.png"}
             };
             if (UsuarioSQL.UsuarioLogin.Email.ToLower().IndexOf("elguille.info@") > -1)
             {
-                menu.Add(new Menu { Page = new MostrarUsuarios(), MenuTitle = "Usuarios", MenuDetail = "Muestra los usuarios activos.", Icon = "XUsuarios.png" });
+                menu.Add(new Menu { Page = new UsuariosMostrar(), MenuTitle = "Usuarios", MenuDetail = "Muestra los usuarios activos.", Icon = "XUsuarios.png" });
             }
             menu.Add(new Menu { Page = new Feed("Configuración"), MenuTitle = "Configuración", MenuDetail = "Configuración del programa.", Icon = "XConfiguracion.png" });
             menu.Add(new Menu { Page = new Login(), MenuTitle = "Cambiar de Usuario", MenuDetail = "Cambiar de usuario (ir a la página de Login).", Icon = "XLogin.png" });

@@ -1,19 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="gsNotasNET.EditarNota"
+             x:Class="gsNotasNET.NotaEditar"
              BindingContextChanged="ContentPage_BindingContextChanged"
              Title="Escribir nueva Nota">
-    <ContentPage.Resources>
-        <!-- Implicit styles -->
-        <Style TargetType="{x:Type Editor}">
-            <Setter Property="BackgroundColor"
-                    Value="{StaticResource AppBackgroundColor}" />
-            <Setter Property="TextColor"
-                    Value="{StaticResource AppTextColor}" />
-        </Style>
-    </ContentPage.Resources>
-
     <!-- No poner scrollview que así va bien -->
     <StackLayout Margin="{StaticResource PageMargin}">
         <Grid>
@@ -26,11 +16,8 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Text="Guardar"
-                    Clicked="OnSaveButtonClicked" />
-            <Button Grid.Column="1"
-                    Text="Eliminar"
-                    Clicked="OnDeleteButtonClicked" />
+            <Button Text="Guardar" Clicked="OnSaveButtonClicked" />
+            <Button Grid.Column="1" Text="Eliminar" Clicked="OnDeleteButtonClicked" />
             <StackLayout Grid.Column="2" Orientation="Horizontal">
                 <Label Text="Archivada: " 
                        FontSize="Micro" 

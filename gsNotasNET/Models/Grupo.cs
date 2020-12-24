@@ -17,7 +17,7 @@ namespace gsNotasNET.Models
         public int Notas { get; set; }
         public int NotasArchivadas { get; set; }
         public int NotasEliminadas { get; set; }
-        public string CrLf { get; } = "\r\n";
+        //public string CrLf { get; } = "\r\n";
 
         /// <summary>
         /// Los grupos que hay asignados
@@ -30,9 +30,9 @@ namespace gsNotasNET.Models
             // Si el usuario es elGuille, mostrar todos los grupos
             // si no, solo los del usuario y todas las notas (estén o no archivadas o eliminadas)
             if (usuario.Email.ToLower().IndexOf("elguille.info@") > -1)
-                colNotas = NotaSQL.NotasUsuario(0, true);
+                colNotas = NotaSQL.NotasUsuario(0);
             else
-                colNotas = NotaSQL.NotasUsuario(usuario.ID, true);
+                colNotas = NotaSQL.NotasUsuario(usuario.ID);
 
             // Primero añadir a la colección de tipo Dictionary
             // para evitar repetidos

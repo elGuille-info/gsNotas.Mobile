@@ -1,9 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="gsNotasNET.NotasArchivadas" 
+             x:Class="gsNotasNET.NotasActivas"
              Appearing="ContentPage_Appearing"
-             Title="Notas Archivadas">
+             Title="gsNotasNET - Notas">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text=">Docs" Clicked="CopiarEnDrive_Clicked" />
+        <ToolbarItem Text="+Nota" Clicked="OnNoteAddedClicked" />
+    </ContentPage.ToolbarItems>
     <Grid Margin="{StaticResource PageMargin}">
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
@@ -16,13 +20,13 @@
         <Label x:Name="LabelInfo" Text="" Grid.Row="0" FontAttributes="Bold"/>
         <!-- por motivos de rendimiento y memoria se debe especificar RecycleElement al construir una nueva vista de lista -->
         <ListView x:Name="listView" Grid.Row="1" ItemTapped="Handle_ItemTapped"
-                  CachingStrategy="RecycleElement"
+                  CachingStrategy="RecycleElement" 
                   ItemSelected="OnListViewItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout>
-                            <Label Text="{Binding TituloNota}" FontAttributes="Bold" />
+                            <Label Text="{Binding TituloNota}" FontAttributes="Bold"/>
                             <Label>
                                 <Label.Text>
                                     <MultiBinding StringFormat="{}Grupo: {0} - Modificada: {1}">

@@ -47,5 +47,11 @@
             <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
             <Setter Property="TextColor" Value="{StaticResource NavigationBarTextColor}" />
         </Style>
+        <Style TargetType="{x:Type Editor}">
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource AppBackgroundColor}" />
+            <Setter Property="TextColor"
+                    Value="{StaticResource AppTextColor}" />
+        </Style>
     </Application.Resources>
 </Application>

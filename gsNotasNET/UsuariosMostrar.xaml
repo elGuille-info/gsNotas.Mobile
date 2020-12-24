@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="gsNotasNET.NotasArchivadas" 
+             x:Class="gsNotasNET.UsuariosMostrar" 
              Appearing="ContentPage_Appearing"
-             Title="Notas Archivadas">
+             Title="Usuarios">
     <Grid Margin="{StaticResource PageMargin}">
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
@@ -15,19 +15,21 @@
         </Grid.ColumnDefinitions>
         <Label x:Name="LabelInfo" Text="" Grid.Row="0" FontAttributes="Bold"/>
         <!-- por motivos de rendimiento y memoria se debe especificar RecycleElement al construir una nueva vista de lista -->
-        <ListView x:Name="listView" Grid.Row="1" ItemTapped="Handle_ItemTapped"
-                  CachingStrategy="RecycleElement"
-                  ItemSelected="OnListViewItemSelected">
+        <ListView x:Name="listView" Grid.Row="1"
+            ItemTapped="Handle_ItemTapped"
+            CachingStrategy="RecycleElement" ItemSelected="OnListViewItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout>
-                            <Label Text="{Binding TituloNota}" FontAttributes="Bold" />
+                        <StackLayout Orientation="Vertical">
+                            <Label Text="{Binding Email}" FontAttributes="Bold"/>
                             <Label>
                                 <Label.Text>
-                                    <MultiBinding StringFormat="{}Grupo: {0} - Modificada: {1}">
-                                        <Binding Path="Grupo"/>
-                                        <Binding Path="Modificada"/>
+                                    <MultiBinding StringFormat="{}{0}, Alta: {1}, Último acceso: {2}, Validado: {3}">
+                                        <Binding Path="Nombre"/>
+                                        <Binding Path="Alta"/>
+                                        <Binding Path="UltimoAcceso"/>
+                                        <Binding Path="Validado"/>
                                     </MultiBinding>
                                 </Label.Text>
                             </Label>

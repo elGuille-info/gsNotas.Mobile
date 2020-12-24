@@ -1,41 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="gsNotasNET.Login"
-             Title="gsNotasNET.Android">
+             x:Class="gsNotasNET.UsuarioNuevo"
+             Title="Nuevo Usuario">
     <ContentPage.Content>
         <StackLayout BackgroundColor="{StaticResource AppTextColor}" Margin="4">
             <Label BackgroundColor="{StaticResource AppTextColor}" 
                    TextColor="{StaticResource AppBackgroundColor}"
                    FontSize="Medium"
                    VerticalOptions="StartAndExpand" Padding="10">
-                <Label.Text>Indica tu usuario y contraseña.
-
-Si es la primera vez que entras o no recuerdas tu contraseña, escríbeme un email a 'correos.elguille.info@gmail.com' solicitando la nueva contraseña o el cambio de la misma.
-
-Si no estabas registrado, te registraré con ese correo y la contraseña que me indiques en ese email.
-
+                <Label.Text>Indica tu usuario )email), nombre y apellidos y contraseña.
 Gracias.</Label.Text>
             </Label>
-            <Entry x:Name="email" Placeholder="Correo"
+            <Label Text="Email: *" FontSize="Medium" />
+            <Entry x:Name="Email" Placeholder="Correo"
                    BackgroundColor="{StaticResource AppTextColor}" IsTextPredictionEnabled="True" 
                    TextColor="{StaticResource AppBackgroundColor}" />
-            <Entry x:Name="password" Placeholder="Password" IsPassword="True" 
+            <Label Text="Password:* " FontSize="Medium" />
+            <Entry x:Name="Password" Placeholder="Password" IsPassword="True" 
                     BackgroundColor="{StaticResource AppTextColor}"
                     TextColor="{StaticResource AppBackgroundColor}" />
-            <Button x:Name="btnAcceder" Text="Acceder" 
+            <Label Text="Nombre:* " FontSize="Medium" />
+            <Entry x:Name="Nombre" Placeholder="Nombre y apellidos"
+                    BackgroundColor="{StaticResource AppTextColor}"
+                    TextColor="{StaticResource AppBackgroundColor}" />
+            <Button x:Name="btnRegistrar" Text="Registrar" 
                     BackgroundColor="{StaticResource AppBackgroundColor}" 
                     TextColor="{StaticResource AppTextColor}"
-                    Clicked="btnAcceder_Clicked" />
-            <Button x:Name="btnNuevoUsuario" Text="Registrar usuario" 
+                    Clicked="btnRegistrar_Clicked" />
+            <Button x:Name="btnCancelar" Text="Cancelar" 
                     BackgroundColor="{StaticResource AppBackgroundColor}" 
                     TextColor="{StaticResource AppTextColor}"
-                    Clicked="btnNuevoUsuario_Clicked" />
+                    Clicked="btnCancelar_Clicked" />
+            <Label Text=" " FontSize="Medium" />
             <Button x:Name="btnPrivacidad" Text="Política de privacidad" 
                     Grid.Row="1" HeightRequest="35"
                     HorizontalOptions="FillAndExpand"
                     Clicked="btnPrivacidad_Clicked" />
-            <Label x:Name="LabelInfo" Text=" Para probar, usa el usuario 'prueba' y el password '1234'" 
+            <Label x:Name="LabelInfo" Text=""  IsVisible="False"
                    BackgroundColor="Firebrick" TextColor="White" />
         </StackLayout>
     </ContentPage.Content>

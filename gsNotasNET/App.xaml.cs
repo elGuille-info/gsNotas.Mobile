@@ -5,6 +5,11 @@ using gsNotasNET.Data;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using gsNotasNET.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Diagnostics;
+using System.Text;
+using System.Net.Mail;
 
 namespace gsNotasNET
 {
@@ -13,7 +18,7 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2..18";
+        public static string AppVersion { get; } = "v2..20";
 
         /// <summary>
         /// El nombre de la aplicación
@@ -23,17 +28,149 @@ namespace gsNotasNET
         public App()
         {
             InitializeComponent();
+            // Crear las propiedades de la aplicación
+            CrearPropiedadesApp();
 
             // Si se está usando desde el IDE de VS
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 AppName = "gsNotasNET.Android.Debug";
             }
-            //MainPage = new NavigationPage(new NotesPage());
+
+            // Iniciar con la página Login que vuelva a MainMenu.
             MainPage = new NavigationPage(new Login(new MainMenu()));
-            //MainPage = new NavigationPage(new MainMenu());
         }
 
+        public static string UltimoUsuario
+        {
+            get { return Application.Current.Properties["UltimoUsuario"].ToString(); }
+            set { Application.Current.Properties["UltimoUsuario"] = value; }
+        }
+        public static string UltimoPassword
+        {
+            get { return Application.Current.Properties["UltimoPassword"].ToString(); }
+            set { Application.Current.Properties["UltimoPassword"] = value; }
+        }
+        public static bool RecordarUsuario
+        {
+            get { return (bool)Application.Current.Properties["RecordarUsuario"]; }
+            set { Application.Current.Properties["RecordarPassword"] = value; }
+        }
+        public static bool RecordarPassword 
+        {
+            get { return (bool)Application.Current.Properties["RecordarPassword"]; }
+            set { Application.Current.Properties["RecordarPassword"] = value; } 
+        }
+
+        private void CrearPropiedadesApp()
+        {
+            if (!Application.Current.Properties.ContainsKey("UltimoUsuario"))
+                Application.Current.Properties.Add("UltimoUsuario", "");
+            if (!Application.Current.Properties.ContainsKey("UltimoPassword"))
+                Application.Current.Properties.Add("UltimoPassword", "");
+            if (!Application.Current.Properties.ContainsKey("RecordarUsuario"))
+                Application.Current.Properties.Add("RecordarUsuario", false);
+            if (!Application.Current.Properties.ContainsKey("RecordarPassword"))
+                Application.Current.Properties.Add("RecordarPassword",false);
+        }
+
+        /// <summary>
+        /// Generar un código de validación y enviarlo al email.
+        /// </summary>
+        /// <returns></returns>
+        async public static Task<string> CodigoValidación(string email)
+        {
+            // Generar el hash de validación.
+            var hash = UsuarioSQL.ValidarHash(email);
+
+            var fecha = DateTime.UtcNow;
+
+            var sb = new StringBuilder();
+            sb.AppendLine($"El código de validación para {App.AppName} es:");
+            sb.AppendLine($"{App.crlf}{App.crlf}{hash}{App.crlf}{App.crlf}");
+            sb.AppendLine($"Indicalo en la aplicación '{App.AppName} {App.AppVersion}'.{App.crlf}");
+            sb.AppendLine($"Gracias.{App.crlf}Guillermo.");
+            sb.AppendLine();
+            sb.AppendLine("P.S.");
+            sb.AppendLine($"Enviado a: {email}");
+            sb.AppendLine();
+            sb.AppendFormat("Tienes hasta las {0} horas (UTC) para validar el correo.", DateTime.UtcNow.Hour);
+            sb.AppendLine();
+
+            // Enviar el código de validación al email
+            await SendEmail("Codigo de validacion", sb.ToString(), email);
+
+            //return new Task<string>(() => hash);
+            return hash;
+        }
+
+        // https://www.c-sharpcorner.com/article/xamarin-forms-send-email-using-smtp2/
+        async public static Task SendEmail(string subject, string body, string emailTo)
+        {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+                mail.From = new MailAddress(CorreoUsuario);
+                mail.To.Add(emailTo);
+                mail.Subject = subject;
+                mail.Body = body;
+                mail.CC.Add(CorreoUsuario);
+
+                SmtpServer.Port = 587;
+                SmtpServer.Host = "smtp.gmail.com";
+                SmtpServer.EnableSsl = true;
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = new System.Net.NetworkCredential(CorreoUsuario, CorreoPassword);
+
+                SmtpServer.Send(mail);
+
+                await Nada();
+            }
+            catch (Exception ex)
+            {
+                //DisplayAlert("Faild", ex.Message, "OK");
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Para cuando se necesesite usar await llamar a este método con: await App.Nada();
+        /// </summary>
+        /// <returns></returns>
+        async public static Task Nada()
+        {
+            await Task.Run(() => true);
+        }
+
+        // Esto lo manda desde la cuenta que esté definida en el dispositivo.
+        //public static async Task SendEmail(string subject, string body, string emailTo, string emailCc)
+        //{
+        //    try
+        //    {
+        //        var message = new EmailMessage
+        //        {
+        //            Subject = subject,
+        //            Body = body,
+        //            To = new List<string>() { emailTo },
+        //            BodyFormat = EmailBodyFormat.PlainText,
+        //            Cc = new List<string>() { emailCc },
+        //            //Bcc = bccRecipients
+        //        };
+        //        await Email.ComposeAsync(message);
+        //    }
+        //    catch (FeatureNotSupportedException fbsEx)
+        //    {
+        //        // Email is not supported on this device
+        //        Debug.WriteLine(fbsEx.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Some other exception occurred
+        //        Debug.WriteLine(ex.Message);
+        //    }
+        //}
 
         public static readonly string crlf = "\n\r";
 
@@ -78,13 +215,31 @@ namespace gsNotasNET
             }
         }
 
+        private static string CorreoUsuario;
+        private static string CorreoPassword;
+
+        //encrypted-string-correos-elguille.txt
+        public static System.IO.Stream CredencialesCorreosGuille
+        {
+            set
+            {
+                using (var passwStream = new StreamReader(value))
+                {
+                    var s = passwStream.ReadLine();
+                    CorreoUsuario = s;
+                    s = passwStream.ReadLine();
+                    CorreoPassword = s;
+                }
+            }
+        }
+
         /// <summary>
         /// Muestra la página de la política de privacidad en el navegador predeterminado.
         /// </summary>
         /// <returns></returns>
         public static async Task MostrarPoliticaPrivacidad()
         {
-            var uri = new Uri("http://www.elguillemola.com/politica-de-privacidad/");
+            var uri = new Uri("https://www.elguillemola.com/politica-de-privacidad/");
             await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
         }
 

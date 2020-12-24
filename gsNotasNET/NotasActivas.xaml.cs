@@ -12,10 +12,10 @@ using Xamarin.Essentials;
 
 namespace gsNotasNET
 {
-    public partial class ListaNotas : ContentPage
+    public partial class NotasActivas : ContentPage
     {
-        public static ListaNotas Current;
-        public ListaNotas()
+        public static NotasActivas Current;
+        public NotasActivas()
         {
             InitializeComponent();
             Current = this;
@@ -43,13 +43,13 @@ namespace gsNotasNET
                 return;
             }
             // Solo las notas que no estén archivadas ni eliminadas
-            listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, todas: false, archivadas: false, eliminadas: false);
+            listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, archivadas: false, eliminadas: false);
             TituloNotas();
         }
 
         async void OnNoteAddedClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new EditarNota
+            await Navigation.PushAsync(new NotaEditar
             {
                 BindingContext = new NotaSQL()
             });
@@ -59,7 +59,7 @@ namespace gsNotasNET
         {
             if (e.SelectedItem != null)
             {
-                await Navigation.PushAsync(new EditarNota
+                await Navigation.PushAsync(new NotaEditar
                 {
                     BindingContext = e.SelectedItem as NotaSQL
                 });
@@ -79,8 +79,6 @@ namespace gsNotasNET
             else
                 sGrupo = $"en {nGrupos} grupos";
 
-            //sGrupo += " y ";
-
             if (total == 0)
                 s = "ninguna nota";
             else if (total == 1)
@@ -97,7 +95,7 @@ namespace gsNotasNET
         private async void CopiarEnDrive_Clicked(object sender, EventArgs e)
         {
             // Por ahora no usarlo
-            await Navigation.PushAsync(new EditarNota
+            await Navigation.PushAsync(new NotaEditar
             {
                 BindingContext = new NotaSQL() { Texto = $"Por ahora no se sincroniza el contenido con GoogleDrive.", Grupo = "Drive-Docs" }
             }); ;
@@ -166,6 +164,17 @@ namespace gsNotasNET
         private void btnPrivacidad_Clicked(object sender, EventArgs e)
         {
             _ = App.MostrarPoliticaPrivacidad();
+        }
+
+        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item == null)
+                return;
+
+            //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
+
+            //Deselect Item
+            ((ListView)sender).SelectedItem = null;
         }
     }
 }

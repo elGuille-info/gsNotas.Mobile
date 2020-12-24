@@ -13,13 +13,13 @@ using Xamarin.Forms.Xaml;
 namespace gsNotasNET
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MostrarUsuarios : ContentPage
+    public partial class UsuariosMostrar : ContentPage
     {
-        public static MostrarUsuarios Current;
+        public static UsuariosMostrar Current;
 
         private static List<UsuarioSQL> _Usuarios;
 
-        public MostrarUsuarios()
+        public UsuariosMostrar()
         {
             InitializeComponent();
             Current = this;
@@ -80,6 +80,17 @@ namespace gsNotasNET
         private void btnPrivacidad_Clicked(object sender, EventArgs e)
         {
             _ = App.MostrarPoliticaPrivacidad();
+        }
+
+        async void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem != null)
+            {
+                await Navigation.PushAsync(new UsuarioVer
+                {
+                    BindingContext = e.SelectedItem as UsuarioSQL
+                });
+            }
         }
     }
 }

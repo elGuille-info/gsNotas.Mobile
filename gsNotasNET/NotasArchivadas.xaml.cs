@@ -21,18 +21,6 @@ namespace gsNotasNET
             Current = this;
         }
 
-        //protected override void OnAppearing()
-        //{
-        //    base.OnAppearing();
-
-        //    if (UsuarioSQL.UsuarioLogin is null)
-        //    {
-        //        Navigation.PushAsync(new Login(Current));
-        //        return;
-        //    }
-        //    listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, true);
-        //}
-
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
             if (UsuarioSQL.UsuarioLogin is null)
@@ -41,7 +29,7 @@ namespace gsNotasNET
                 return;
             }
             // Solo las notas archivadas y no eliminadas
-            listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, todas: false, archivadas: true);
+            listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, archivadas: true);
             TituloNotas();
         }
 
@@ -54,7 +42,7 @@ namespace gsNotasNET
         {
             if (e.SelectedItem != null)
             {
-                await Navigation.PushAsync(new EditarNota
+                await Navigation.PushAsync(new NotaEditar
                 {
                     BindingContext = e.SelectedItem as NotaSQL
                 });
@@ -65,6 +53,17 @@ namespace gsNotasNET
         {
             Current.Title = $"{App.AppName} {App.AppVersion}";
             Current.LabelInfo.Text = $"{UsuarioSQL.UsuarioLogin.Email} - con {NotaSQL.CountArchivadas(UsuarioSQL.UsuarioLogin.ID)} notas archivadas."; ;
+        }
+
+        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item == null)
+                return;
+
+            //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
+
+            //Deselect Item
+            ((ListView)sender).SelectedItem = null;
         }
     }
 }

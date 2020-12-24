@@ -12,11 +12,11 @@ using Xamarin.Forms.Xaml;
 namespace gsNotasNET
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MostrarGrupos : ContentPage
+    public partial class GruposMostrar : ContentPage
     {
-        public static MostrarGrupos Current;
+        public static GruposMostrar Current;
         private static List<Grupo> _Grupos;
-        public MostrarGrupos()
+        public GruposMostrar()
         {
             InitializeComponent();
             Current = this;
@@ -42,5 +42,26 @@ namespace gsNotasNET
             Current.LabelInfo.Text = $"Hay {_Grupos.Count()} grupos."; ;
         }
 
+        async void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem != null)
+            {
+                await Navigation.PushAsync(new GrupoVer
+                {
+                    BindingContext = e.SelectedItem as Grupo
+                });
+            }
+        }
+
+        void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item == null)
+                return;
+
+            //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
+
+            //Deselect Item
+            ((ListView)sender).SelectedItem = null;
+        }
     }
 }

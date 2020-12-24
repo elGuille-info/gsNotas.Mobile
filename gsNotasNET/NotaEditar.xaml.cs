@@ -9,9 +9,9 @@ using System.Linq;
 
 namespace gsNotasNET
 {
-    public partial class EditarNota : ContentPage
+    public partial class NotaEditar : ContentPage
     {
-        public EditarNota()
+        public NotaEditar()
         {
             InitializeComponent();
         }
@@ -32,7 +32,7 @@ namespace gsNotasNET
             NotaSQL.GuardarNota(nota);
             await Navigation.PopAsync();
             
-            ListaNotas.TituloNotas();
+            NotasActivas.TituloNotas();
         }
 
         async void OnDeleteButtonClicked(object sender, EventArgs e)
@@ -42,7 +42,7 @@ namespace gsNotasNET
             NotaSQL.Delete(nota);
             await Navigation.PopAsync();
 
-            ListaNotas.TituloNotas();
+            NotasActivas.TituloNotas();
         }
 
         /// <summary>

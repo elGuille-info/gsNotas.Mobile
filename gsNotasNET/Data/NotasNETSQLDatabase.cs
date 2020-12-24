@@ -64,6 +64,31 @@ namespace gsNotasNET.Data
         }
 
         /// <summary>
+        /// Genera un SHA de validación.
+        /// </summary>
+        /// <param name="email">El email a comprobar</param>
+        /// <returns>Una cadena con 8 caracteres para el código de validación.</returns>
+        /// <remarks>Es válido durante la hora actual.</remarks>
+        public static string ValidarHash(string email)
+        {
+            // Código válido en esta hora
+            DateTime fecha;
+
+            //// Si el minuto actual es 59, añadirle uno
+            //if(DateTime.UtcNow.Minute == 59)
+            //    fecha = DateTime.UtcNow.AddMinutes(1);
+            //else 
+            //    fecha = DateTime.UtcNow;
+
+            fecha = DateTime.UtcNow;
+            string h = GenerarClaveSHA1(fecha.ToString("yyyyMMddHH"), email);
+            if (string.IsNullOrWhiteSpace(h))
+                return "";
+
+            return h.Substring(0, 4) + h.Substring(16, 4);
+        }
+
+        /// <summary>
         /// Generar una clave SHA1 para guardarla en lugar del password,
         /// de esa forma no se podrá saber la clave.
         /// La longitud es de 40 caracteres.

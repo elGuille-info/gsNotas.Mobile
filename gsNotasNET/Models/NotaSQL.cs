@@ -20,6 +20,28 @@ namespace gsNotasNET.Models
         public bool Archivada { get; set; } = false;
         public bool Eliminada { get; set; } = false;
 
+        private int LongitudTituloNota = 50;
+        /// <summary>
+        /// Solo es valor local, no en la base de datos.
+        /// </summary>
+        public string TituloNota
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Texto))
+                    return "";
+
+                var s = Texto.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+                if (s.Length == 0)
+                    return Texto;
+
+                if (s[0].Length < LongitudTituloNota)
+                    return s[0];
+
+                return s[0].Substring(0, LongitudTituloNota);
+            }
+        }
+
         public NotaSQL()
         {
             ID = 0;
@@ -291,7 +313,7 @@ namespace gsNotasNET.Models
         }
 
         /// <summary>
-        /// Los grupos que hay asignados
+        /// Los grupos que hay asignados, de todas las notas, estén o no archivadas o eliminadas.
         /// </summary>
         /// <returns>Una colección de tipo string</returns>
         public static List<string> Grupos(int idUsuario)
@@ -309,11 +331,16 @@ namespace gsNotasNET.Models
             return grupos;
         }
 
+        /// <summary>
+        /// Devuelve el número de notas activas: no archivadas ni eliminadas
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
         internal static int Count(int idUsuario)
         {
             int ret = 0;
 
-            var sel = $"SELECT Count(*) FROM {TablaNotas} WHERE idUsuario = {idUsuario} AND Eliminada = 0 ";
+            var sel = $"SELECT Count(*) FROM {TablaNotas} WHERE idUsuario = {idUsuario} AND (Eliminada = 0  AND Archivada = 0)";
             var con = new SqlConnection(CadenaConexion);
             try
             {
@@ -368,24 +395,33 @@ namespace gsNotasNET.Models
         /// Devuelve una lista de todas las notas del usuario indicado que no están archivadas ni eliminadas.
         /// </summary>
         /// <param name="idUsuario">El id del usuario. Si es cero, mostrar todas.</param>
-        /// <param name="archivadas">true para mostrar las archivadas.</param>
-        /// <param name="eliminadas">true para mostrar las eliminadas.</param>
+        /// <param name="archivadas">true para mostrar las archivadas. null para no tenerlo en cuenta.</param>
+        /// <param name="eliminadas">true para mostrar las eliminadas. null para no tenerlo en cuenta.</param>
         /// <returns>Una colección de tipo HashSet con las notas.</returns>
-        public static List<NotaSQL> NotasUsuario(int idUsuario, bool todas, bool archivadas = false, bool eliminadas = false)
+        public static List<NotaSQL> NotasUsuario(int idUsuario, bool? archivadas = null, bool? eliminadas = null)
         {
             var colNotas = new List<NotaSQL>();
 
-            var bitArchivada = archivadas ? 1 : 0;
-            var bitEliminada = eliminadas ? 1 : 0;
-            string sArchivadas = "1 = 1", sEliminadas = " 1 = 1";
+            string sArchivadas, sEliminadas;
 
-            if (archivadas)
+            if (archivadas is null)
             {
+                sArchivadas = "(Archivada = 1 OR Archivada = 0) ";
+            }
+            else
+            {
+                int bitArchivada = archivadas.Value ? 1 : 0;
                 sArchivadas = $"(Archivada = {bitArchivada}) ";
             }
-            if (eliminadas)
+
+            if (eliminadas is null)
             {
-                sEliminadas = $"(Eliminadas = {bitEliminada} ";
+                sEliminadas = "(Eliminada = 1 OR Eliminada = 0) ";
+            }
+            else
+            {
+                int bitEliminada = eliminadas.Value ? 1 : 0;
+                sEliminadas = $"(Eliminada = {bitEliminada}) ";
             }
 
             var sel = $"SELECT * FROM {TablaNotas} ";
@@ -393,10 +429,7 @@ namespace gsNotasNET.Models
                 sel += $"WHERE idUsuario = {idUsuario} AND "; 
             else
                 sel += "WHERE ";
-            if(todas)
-                sel += "(Archivada = 1 OR Archivada = 0) ";
-            else
-                sel += $"({sArchivadas} AND {sEliminadas}) ";
+            sel += $"({sArchivadas} AND {sEliminadas}) ";
 
             sel += "ORDER BY Grupo ASC, Modificada DESC, ID";
             var con = new SqlConnection(CadenaConexion);
