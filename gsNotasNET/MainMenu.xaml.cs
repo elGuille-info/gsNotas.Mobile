@@ -28,10 +28,11 @@ namespace gsNotasNET
             //Detail = new Configuracion();
             List<Menu> menu = new()
             {
-                new Menu{ Page= new NotasActivas(), MenuTitle="Notas", MenuDetail="Muestra las notas no archivadas.", Icon="XNota_Azul.png"},
-                new Menu{ Page= new NotasFavoritas(), MenuTitle="Notas Favoritas", MenuDetail="Muestra las notas favoritas.", Icon="XConfigurar_usuario_clip.png"},
-                new Menu{ Page= new NotasArchivadas(), MenuTitle="Notas Archivadas", MenuDetail="Muestra las notas archivadas.", Icon="XGrupos.png"},
-                new Menu{ Page= new GruposMostrar(), MenuTitle="Grupos", MenuDetail="Muestra los grupos creados con las notas.", Icon="XSeleccionar_opciones.png"}
+                new Menu { Page = new NotasActivas(), MenuTitle = "Notas", MenuDetail = "Muestra las notas no archivadas.", Icon = "XNotas.png" },
+                new Menu { Page = new NotasFavoritas(), MenuTitle = "Notas Favoritas", MenuDetail = "Muestra las notas favoritas.", Icon = "XConfigurar_usuario_clip.png" },
+                new Menu { Page = new NotasArchivadas(), MenuTitle = "Notas Archivadas", MenuDetail = "Muestra las notas archivadas.", Icon = "XGrupos.png" },
+                new Menu { Page = new NotasEliminadas(), MenuTitle = "Notas Eliminadas", MenuDetail = "Muestra las notas eliminadas.", Icon = "XNotasEliminadas.png" },
+                new Menu { Page = new GruposMostrar(), MenuTitle = "Grupos", MenuDetail = "Muestra los grupos creados con las notas.", Icon = "XSeleccionar_opciones.png" }
             };
             if (!(UsuarioSQL.UsuarioLogin is null) && UsuarioSQL.UsuarioLogin.Email.ToLower() != "prueba")
             {
@@ -44,7 +45,7 @@ namespace gsNotasNET
             }
             menu.Add(new Menu { Page = new Configuracion(), MenuTitle = "Configuración", MenuDetail = "Configuración del programa.", Icon = "XConfigApp.png" });
             menu.Add(new Menu { Page = new Comentarios(), MenuTitle = "Comentarios", MenuDetail = "Enviar comentarios a elGuille.", Icon = "XEnviarComentarios.png" });
-            menu.Add(new Menu { Page = new Login(), MenuTitle = "Cambiar de Usuario", MenuDetail = "Cambiar de usuario (ir a la página de Login).", Icon = "XLogin.png" });
+            menu.Add(new Menu { Page = new Login(), MenuTitle = "Cambiar de Usuario", MenuDetail = "Cambiar de usuario o iniciar sesión.", Icon = "XLogin.png" });
             ListMenu.ItemsSource = menu;
         }
         private void ContentPage_Appearing(object sender, EventArgs e)

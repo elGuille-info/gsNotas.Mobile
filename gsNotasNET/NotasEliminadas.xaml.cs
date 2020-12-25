@@ -11,14 +11,13 @@ using Xamarin.Forms.Xaml;
 
 namespace gsNotasNET
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NotasArchivadas : ContentPage
-    {
-        private static NotasArchivadas Current;
-
-        public NotasArchivadas()
-        {
-            InitializeComponent();
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class NotasEliminadas : ContentPage
+	{
+        private static NotasEliminadas Current;
+        public NotasEliminadas ()
+		{
+			InitializeComponent ();
             Current = this;
             Title = $"{App.AppName} {App.AppVersion}";
         }
@@ -30,10 +29,10 @@ namespace gsNotasNET
                 await Navigation.PushAsync(new Login(Current));
                 return;
             }
-            // Solo las notas archivadas y no eliminadas
-            listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, archivadas: true);
+            // Solo las notas eliminadas
+            listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, eliminadas: true);
 
-            Current.LabelInfo.Text = $"{UsuarioSQL.UsuarioLogin.Email} - con {NotaSQL.CountArchivadas(UsuarioSQL.UsuarioLogin.ID)} notas archivadas.";
+            Current.LabelInfo.Text = $"{UsuarioSQL.UsuarioLogin.Email} - con {NotaSQL.CountEliminadas(UsuarioSQL.UsuarioLogin.ID)} notas eliminadas.";
         }
 
         private void btnPrivacidad_Clicked(object sender, EventArgs e)

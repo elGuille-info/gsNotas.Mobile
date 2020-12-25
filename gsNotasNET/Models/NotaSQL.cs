@@ -366,12 +366,50 @@ namespace gsNotasNET.Models
             return ret; // new Task<int>(() => ret);
         }
 
+        /// <summary>
+        /// El total de notas archivadas, si no están eliminadas.
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
         internal static int CountArchivadas(int idUsuario)
         {
             int ret = 0;
 
             var sel = $"SELECT Count(*) FROM {TablaNotas} " + 
-                      $"WHERE idUsuario = {idUsuario} AND (Archivada = 1 AND Eliminada = 0) ";
+                      $"WHERE idUsuario = {idUsuario} AND Archivada = 1 AND Eliminada = 0 ";
+            var con = new SqlConnection(CadenaConexion);
+            try
+            {
+                con.Open();
+                var cmd = new SqlCommand(sel, con);
+
+                var t = (int)cmd.ExecuteScalar();
+                ret = t;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (!(con is null))
+                    con.Close();
+            }
+
+            return ret; // new Task<int>(() => ret);
+        }
+
+        /// <summary>
+        /// El total de notas eliminadas.
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
+        internal static int CountEliminadas(int idUsuario)
+        {
+            int ret = 0;
+
+            var sel = $"SELECT Count(*) FROM {TablaNotas} " +
+                      $"WHERE idUsuario = {idUsuario} AND Eliminada = 1 ";
             var con = new SqlConnection(CadenaConexion);
             try
             {
@@ -467,7 +505,7 @@ namespace gsNotasNET.Models
                 sel += "WHERE ";
             sel += $"({sArchivadas} AND {sEliminadas}) ";
 
-            sel += "ORDER BY Grupo ASC, Modificada DESC, ID";
+            sel += "ORDER BY Grupo ASC, Favorita, Modificada DESC, ID";
             var con = new SqlConnection(CadenaConexion);
             try
             {
