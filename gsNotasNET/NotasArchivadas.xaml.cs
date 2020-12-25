@@ -21,11 +21,11 @@ namespace gsNotasNET
             Current = this;
         }
 
-        private void ContentPage_Appearing(object sender, EventArgs e)
+        async private void ContentPage_Appearing(object sender, EventArgs e)
         {
             if (UsuarioSQL.UsuarioLogin is null)
             {
-                Navigation.PushAsync(new Login(Current));
+                await Navigation.PushAsync(new Login(Current));
                 return;
             }
             // Solo las notas archivadas y no eliminadas
@@ -59,8 +59,6 @@ namespace gsNotasNET
         {
             if (e.Item == null)
                 return;
-
-            //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;

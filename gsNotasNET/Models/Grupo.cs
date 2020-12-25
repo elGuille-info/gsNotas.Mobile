@@ -17,6 +17,7 @@ namespace gsNotasNET.Models
         public int Notas { get; set; }
         public int NotasArchivadas { get; set; }
         public int NotasEliminadas { get; set; }
+        public int NotasFavoritas { get; set; }
         //public string CrLf { get; } = "\r\n";
 
         /// <summary>
@@ -51,6 +52,8 @@ namespace gsNotasNET.Models
                     g.NotasArchivadas++;
                 if (s.Eliminada)
                     g.NotasEliminadas++;
+                if (s.Favorita)
+                    g.NotasFavoritas++;
             }
             var grupos = new List<Grupo>();
             foreach (var gd in gruposDict.Keys)

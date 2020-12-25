@@ -15,12 +15,19 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button Text="Guardar" Clicked="OnSaveButtonClicked" />
             <Button Grid.Column="1" Text="Eliminar" Clicked="OnDeleteButtonClicked" />
             <StackLayout Grid.Column="2" Orientation="Horizontal">
-                <Label Text="Archivada: " 
-                       FontSize="Micro" 
+                <Label Text="Favorita: " FontSize="Micro" 
+                       TextColor="{StaticResource AppTextColor}"/>
+                <Switch x:Name="chkFavorita" 
+                        BackgroundColor="{StaticResource NavigationBarColor}" 
+                        IsToggled="{Binding Favorita}"  />
+            </StackLayout>
+            <StackLayout Grid.Column="3" Orientation="Horizontal">
+                <Label Text="Archivada: " FontSize="Micro" 
                        TextColor="{StaticResource AppTextColor}"/>
                 <Switch x:Name="chkArchivada" 
                         BackgroundColor="{StaticResource NavigationBarColor}" 

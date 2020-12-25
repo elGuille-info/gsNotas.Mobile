@@ -25,28 +25,11 @@ namespace gsNotasNET
             Current = this;
         }
 
-        //protected override void OnAppearing()
-        //{
-        //    base.OnAppearing();
-
-        //    if (UsuarioSQL.UsuarioLogin is null || 
-        //            UsuarioSQL.UsuarioLogin.Email.ToLower().IndexOf("elguille.info@") == -1)
-        //    {
-        //        Navigation.PushAsync(new Login(Current));
-        //        return;
-        //    }
-        //    if (_Usuarios is null || _Usuarios.Count() == 0)
-        //        _Usuarios = UsuarioSQL.Usuarios();
-        //    listView.ItemsSource = _Usuarios;
-        //}
-
         void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             if (e.Item == null)
                 return;
 
-            //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
-            
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
         }

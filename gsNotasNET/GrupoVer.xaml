@@ -18,6 +18,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="35" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -31,10 +32,12 @@
                 <Label Text="{Binding Usuario}" Grid.Row="2" Grid.Column="1" />
                 <Label Text="Notas: " Grid.Row="3" Grid.Column="0" />
                 <Label Text="{Binding Notas}" Grid.Row="3" Grid.Column="1" />
-                <Label Text="Notas archivadas: " Grid.Row="4" Grid.Column="0" />
-                <Label Text="{Binding NotasArchivadas}" Grid.Row="4" Grid.Column="1"/>
-                <Label Text="Notas Eliminadas: " Grid.Row="5" Grid.Column="0"/>
-                <Label Text="{Binding NotasEliminadas}" Grid.Row="5" Grid.Column="1" />
+                <Label Text="Notas favoritas: " Grid.Row="4" Grid.Column="0" />
+                <Label Text="{Binding NotasFavoritas}" Grid.Row="4" Grid.Column="1"/>
+                <Label Text="Notas archivadas: " Grid.Row="5" Grid.Column="0" />
+                <Label Text="{Binding NotasArchivadas}" Grid.Row="5" Grid.Column="1"/>
+                <Label Text="Notas Eliminadas: " Grid.Row="6" Grid.Column="0"/>
+                <Label Text="{Binding NotasEliminadas}" Grid.Row="6" Grid.Column="1" />
             </Grid>
         </StackLayout>
         <Button x:Name="btnPrivacidad" Text="Política de privacidad" 

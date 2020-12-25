@@ -12,16 +12,14 @@ using Xamarin.Forms.Xaml;
 namespace gsNotasNET
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class GruposMostrar : ContentPage
+    public partial class NotasFavoritas : ContentPage
     {
-        public static GruposMostrar Current;
-        private static List<Grupo> _Grupos;
-        public GruposMostrar()
+        private static NotasFavoritas Current;
+
+        public NotasFavoritas()
         {
             InitializeComponent();
             Current = this;
-            _Grupos = null;
-            Title = $"{App.AppName} {App.AppVersion}";
         }
 
         async private void ContentPage_Appearing(object sender, EventArgs e)
@@ -29,13 +27,10 @@ namespace gsNotasNET
             if (UsuarioSQL.UsuarioLogin is null)
             {
                 await Navigation.PushAsync(new Login(Current));
-                LabelInfo.Text = "No hay usuario logueado.";
                 return;
             }
-
-            if (_Grupos is null || _Grupos.Count == 0)
-                _Grupos = Grupo.Grupos(UsuarioSQL.UsuarioLogin);
-            listView.ItemsSource = _Grupos;
+            // Solo las notas archivadas y no eliminadas
+            listView.ItemsSource = NotaSQL.NotasFavoritas(UsuarioSQL.UsuarioLogin.ID);
             TituloNotas();
         }
 
@@ -44,21 +39,21 @@ namespace gsNotasNET
             _ = App.MostrarPoliticaPrivacidad();
         }
 
-        public static void TituloNotas()
-        {
-            Current.Title = $"{App.AppName} {App.AppVersion}";
-            Current.LabelInfo.Text = $"Hay {_Grupos.Count()} grupos."; ;
-        }
-
-        async void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
+        async private void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
             {
-                await Navigation.PushAsync(new GrupoVer
+                await Navigation.PushAsync(new NotaEditar
                 {
-                    BindingContext = e.SelectedItem as Grupo
+                    BindingContext = e.SelectedItem as NotaSQL
                 });
             }
+        }
+
+        public static void TituloNotas()
+        {
+            Current.Title = $"{App.AppName} {App.AppVersion}";
+            Current.LabelInfo.Text = $"{UsuarioSQL.UsuarioLogin.Email} - con {NotaSQL.CountFavoritas(UsuarioSQL.UsuarioLogin.ID)} notas favoritas."; ;
         }
 
         void Handle_ItemTapped(object sender, ItemTappedEventArgs e)

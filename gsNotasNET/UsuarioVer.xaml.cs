@@ -14,9 +14,25 @@ namespace gsNotasNET
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UsuarioVer : ContentPage
     {
+        public static UsuarioVer Current;
         public UsuarioVer()
         {
             InitializeComponent();
+            Current = this;
+            Title = $"{App.AppName} {App.AppVersion}";
+            LabelInfo.Text = "";
+        }
+
+        async private void ContentPage_Appearing(object sender, EventArgs e)
+        {
+            if (UsuarioSQL.UsuarioLogin is null)
+            {
+                await Navigation.PushAsync(new Login(Current));
+                LabelInfo.Text = "No hay usuario logueado.";
+                return;
+            }
+            var usuario = (UsuarioSQL)BindingContext;
+            LabelInfo.Text = usuario.Email;
         }
 
         /// <summary>
@@ -29,7 +45,6 @@ namespace gsNotasNET
             //    return;
 
             LabelInfo.Text = usuario.Email;
-            Title = $"{App.AppName} {App.AppVersion}";
         }
 
         private void btnPrivacidad_Clicked(object sender, EventArgs e)

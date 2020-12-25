@@ -99,18 +99,18 @@ namespace gsNotasNET.Data
         /// Basado en el ejemplo de mi sitio:
         /// http://www.elguille.info/NET/dotnet/comprobar_usuario_usando_base_datos_cs2003.htm
         /// </remarks>
-        public static string GenerarClaveSHA1(string nick, string clave)
+        public static string GenerarClaveSHA1(string email, string clave)
         {
             // Crear una clave SHA1 como la generada por 
             // FormsAuthentication.HashPasswordForStoringInConfigFile
             // Adaptada del ejemplo de la ayuda en la descripción de SHA1 (Clase)
             UTF8Encoding enc = new UTF8Encoding();
             // Por si el usuario (nick) es nulo
-            if (string.IsNullOrWhiteSpace(nick))
-                nick = "";
+            if (string.IsNullOrWhiteSpace(email))
+                email = "";
             else
-                nick = nick.ToLower();
-            byte[] data = enc.GetBytes(nick + clave);
+                email = email.ToLower();
+            byte[] data = enc.GetBytes(email + clave);
             byte[] result;
 
             SHA1CryptoServiceProvider sha = new SHA1CryptoServiceProvider();

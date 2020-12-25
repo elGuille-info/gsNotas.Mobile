@@ -26,15 +26,21 @@ namespace gsNotasNET
 
         private void btnAplicar_Clicked(object sender, EventArgs e)
         {
+            if (UsuarioSQL.UsuarioLogin is null)
+            {
+                Navigation.PushAsync(new Login(Current));
+                return;
+            }
+
             App.RecordarPassword = chkRecordarPassword.IsToggled;
             App.RecordarUsuario = chkRecordarUsuario.IsToggled;
             App.UltimoUsuario = LabelUsuario.Text;
             if (App.RecordarPassword)
-                App.UltimoPassword = UsuarioSQL.PasswordUsuario;
+                App.UltimoPassword = UsuarioSQL.UsuarioLogin.Password;// .PasswordUsuario;
             else
                 App.UltimoPassword = "";
 
-            Navigation.PushAsync(new Login(Current));
+            //Navigation.PushAsync(new Login(Current));
         }
 
         private void btnPrivacidad_Clicked(object sender, EventArgs e)

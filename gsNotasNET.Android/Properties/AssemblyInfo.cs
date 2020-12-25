@@ -7,7 +7,7 @@ using Android.App;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("gsNotasNET.Android")]
-[assembly: AssemblyDescription("Utilidad para tomar notas y guardarlas en el dispositivo. (revisión del 24-dic-2020)")]
+[assembly: AssemblyDescription("Utilidad para tomar notas y guardarlas en el dispositivo. (revisión del 25-dic-2020)")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("elGuille")]
 [assembly: AssemblyProduct("gsNotasNET.Android")]
@@ -22,8 +22,8 @@ using Android.App;
 //      Minor Version 
 //      Build Number
 //      Revision
-[assembly: AssemblyVersion("2.0.0.24")]
-[assembly: AssemblyFileVersion("2.0.0.24")]
+[assembly: AssemblyVersion("2.0.0.25")]
+[assembly: AssemblyFileVersion("2.0.0.25")]
 
 // Add some common permissions, these can be removed if not needed
 [assembly: UsesPermission(Android.Manifest.Permission.Internet)]

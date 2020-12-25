@@ -1,33 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.NotasFavoritas"
              Appearing="ContentPage_Appearing"
-             Title="Grupos"
-             x:Class="gsNotasNET.GruposMostrar">
+             Title="Notas Favoritas">
     <Grid Margin="{StaticResource PageMargin}">
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
             <RowDefinition Height="*" />
             <RowDefinition Height="35" />
         </Grid.RowDefinitions>
-        <Label x:Name="LabelInfo" Text="" Grid.Row="0" FontAttributes="Bold" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label x:Name="LabelInfo" Text="" Grid.Row="0" FontAttributes="Bold"/>
         <!-- por motivos de rendimiento y memoria se debe especificar RecycleElement al construir una nueva vista de lista -->
-        <ListView x:Name="listView" Grid.Row="1" 
+        <ListView x:Name="listView" Grid.Row="1" ItemTapped="Handle_ItemTapped"
                   CachingStrategy="RecycleElement"
-                  ItemSelected="OnListViewItemSelected" ItemTapped="Handle_ItemTapped">
+                  ItemSelected="OnListViewItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Padding="2">
-                            <Label Text="{Binding Nombre}" FontAttributes="Bold" />
+                        <StackLayout>
+                            <Label Text="{Binding TituloNota}" FontAttributes="Bold" />
                             <Label>
                                 <Label.Text>
-                                    <MultiBinding StringFormat="{}{1} notas, {4} fav, {2} arch, {3} elim, {0}">
-                                        <Binding Path="Usuario"/>
-                                        <Binding Path="Notas"/>
-                                        <Binding Path="NotasArchivadas"/>
-                                        <Binding Path="NotasEliminadas"/>
-                                        <Binding Path="NotasFavoritas"/>
+                                    <MultiBinding StringFormat="{}{0} - Fav. {2}, Mod. {1}">
+                                        <Binding Path="Grupo"/>
+                                        <Binding Path="Modificada"/>
+                                        <Binding Path="Favorita"/>
                                     </MultiBinding>
                                 </Label.Text>
                             </Label>

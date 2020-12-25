@@ -18,60 +18,46 @@ namespace gsNotasNET
         public static string CodigoValidar;
         public static UsuarioValidar Current;
         private static ContentPage _pagina;
-        public UsuarioValidar(string codigoValidar, ContentPage pagina)
+
+        public UsuarioValidar(string codigoValidar = "", ContentPage pagina = null)
         {
             InitializeComponent();
-            CodigoValidar = codigoValidar;
             _pagina = pagina;
             Current = this;
+            Title = $"{App.AppName} {App.AppVersion}";
+            if (UsuarioSQL.UsuarioLogin is null)
+                return;
+            // si no se ha indicado, generar un código de validación
+            if (string.IsNullOrEmpty(codigoValidar))
+            {
+                if(!UsuarioSQL.UsuarioLogin.Validado)
+                    CodigoValidar = App.CodigoValidación(UsuarioSQL.UsuarioLogin.Email).Result;
+            }
+            else
+                CodigoValidar = codigoValidar.ToUpper();
+        }
+
+        async private void ContentPage_Appearing(object sender, EventArgs e)
+        {
+            if (UsuarioSQL.UsuarioLogin is null)
+            {
+                await Navigation.PushAsync(new Login(Current));
+                LabelInfo.Text = "No hay usuario logueado.";
+                return;
+            }
+            LabelInfo.Text = "Indica el código de validación y pulsa en VALIDAR.";
         }
 
         private void btnValidar_Clicked(object sender, EventArgs e)
         {
-            ComprobarCodigoValidar();
-        }
+            bool validado = Current.txtValidar.Text.ToUpper() == CodigoValidar;
 
-        async public static void ComprobarCodigoValidar()
-        {
-            if (Current.txtValidar.Text.ToUpper() != CodigoValidar)
-            {
-                UsuarioPerfil.Validado = false;
-                await Current.Navigation.PopAsync();
-            }
-            else
-            {
-                UsuarioPerfil.Validado = true;
-                // Volver a la página que llamó a esta
-                VolverAMain();
-            }
-        }
-        private static void VolverAMain()
-        {
-            if (_pagina is null)
-                Application.Current.MainPage = new NavigationPage(new MainMenu());
-            else
-            {
-                try
-                {
-                    Current.Navigation.PushAsync(_pagina);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    _pagina = null;
-                    VolverAMain();
-                }
-            }
-        }
+            UsuarioSQL.UsuarioLogin.Validado = validado;
+            UsuarioSQL.GuardarUsuario(UsuarioSQL.UsuarioLogin);
 
-        /// <summary>
-        /// Volver a la página de UsuarioValidar después de mostrar la alerta.
-        /// </summary>
-        async public static void CallBackAfertHide()
-        {
-            var uv = new UsuarioValidar(App.CodigoValidación(UsuarioSQL.UsuarioLogin.Email).Result, Current);
-            await Current.Navigation.PushAsync(uv);
+            string sino = validado ? "SI" : "NO";
+            LabelInfo.Text = $"El código de validación {sino} es correcto.";
+            txtValidar.Focus();
         }
-
     }
 }

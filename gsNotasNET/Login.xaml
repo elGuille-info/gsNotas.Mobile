@@ -11,9 +11,9 @@
                    VerticalOptions="StartAndExpand" Padding="10">
                 <Label.Text>Indica tu usuario y contraseña.
 
-Si es la primera vez que entras o no recuerdas tu contraseña, escríbeme un email a 'correos.elguille.info@gmail.com' solicitando la nueva contraseña o el cambio de la misma.
+Si es la primera vez que entras  pulsa en el botón 'REGISTRAR NUEVO USUARIO'.
 
-Si no estabas registrado, te registraré con ese correo y la contraseña que me indiques en ese email.
+Si no recuerdas tu contraseña, escríbeme un email a 'correos.elguille.info@gmail.com' solicitando la nueva contraseña o el cambio de la misma.
 
 Gracias.</Label.Text>
             </Label>
@@ -27,16 +27,17 @@ Gracias.</Label.Text>
                     BackgroundColor="{StaticResource AppBackgroundColor}" 
                     TextColor="{StaticResource AppTextColor}"
                     Clicked="btnAcceder_Clicked" />
-            <Button x:Name="btnNuevoUsuario" Text="Registrar usuario" 
+            <Button x:Name="btnNuevoUsuario" Text="Registrar nuevo usuario" 
                     BackgroundColor="{StaticResource AppBackgroundColor}" 
                     TextColor="{StaticResource AppTextColor}"
                     Clicked="btnNuevoUsuario_Clicked" />
+            <Label x:Name="LabelInfo" 
+                   Text=" Para probar, usa el usuario 'prueba' y el password '1234'"
+                   VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" />
             <Button x:Name="btnPrivacidad" Text="Política de privacidad" 
                     Grid.Row="1" HeightRequest="35"
                     HorizontalOptions="FillAndExpand"
                     Clicked="btnPrivacidad_Clicked" />
-            <Label x:Name="LabelInfo" Text=" Para probar, usa el usuario 'prueba' y el password '1234'" 
-                   BackgroundColor="Firebrick" TextColor="White" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -3,22 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="gsNotasNET.UsuarioPerfil"
              Title="Perfil del Usuario"
+             Appearing="ContentPage_Appearing"
              BindingContextChanged="ContentPage_BindingContextChanged">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
             <RowDefinition Height="*" />
-            <!--<RowDefinition Height="35" />-->
+            <RowDefinition Height="35" />
+            <RowDefinition Height="75" />
+            <RowDefinition Height="35" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button Text="Guardar" Grid.Row="0" Clicked="OnSaveButtonClicked" />
-        <StackLayout Margin="{StaticResource PageMargin}" Grid.Row="1">
+        <StackLayout Margin="{StaticResource PageMargin}" Grid.Row="0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -36,43 +36,44 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label x:Name="LabelInfo" Text="" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Medium"/>
-                <Label Text="Email: " Grid.Row="1" Grid.Column="0" FontSize="Medium" />
-                <Editor Text="{Binding Email}" FontSize="Medium" Grid.Row="1" Grid.Column="1" />
-                <Label Text="Puedes cambiar el email a uno no existente, se te enviará un código de validación antes de aceptarlo." 
-                       BackgroundColor="Firebrick" TextColor="White"
+                <Label x:Name="LabelInfo" Grid.Row="0" Grid.ColumnSpan="2" FontAttributes="Bold"/>
+                <Label Text="Email: " Grid.Row="1" Grid.Column="0" FontSize="Small" />
+                <Editor x:Name="Email" Text="{Binding Email}" Placeholder="Escribe un email"
+                        FontSize="Small" Grid.Row="1" Grid.Column="1" />
+                <Label Text="Si cambias el email te pediré confirmación por email." 
                        Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
                 <Label Text="Nombre: "  Grid.Row="3" Grid.Column="0" />
-                <Editor Placeholder="Nombre y Apellidos" Text="{Binding Nombre}" Grid.Row="3" Grid.Column="1" />
+                <Editor x:Name="Nombre" Placeholder="Nombre y Apellidos" Text="{Binding Nombre}" 
+                        Grid.Row="3" Grid.Column="1" FontSize="Small" />
                 <Label Text="Nuevo Password: " Grid.Row="4" Grid.Column="0" />
-                <Editor x:Name="Password" Placeholder="Nuevo Password, déjalo en blanco para usar el actual" 
+                <Editor x:Name="Password" Placeholder="Déjalo en blanco para usar el actual" 
                         Text="" Grid.Row="4" Grid.Column="1" FontSize="Small"/>
                 <Label Text="ClaveSHA: " Grid.Row="5" Grid.Column="0" />
-                <Editor Text="{Binding ClaveSHA}" Grid.Row="5" Grid.Column="1" FontSize="Small"/>
+                <Editor x:Name="ClaveSHA" Text="{Binding ClaveSHA}" Placeholder="La clave SHA no es editable"
+                        Grid.Row="5" Grid.Column="1" FontSize="Small"/>
                 <Label Text="Último acceso: " Grid.Row="6" Grid.Column="0" />
                 <Label Text="{Binding UltimoAcceso}" Grid.Row="6" Grid.Column="1"/>
                 <Label Text="Alta: " Grid.Row="7" Grid.Column="0"/>
                 <Label Text="{Binding Alta}" Grid.Row="7" Grid.Column="1" />
                 <Label Text="Validado: " Grid.Row="8" Grid.Column="0"/>
-                <Label Text="{Binding Validado}" Grid.Row="8" Grid.Column="1" />
-                <Label Text="Notas copiadas (emulador): " Grid.Row="9" Grid.Column="0"/>
-                <Editor Placeholder="Notas copiadas en el emulador" 
-                        Text="{Binding NotasCopiadas}" Grid.Row="9" Grid.Column="1" />
-                <Label Text="Notas copiadas: " Grid.Row="10" Grid.Column="0"/>
-                <Editor Placeholder="Notas copiadas" 
-                        Text="{Binding NotasCopiadasAndroid}" Grid.Row="10" Grid.Column="1" />
-                <Label Text="Baja: " Grid.Row="11" Grid.Column="0"/>
-                <Label Text="{Binding Baja}" Grid.Row="11" Grid.Column="1" />
-                <Label Text="Eliminado: " Grid.Row="12" Grid.Column="0"/>
-                <Label Text="{Binding Eliminado}" Grid.Row="12" Grid.Column="1" />
+                <Switch x:Name="chkValidado" IsToggled="{Binding Validado}" Grid.Row="8" Grid.Column="1" />
+                <Label Text="Notas copiadas: " Grid.Row="9" Grid.Column="0"/>
+                <Switch x:Name="chkNotasCopiadas" IsToggled="{Binding NotasCopiadas}" Grid.Row="9" Grid.Column="1" />
+                <Label Text="Baja: " Grid.Row="10" Grid.Column="0"/>
+                <Label Text="{Binding Baja}" Grid.Row="10" Grid.Column="1" />
+                <Label Text="Eliminado: " Grid.Row="11" Grid.Column="0"/>
+                <Label Text="{Binding Eliminado}" Grid.Row="11" Grid.Column="1" />
                 <Label Text="Si cambias el password se generará una nueva clave SHA." 
-                       BackgroundColor="Firebrick" TextColor="White"
-                       Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2"/>
+                       Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2"/>
             </Grid>
         </StackLayout>
-        <!--<Button x:Name="btnPrivacidad" Text="Política de privacidad" 
-                    Grid.Row="2" HeightRequest="35"
+        <Button x:Name="btnGuardar" Text="Guardar" Grid.Row="1" HorizontalOptions="FillAndExpand"
+                Clicked="OnSaveButtonClicked" />
+        <Label x:Name="LabelAviso" Text="Aquí se mostrarán los avisos." IsVisible="False" 
+               Grid.Row="2" HorizontalOptions="FillAndExpand"/>
+        <Button x:Name="btnPrivacidad" Text="Política de privacidad" 
+                    Grid.Row="3" HeightRequest="35"
                     HorizontalOptions="FillAndExpand"
-                    Clicked="btnPrivacidad_Clicked" />-->
+                    Clicked="btnPrivacidad_Clicked" />
     </Grid>
 </ContentPage>

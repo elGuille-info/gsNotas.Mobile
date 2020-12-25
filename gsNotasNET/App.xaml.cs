@@ -18,7 +18,7 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2..24";
+        public static string AppVersion { get; } = "v2..25";
 
         /// <summary>
         /// El nombre de la aplicación
@@ -37,8 +37,13 @@ namespace gsNotasNET
                 AppName = "gsNotasNET.Android.Debug";
             }
 
+            // Iniciar con el usuario de prueba.
+            var usuario = UsuarioSQL.Usuario("prueba");
+
             // Iniciar con la página Login que vuelva a MainMenu.
-            MainPage = new NavigationPage(new Login(new MainMenu()));
+            //MainPage = new NavigationPage(new Login(new MainMenu()));
+
+            MainPage = new NavigationPage(new MainMenu());
         }
 
         public static string UltimoUsuario
@@ -88,14 +93,17 @@ namespace gsNotasNET
             var sb = new StringBuilder();
             sb.AppendLine($"El código de validación para {App.AppName} es:");
             sb.AppendLine($"{App.crlf}{App.crlf}{hash}{App.crlf}{App.crlf}");
-            sb.AppendLine($"Indicalo en la aplicación '{App.AppName} {App.AppVersion}'.{App.crlf}");
-            sb.AppendLine($"Gracias.{App.crlf}Guillermo.");
+            sb.AppendLine($"Indicalo en la aplicación '{App.AppName} {App.AppVersion}'.");
             sb.AppendLine();
-            sb.AppendLine($"Enviado a: {email}");
+            sb.AppendLine("Gracias.");
+            sb.AppendLine("Guillermo.");
+            sb.AppendLine();
+            sb.AppendLine($"Enviado a: '{email}'");
             sb.AppendLine();
             sb.AppendFormat("Para validar el correo puedes indicar el código de validación durante las {0} horas (UTC).", DateTime.UtcNow.Hour);
             sb.AppendLine();
-            sb.AppendLine("Cualquier bug o duda sobre el programa, por favor responde a este email.");
+            sb.AppendLine();
+            sb.AppendLine("Cualquier bug o duda sobre el programa, por favor usa la página de comentarios del programa.");
             sb.AppendLine("Gracias.");
             sb.AppendLine();
 
@@ -107,6 +115,14 @@ namespace gsNotasNET
         }
 
         // https://www.c-sharpcorner.com/article/xamarin-forms-send-email-using-smtp2/
+        /// <summary>
+        /// Enviar un email usando una cuenta de gmail.
+        /// Usando la cuenta configurada en la aplicación.
+        /// </summary>
+        /// <param name="subject">El asunto del mensaje.</param>
+        /// <param name="body">El texto del mensaje.</param>
+        /// <param name="emailTo">El correo a quien se lo manda.</param>
+        /// <returns></returns>
         async public static Task SendEmail(string subject, string body, string emailTo)
         {
             try
@@ -132,7 +148,6 @@ namespace gsNotasNET
             }
             catch (Exception ex)
             {
-                //DisplayAlert("Faild", ex.Message, "OK");
                 Debug.WriteLine(ex.Message);
             }
         }
@@ -146,35 +161,44 @@ namespace gsNotasNET
             await Task.Run(() => true);
         }
 
-        // Esto lo manda desde la cuenta que esté definida en el dispositivo.
-        //public static async Task SendEmail(string subject, string body, string emailTo, string emailCc)
-        //{
-        //    try
-        //    {
-        //        var message = new EmailMessage
-        //        {
-        //            Subject = subject,
-        //            Body = body,
-        //            To = new List<string>() { emailTo },
-        //            BodyFormat = EmailBodyFormat.PlainText,
-        //            Cc = new List<string>() { emailCc },
-        //            //Bcc = bccRecipients
-        //        };
-        //        await Email.ComposeAsync(message);
-        //    }
-        //    catch (FeatureNotSupportedException fbsEx)
-        //    {
-        //        // Email is not supported on this device
-        //        Debug.WriteLine(fbsEx.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Some other exception occurred
-        //        Debug.WriteLine(ex.Message);
-        //    }
-        //}
+        /// <summary>
+        /// Manda un email desde una de las cuentas configuradas en el dispostivo.
+        /// </summary>
+        /// <param name="subject">El asunto del mensaje.</param>
+        /// <param name="body">El texto del mensaje.</param>
+        /// <param name="emailTo">A quién se le manda el mensaje.</param>
+        /// <param name="emailCc">Por si se manda copia de este mensaje.</param>
+        /// <returns></returns>
+        public static async Task SendEmailUserLocal(string subject, string body, string emailTo, string emailCc = "")
+        {
+            try
+            {
+                var message = new EmailMessage
+                {
+                    Subject = subject,
+                    Body = body,
+                    To = new List<string>() { emailTo },
+                    BodyFormat = EmailBodyFormat.PlainText,
+                    //Bcc = bccRecipients
+                };
+                if (emailCc.Any())
+                    message.Cc = new List<string>() { emailCc };
 
-        public static readonly string crlf = "\n\r";
+                await Email.ComposeAsync(message);
+            }
+            catch (FeatureNotSupportedException fbsEx)
+            {
+                // Email is not supported on this device
+                Debug.WriteLine(fbsEx.Message);
+            }
+            catch (Exception ex)
+            {
+                // Some other exception occurred
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        public static string crlf { get { return "\n\r"; } }
 
         /// <summary>
         /// Los datos de las credenciales obtenidas del directorio Assets

@@ -2,29 +2,33 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="gsNotasNET.MainMenu" 
-             Appearing="Detail_Appearing"
-             x:Name="Detail" Title="Menú" 
-             BackgroundColor="{StaticResource NavigationBarColor}" Padding="0,40,0,0" >
+             Appearing="ContentPage_Appearing"
+             Title="Menú" 
+             BackgroundColor="{StaticResource NavigationBarColor}">
+    <!-- Padding="0,40,0,0" Left, Top 40, Right, Botton -->
     <ContentPage.Resources>
         <Style TargetType="{x:Type ImageSource}">
             <Setter Property="AbsoluteLayout.HeightRequest" Value="25" />
         </Style>
     </ContentPage.Resources>
-    <!-- por motivos de rendimiento y memoria se debe especificar RecycleElement al construir una nueva vista de lista -->
-    <ListView BackgroundColor="{StaticResource AppTextColor}"
+    <StackLayout>
+        <Label x:Name="LabelInfo" Text=""  Padding="3,0,3,0" />
+        <!-- por motivos de rendimiento y memoria se debe especificar RecycleElement al construir una nueva vista de lista -->
+        <ListView BackgroundColor="{StaticResource AppTextColor}"
               x:Name="ListMenu"
               CachingStrategy="RecycleElement"
               ItemSelected="ListMenu_ItemSelected" >
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ImageCell TextColor="{StaticResource ButtonTextColor}" 
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell TextColor="{StaticResource ButtonTextColor}" 
                            DetailColor="Firebrick"
                            Height="20"
                            Text="{Binding MenuTitle}"
                            Detail="{Binding MenuDetail}"
                            ImageSource="{Binding Icon}">
-                </ImageCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+                    </ImageCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>

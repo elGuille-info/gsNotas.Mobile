@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using gsNotasNET.APIs;
 using gsNotasNET.Models;
 
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,114 +21,157 @@ namespace gsNotasNET
         {
             InitializeComponent();
             Current = this;
+            Title = $"{App.AppName} {App.AppVersion}";
             _usuario = usuario;
-            BindingContext = usuario;
+            if (usuario is null)
+            {
+                LabelInfo.Text = "El usuario indicado no es válido.";
+            }
+            else
+            {
+                BindingContext = usuario;
+                LabelInfo.Text = $"Perfil de {usuario.Email}";
+            }
         }
 
         private static UsuarioSQL _usuario;
-        public static bool Validado = false;
+        public static bool Validado { get; set; } = false;
+
+        async private void ContentPage_Appearing(object sender, EventArgs e)
+        {
+            if (UsuarioSQL.UsuarioLogin is null)
+            {
+                await Navigation.PushAsync(new Login(Current));
+                LabelInfo.Text = "";
+                return;
+            }
+
+        }
 
         /// <summary>
         /// Se produce cuando cambia el binding-context y por tanto el usuario está asignado.
         /// </summary>
         private void ContentPage_BindingContextChanged(object sender, EventArgs e)
         {
+            LabelAviso.IsVisible = false;
+
+            if (UsuarioSQL.UsuarioLogin is null || UsuarioSQL.UsuarioLogin.ID == 0)
+                return;
+
+            // si es el usuario de prueba no permitir cambios
+            if (UsuarioSQL.UsuarioLogin.Email.ToLower() == "prueba")
+            {
+                LabelAviso.Text = "El usuario de prueba no puede modificar su perfil.";
+                LabelAviso.IsVisible = true;
+                btnGuardar.IsEnabled = false;
+                Password.IsEnabled = false;
+                Email.IsEnabled = false;
+                ClaveSHA.IsEnabled = false;
+                chkNotasCopiadas.IsEnabled = false;
+                chkValidado.IsEnabled = false;
+                Nombre.IsEnabled = false;
+            }
             var usuario = (UsuarioSQL)BindingContext;
             //if (usuario is null)
             //    return;
 
-            LabelInfo.Text = usuario.Email;
-            Title = $"{App.AppName} {App.AppVersion}";
+            LabelInfo.Text = $"Perfil de {usuario.Email}";
         }
 
-        //private void btnPrivacidad_Clicked(object sender, EventArgs e)
-        //{
-        //    _ = App.MostrarPoliticaPrivacidad();
-        //}
+        private void btnPrivacidad_Clicked(object sender, EventArgs e)
+        {
+            _ = App.MostrarPoliticaPrivacidad();
+        }
 
         async void OnSaveButtonClicked(object sender, EventArgs e)
         {
+            LabelAviso.IsVisible = false;
+
             var usuario = (UsuarioSQL)BindingContext;
 
-            if (usuario.ID == 0)
-            {
-                if (string.IsNullOrEmpty(Password.Text))
-                {
-                    await DisplayAlert("Indicar el password",
-                                      $"Debes indicar el password para registrarte.",
-                                      "ACEPTAR", "-");
-                    await Navigation.PopAsync();
-                    return;
-                }
-                // Crear el usuario
-                int res = UsuarioSQL.GuardarUsuario(usuario, Password.Text);
-                if(res == 0)
-                {
-                    await Navigation.PopAsync();
-                    return;
-                }
-            }
-
             // no guardar el email en blanco
-            if (string.IsNullOrEmpty(usuario.Email))
+            if (string.IsNullOrEmpty(Email.Text))
             {
-                await Navigation.PopAsync();
+                LabelAviso.Text = "El Email no puede estar en blanco.";
+                LabelAviso.IsVisible = true;
+                Email.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(Nombre.Text))
+            {
+                LabelAviso.Text = "El Nombre no puede estar en blanco.";
+                LabelAviso.IsVisible = true;
+                Nombre.Focus();
+                return;
+            }
+            if (ClaveSHA.Text.ToUpper() != _usuario.ClaveSHA)
+            {
+                LabelAviso.Text = "La clave SHA no es modificable.";
+                LabelAviso.IsVisible = true;
+                ClaveSHA.Text = _usuario.ClaveSHA;
+                ClaveSHA.Focus();
                 return;
             }
 
-            if (usuario.Email != _usuario.Email)
+            // Si cambia de email no se guardan los cambios.
+            if (usuario.Email.ToLower() != _usuario.Email.ToLower())
             {
-                // Enviar un código de confirmación a su email
-                // y validarlo antes de seguir
-                //await DisplayAlert("Cambio de email.", 
-                //                  $"Has indicado otro email diferente.{App.crlf}" +
-                //                  "Debes indicar el código de validación (enviado a ese email) para efectuar el cambio.",
-                //                  "ACEPTAR","-");
+                var sb = new StringBuilder();
+                sb.AppendLine($"Hola {_usuario.Nombre},");
+                sb.AppendLine($"Has solicitado cambiar el email usado en el programa: '{_usuario.Email}',");
+                sb.AppendLine($"por otro diferente: '{usuario.Email}'.");
+                sb.AppendLine();
+                sb.AppendLine("Si no has sido tú, seguramente deberías cambiar el password porque alguien ha accedido con tus datos.");
+                sb.AppendLine();
+                sb.AppendLine("Si has sido tú, te mando otro mensaje a la nueva cuenta que quieres usar.");
+                sb.AppendLine("Por favor, confirma (respondiendo a los dos mensajes) que es correcto ese cambio.");
+                sb.AppendLine("También indicame el nuevo password a usar cuando respondas al mensaje recibido en la nueva cuenta de email.");
+                sb.AppendLine("Después podrás cambiarlo usando esta misma página del Perfil del usuario.");
+                sb.AppendLine();
+                sb.AppendLine("Gracias.");
+                sb.AppendLine("Guillermo");
+                sb.AppendLine("---------");
+                sb.AppendLine($"{App.AppName} {App.AppVersion}");
+                await App.SendEmail("Cambio de email", sb.ToString(), _usuario.Email);
 
+                sb.Clear();
+                sb.AppendLine($"Hola {_usuario.Nombre},");
+                sb.AppendLine($"El usuario de la aplicación {App.AppName} con email '{_usuario.Email}' ha solicitado cambiar el email");
+                sb.AppendLine($"por este al que te mando este correo: '{usuario.Email}'.");
+                sb.AppendLine();
+                sb.AppendLine("Si no has sido tú, por favor, indícamelo y procederé como vea conveniente.");
+                sb.AppendLine();
+                sb.AppendLine("Si has sido tú, te he mandado otro mensaje a la cuenta desde la que has solicitado el cambio.");
+                sb.AppendLine("Por favor, confirma (respondiendo a los dos mensajes) que es correcto ese cambio.");
+                sb.AppendLine("También indicame aquí el nuevo password a usar.");
+                sb.AppendLine("Después podrás cambiarlo usando esta misma página del Perfil del usuario.");
+                sb.AppendLine();
+                sb.AppendLine("Gracias.");
+                sb.AppendLine("Guillermo");
+                sb.AppendLine("---------");
+                sb.AppendLine($"{App.AppName} {App.AppVersion}");
+                await App.SendEmail("Cambio de email", sb.ToString(), usuario.Email);
 
-                await DialogService.ShowErrorAsync("Cambio de email.",
-                                                  $"Has indicado otro email diferente.{App.crlf}" +
-                                                  "Debes indicar el código de validación (enviado a ese email) para efectuar el cambio.",
-                                                  "ACEPTAR", UsuarioValidar.CallBackAfertHide);
-
-                UsuarioValidar.ComprobarCodigoValidar();
-
-                if (!Validado)
-                    await Navigation.PopAsync();
-                else
+                btnGuardar.IsEnabled = false;
+                LabelAviso.Text = "Has indicado un nuevo email. No se guardarán los cambios. Responde a los 2 emials enviados. Gracias.";
+                LabelAviso.IsVisible = true;
+                Email.Focus();
+            }
+            else
+            {
+                // Guardar los cambios y asignar el usuario actual con los nuevos datos.
+                if (Password.Text.Any())
                 {
-                    usuario.Validado = true;
-                    UsuarioSQL.GuardarUsuario(usuario);
-                    await Navigation.PushAsync(UsuarioValidar.Current);
+                    // Cambiar el password y guardar la nueva clave SHA
+                    usuario.ClaveSHA = UsuarioSQL.GenerarClaveSHA1(usuario.Email, Password.Text);
+                    usuario.Password = Password.Text;
+                    App.UltimoPassword = usuario.Password;
                 }
-                    
-            }
-            else
-                Validado = true;
-
-            // Solo cambiar el password si está validado
-            // si no se cambia el email se considera validado
-            if (Password.Text.Any() && Validado)
-            {
-                // Cambiar el password y generar la nueva clave SHA
-                usuario.ClaveSHA = UsuarioSQL.GenerarClaveSHA1(usuario.Email, Password.Text);
-            }
-            if (!Validado)
-            {
-                // Esperar la confirmación de la validación.
-                UsuarioValidar.CodigoValidar = App.CodigoValidación(usuario.Email).Result;
-                UsuarioValidar.ComprobarCodigoValidar();
-                //await Navigation.PushAsync(UsuarioValidar.Current);
-                //await Navigation.PushAsync(new UsuarioValidar(App.CodigoValidación(usuario.Email).Result));
-                if (!Validado)
-                    await Navigation.PopAsync();
-                else
-                    await Navigation.PushAsync(UsuarioValidar.Current);
-            }
-            else
-            {
                 UsuarioSQL.GuardarUsuario(usuario);
-                await Navigation.PopAsync();
+                UsuarioSQL.UsuarioLogin = usuario;
+                App.UltimoUsuario = usuario.Email;
+                LabelAviso.Text = "Se han guardado correctamente los nuevos datos.";
+                LabelAviso.IsVisible = true;
             }
         }
     }

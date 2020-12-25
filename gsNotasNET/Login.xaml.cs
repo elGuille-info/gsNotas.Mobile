@@ -26,6 +26,7 @@ namespace gsNotasNET
             InitializeComponent();
             Current = this;
             _pagina = pagina;
+            Title = $"{App.AppName} {App.AppVersion}";
 
             if (App.RecordarUsuario)
                 email.Text = App.UltimoUsuario;
@@ -61,63 +62,76 @@ namespace gsNotasNET
         {
             LabelInfo.IsVisible = false;
 
-            UsuarioSQL.ComprobarContraseña(email.Text, password.Text);
-
-            if (UsuarioSQL.UsuarioLogin.ID != 0)
+            if (UsuarioSQL.ComprobarContraseña(email.Text, password.Text))
             {
-                await Navigation.PushAsync(new CopiarSQLLite(_pagina));
+                // Guardar el último usuario que accede
+                App.UltimoUsuario = UsuarioSQL.UsuarioLogin.Email;
+                App.UltimoPassword = UsuarioSQL.UsuarioLogin.Password;
 
-                // Si no está validado, enviar código de validación
+                // si es el usuario de prueba, no hacer nada.
+                if (UsuarioSQL.UsuarioLogin.Email.ToLower() == "prueba")
+                {
+                    LabelInfo.Text = "Has indicado el usuario de prueba. Te recuerdo que estas notas estarán visibles a todos los que entren con estas credenciales.";
+                    LabelInfo.IsVisible = true;
+                    return;
+                }
+                // Avisar si no está validado
                 if (!UsuarioSQL.UsuarioLogin.Validado)
                 {
-                    //await DialogService.ShowErrorAsync("Validar email.",
-                    //                                  $"Aún no has validado el correo.{App.crlf}" +
-                    //                                  $"Debes indicar el código de validación{App.crlf}" +
-                    //                                  $"(enviado a tu email){App.crlf}" +
-                    //                                  "para usar la aplicación.",
-                    //                                  "ACEPTAR", UsuarioValidar.CallBackAfertHide);
-                    var uv = new UsuarioValidar(App.CodigoValidación(UsuarioSQL.UsuarioLogin.Email).Result, Current);
-                    await Current.Navigation.PushAsync(uv);
+                    await App.CodigoValidación(UsuarioSQL.UsuarioLogin.Email);
+                    var minutos = 60 - DateTime.UtcNow.Minute;
+                    string plural = (minutos == 1) ? "" : "s";
+                    LabelInfo.Text = "Aún no has validado tu email. " +
+                        "Te he enviado un correo con el código de validación. " +
+                        $"Úsalo en la página de validar antes de {minutos} minuto{plural}. Gracias.";
+                    LabelInfo.IsVisible = true;
+                    //VolverAMain();
+                    //await Navigation.PushAsync(new MainMenu());
+                    //Application.Current.MainPage = new NavigationPage(new MainMenu());
+                    //return;
                 }
+                else
+                {
+                    if (!UsuarioSQL.UsuarioLogin.NotasCopiadas)
+                    {
+                        // Si se han copiado las notas de SQL Lite.
+                        // Hasta que no esté validado no se copiarán.
+                        await Navigation.PushAsync(new CopiarSQLLite(_pagina));
+                        return;
+                    }
+                }
+                VolverAMain();
             }
             else
             {
-                // No es correcta o existe
-
-                // Preguntar si quiere registrarse
-                // No, simplemente mostrar el mensaje y que se registre si quiere
-                //if (UsuarioSQL.UsuarioLogin.ID == 0)
-                //{
-                //    // Enviarlo a la página de registro???
-                //    // 
-                //    bool res = await DisplayAlert("Registrarte",
-                //                      $"¿Quieres registrarte para usar esta aplicación?",
-                //                      "SI", "NO");
-                //    if (res == false)
-                //    {
-                //        LabelInfo.Text = "Debes indicar un usuario y password correctos.";
-                //        LabelInfo.IsVisible = true;
-                //        email.Focus();
-                //        return;
-                //    }
-                //    else
-                //    {
-                //        await Navigation.PushAsync(new UsuarioPerfil(UsuarioSQL.UsuarioLogin));
-                //    }
-                //}
                 LabelInfo.Text = "El usuario y/o el password no son correctos.";
                 LabelInfo.IsVisible = true;
                 email.Focus();
+                return;
             }
         }
 
-        protected override void OnAppearing()
+        async private void VolverAMain()
         {
-            base.OnAppearing();
-
-            Title = $"{App.AppName} {App.AppVersion}";
-
+            if (_pagina is null)
+            {
+                Application.Current.MainPage = new NavigationPage(new MainMenu());
+            }
+            else
+            {
+                try
+                {
+                    await Navigation.PushAsync(_pagina);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    _pagina = null;
+                    VolverAMain();
+                }
+            }
         }
+
 
         private void btnPrivacidad_Clicked(object sender, EventArgs e)
         {

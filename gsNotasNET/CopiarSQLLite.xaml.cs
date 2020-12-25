@@ -24,21 +24,14 @@ namespace gsNotasNET
 
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
-            // Si se está usando desde el IDE de VS
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                if (UsuarioSQL.UsuarioLogin.NotasCopiadas)
-                {
-                    VolverAMain();
-                    return;
-                }
-            }
-            else if (UsuarioSQL.UsuarioLogin.NotasCopiadasAndroid)
+            Title = $"Copiar SQLLite - {App.AppName} {App.AppVersion}";
+
+            if (UsuarioSQL.UsuarioLogin.NotasCopiadas)
             {
                 VolverAMain();
                 return;
             }
-                
+
             // Comprobar si hay mensajes en la base de SQL Lite.
             var tn = App.Database.CountAsync();
             if (tn.Result == 0)
@@ -67,7 +60,7 @@ namespace gsNotasNET
             
             LabelInfo.Text = $"Se han copiado {total} de {tn.Result} notas anteriores." + 
                              $"{App.crlf}{App.crlf}Pulsa en el botón 'Finalizar' para ir a la aplicación.";
-            
+
             UsuarioSQL.UsuarioLogin.NotasCopiadas = true;
             UsuarioSQL.GuardarUsuario(UsuarioSQL.UsuarioLogin);
             btnFinalizar.IsVisible = true;

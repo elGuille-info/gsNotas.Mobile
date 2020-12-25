@@ -21,11 +21,11 @@ namespace gsNotasNET
             Current = this;
         }
 
-        private void ContentPage_Appearing(object sender, EventArgs e)
+        async private void ContentPage_Appearing(object sender, EventArgs e)
         {
             if (UsuarioSQL.UsuarioLogin is null)
             {
-                Navigation.PushAsync(new Login(Current));
+                await Navigation.PushAsync(new Login(Current));
                 return;
             }
             // Solo las notas que no estén archivadas ni eliminadas
@@ -78,6 +78,8 @@ namespace gsNotasNET
             Current.LabelInfo.Text = s;
         }
 
+        #region  Para copiar las notas en Drive
+
         private async void CopiarEnDrive_Clicked(object sender, EventArgs e)
         {
             // Por ahora no usarlo
@@ -98,14 +100,14 @@ namespace gsNotasNET
             //    if(!lasNotas.ContainsKey(g))
             //    {
             //        lasNotas.Add(g, new List<string>());
-                    
+
             //        var colNotas = App.Database.GetNotesAsync(g);
-                    
+
             //        var col = new List<string>();
-                    
+
             //        foreach (var n in colNotas.Result)
             //            col.Add(n.Text);
-                    
+
             //        lasNotas[g] = col;
             //    }
             //}
@@ -146,6 +148,8 @@ namespace gsNotasNET
             Current.LabelInfo.BackgroundColor = Color.Firebrick;
             Current.LabelInfo.TextColor = Color.White;
         }
+
+        #endregion
 
         private void btnPrivacidad_Clicked(object sender, EventArgs e)
         {
