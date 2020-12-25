@@ -12,6 +12,7 @@ Las notas añadidas hasta que de el pistoletazo de salida no serán permanentes,
 De todas formas, antes de eliminarlas, comprobaré que no haya notas distintas a las mías.<br>
 <br>
 <br>
+
 > **NOTA:** <br>
 > Debido a que se usa una base de datos de SQL Server y no es plan de compartir las credenciales de acceso.<br>
 > Esas credenciales las he guardado en un fichero (**encrypted-string.txt**) que no está aquí publicado.<br>
