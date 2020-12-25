@@ -12,7 +12,7 @@ Las notas añadidas hasta que de el pistoletazo de salida no serán permanentes,
 De todas formas, antes de eliminarlas, comprobaré que no haya notas distintas a las mías.<br>
 <br>
 <br>
-> **NOTA:**<br>
+> **NOTA:** <br>
 > Debido a que se usa una base de datos de SQL Server y no es plan de compartir las credenciales de acceso.<br>
 > Esas credenciales las he guardado en un fichero (**encrypted-string.txt**) que no está aquí publicado.<br>
 > Por tanto, si quiers usar este código para crear tu propia versión de la aplicación tendrás que crear ese fichero en el que debes incluir el nombre del usuario y el password, cada dato en una línea.<br>
@@ -27,7 +27,7 @@ De todas formas, antes de eliminarlas, comprobaré que no haya notas distintas a
 
 # Las cosas de la versión 1.0.0.*
 
-> **Nota:**<br>
+> **Nota:** <br>
 > La última versión que usa SQL Lite es la v1.0.0.18 y la puedes descargar de las **releases**<br>
 <br>
 
