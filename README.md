@@ -6,10 +6,10 @@
 Ahora se accede a una base de datos de SQL Server.
 
 ## Ya está el instalador para la versión 2.0.0.25 del 25-dic-2020
-
-Se supone que ya funciona todo... tendré que hacer algunas comprobaciones finales y lo daré por buena esta versión (y las posteriores).
-Las notas añadidas hasta que de el pistoletazo de salida no serán permanentes, ya que he hecho muchas de prueba y las voy a borrar antes de poner la aplicación como **publicada** y utilizable, te lo digo por si añades notas y desaparecen, que sepas el porqué.
-De todas formas, antes de eliminarlas, comprobaré que no haya notas distintas a las mías.
+<br>
+Se supone que ya funciona todo... tendré que hacer algunas comprobaciones finales y lo daré por buena esta versión (y las posteriores).<br>
+Las notas añadidas hasta que de el pistoletazo de salida no serán permanentes, ya que he hecho muchas de prueba y las voy a borrar antes de poner la aplicación como **publicada** y utilizable, te lo digo por si añades notas y desaparecen, que sepas el porqué.<br>
+De todas formas, antes de eliminarlas, comprobaré que no haya notas distintas a las mías.<br>
 
 
 > **NOTA:**<br>
