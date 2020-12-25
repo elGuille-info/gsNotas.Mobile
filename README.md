@@ -10,8 +10,8 @@ Ahora se accede a una base de datos de SQL Server.
 Se supone que ya funciona todo... tendré que hacer algunas comprobaciones finales y lo daré por buena esta versión (y las posteriores).<br>
 Las notas añadidas hasta que de el pistoletazo de salida no serán permanentes, ya que he hecho muchas de prueba y las voy a borrar antes de poner la aplicación como **publicada** y utilizable, te lo digo por si añades notas y desaparecen, que sepas el porqué.<br>
 De todas formas, antes de eliminarlas, comprobaré que no haya notas distintas a las mías.<br>
-
-
+<br>
+<br>
 > **NOTA:**<br>
 > Debido a que se usa una base de datos de SQL Server y no es plan de compartir las credenciales de acceso.<br>
 > Esas credenciales las he guardado en un fichero (**encrypted-string.txt**) que no está aquí publicado.<br>
