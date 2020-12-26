@@ -5,6 +5,14 @@
 
 Ahora se accede a una base de datos de SQL Server.
 
+## gsNotasNET.Android v2.0.0.28
+Ya está operativa la base de datos (he eliminado todas las notas de prueba).
+
+Puedes registrarte directamente en la aplicación o mandar un mensaje a **coreos.elguille.info@gmail.com** indicando tu nombre completo, cuenta de gmail y el password y te añadiré...
+
+En las releases está el paquete de instalación.
+
+
 ## Ya está el instalador para la versión 2.0.0.25 del 25-dic-2020
 <br>
 Se supone que ya funciona todo... tendré que hacer algunas comprobaciones finales y lo daré por buena esta versión (y las posteriores).<br>
