@@ -10,7 +10,7 @@ Ya está operativa la base de datos (he eliminado todas las notas de prueba).
 
 Puedes registrarte directamente en la aplicación o mandar un mensaje a **coreos.elguille.info@gmail.com** indicando tu nombre completo, cuenta de gmail y el password y te añadiré...
 
-En las releases está el paquete de instalación.
+En las releases está el paquete de instalación [**gsNotasNET.Android v2.0.0.28**](https://github.com/elGuille-info/gsNotasNET.Android/releases/tag/v2.0.0.28).
 
 <br>
 <br>
