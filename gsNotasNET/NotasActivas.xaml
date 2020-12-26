@@ -29,10 +29,11 @@
                             <Label Text="{Binding TituloNota}" FontAttributes="Bold"/>
                             <Label>
                                 <Label.Text>
-                                    <MultiBinding StringFormat="{}{0} - Fav. {2}, Mod. {1}">
+                                    <MultiBinding StringFormat="{}{0}, Fav. {2}, Mod. {1}, Arch. {3}">
                                         <Binding Path="Grupo"/>
                                         <Binding Path="Modificada"/>
                                         <Binding Path="Favorita"/>
+                                        <Binding Path="Archivada"/>
                                     </MultiBinding>
                                 </Label.Text>
                             </Label>

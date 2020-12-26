@@ -343,7 +343,8 @@ namespace gsNotasNET.Models
         {
             int ret = 0;
 
-            var sel = $"SELECT Count(*) FROM {TablaNotas} WHERE idUsuario = {idUsuario} AND (Eliminada = 0  AND Archivada = 0)";
+            var sel = $"SELECT Count(*) FROM {TablaNotas} " +
+                       "WHERE idUsuario = {idUsuario} AND (Eliminada = 0  AND Archivada = 0)";
             var con = new SqlConnection(CadenaConexion);
             try
             {
@@ -441,7 +442,8 @@ namespace gsNotasNET.Models
         {
             int ret = 0;
 
-            var sel = $"SELECT Count(*) FROM {TablaNotas} WHERE idUsuario = {idUsuario} AND Favorita = 1 AND (Eliminada = 0  AND Archivada = 0)";
+            var sel = $"SELECT Count(*) FROM {TablaNotas} " +
+                       "WHERE idUsuario = {idUsuario} AND Favorita = 1 AND (Eliminada = 0  AND Archivada = 0)";
             var con = new SqlConnection(CadenaConexion);
             try
             {
@@ -568,6 +570,69 @@ namespace gsNotasNET.Models
 
             return colNotas;
         }
+
+        /// <summary>
+        /// Buscar notas según el texto indicado.
+        /// </summary>
+        /// <param name="idUsuario">El id del usuario.</param>
+        /// <param name="buscar">El texto a buscar.</param>
+        /// <param name="archivada">Si se busca en las archivadas.</param>
+        /// <param name="favorita">Si se busca en las favoritas.</param>
+        /// <returns>Una colección con las notas halladas.</returns>
+        public static List<NotaSQL> NotasBuscar(int idUsuario, string buscar, bool favoritas, bool archivadas)
+        {
+            var colNotas = new List<NotaSQL>();
+
+            string sArchivadas, sFavoritas;
+
+            if (!archivadas)
+            {
+                sArchivadas = "(Archivada = 1 OR Archivada = 0) ";
+            }
+            else
+            {
+                sArchivadas = "(Archivada = 1) ";
+            }
+
+            if (!favoritas)
+            {
+                sFavoritas = "(Favorita = 1 OR Favorita = 0) ";
+            }
+            else
+            {
+                sFavoritas = "(Favorita = 1) ";
+            }
+
+            var sel = $"SELECT * FROM {TablaNotas} ";
+            sel += $"WHERE idUsuario = {idUsuario} AND Texto like '%{buscar}%' " + 
+                   $"AND {sFavoritas} AND {sArchivadas} ";
+            sel += "ORDER BY Grupo ASC, Favorita, Modificada DESC, ID";
+
+            var con = new SqlConnection(CadenaConexion);
+            try
+            {
+                con.Open();
+                var cmd = new SqlCommand(sel, con);
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    colNotas.Add(AsignarNota(reader));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (!(con is null))
+                    con.Close();
+            }
+
+            return colNotas;
+        }
+
 
         /// <summary>
         /// Devuelve la nota con el ID indicado.

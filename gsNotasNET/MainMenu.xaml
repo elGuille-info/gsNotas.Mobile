@@ -12,7 +12,7 @@
         </Style>
     </ContentPage.Resources>
     <StackLayout>
-        <Label x:Name="LabelInfo" Text=""  Padding="3,0,3,0" />
+        <Label x:Name="LabelInfo" Text=""  Padding="3,0,3,0" FontSize="Medium" />
         <!-- por motivos de rendimiento y memoria se debe especificar RecycleElement al construir una nueva vista de lista -->
         <ListView BackgroundColor="{StaticResource AppTextColor}"
               x:Name="ListMenu"

@@ -24,27 +24,37 @@ namespace gsNotasNET
 
         public void MyMenu()
         {
-            Title = $"Menú - {App.AppName} {App.AppVersion}";
-            //Detail = new Configuracion();
-            List<Menu> menu = new()
+            var menu = new List<Menu>();
+
+            // Solo asignar las cosas si el usuario está registrado.
+            // Aunque siempre se iniciará con el usuario de prueba.
+            if (!(UsuarioSQL.UsuarioLogin is null))
             {
-                new Menu { Page = new NotasActivas(), MenuTitle = "Notas", MenuDetail = "Muestra las notas no archivadas.", Icon = "XNotas.png" },
-                new Menu { Page = new NotasFavoritas(), MenuTitle = "Notas Favoritas", MenuDetail = "Muestra las notas favoritas.", Icon = "XConfigurar_usuario_clip.png" },
-                new Menu { Page = new NotasArchivadas(), MenuTitle = "Notas Archivadas", MenuDetail = "Muestra las notas archivadas.", Icon = "XGrupos.png" },
-                new Menu { Page = new NotasEliminadas(), MenuTitle = "Notas Eliminadas", MenuDetail = "Muestra las notas eliminadas.", Icon = "XNotasEliminadas.png" },
-                new Menu { Page = new GruposMostrar(), MenuTitle = "Grupos", MenuDetail = "Muestra los grupos creados con las notas.", Icon = "XSeleccionar_opciones.png" }
-            };
-            if (!(UsuarioSQL.UsuarioLogin is null) && UsuarioSQL.UsuarioLogin.Email.ToLower() != "prueba")
-            {
-                menu.Add(new Menu { Page = new UsuarioPerfil(UsuarioSQL.UsuarioLogin), MenuTitle = "Perfil", MenuDetail = "Modifica el perfil del usuario actual", Icon = "XConfigurar_usuario.png" });
-                menu.Add(new Menu { Page = new UsuarioValidar(), MenuTitle = "Validar Email", MenuDetail = "Validar el correo usado para entrar en la aplicación.", Icon = "XUsuarioValidar.png" });
+                menu = new()
+                {
+                    new Menu { Page = new NotasActivas(), MenuTitle = "Notas", MenuDetail = "Muestra las notas no archivadas.", Icon = "XNotas.png" },
+                    new Menu { Page = new NotasFavoritas(), MenuTitle = "Notas Favoritas", MenuDetail = "Muestra las notas favoritas.", Icon = "XConfigurar_usuario_clip.png" },
+                    new Menu { Page = new NotasArchivadas(), MenuTitle = "Notas Archivadas", MenuDetail = "Muestra las notas archivadas.", Icon = "XGrupos.png" },
+                    new Menu { Page = new NotasEliminadas(), MenuTitle = "Notas Eliminadas", MenuDetail = "Muestra las notas eliminadas.", Icon = "XNotasEliminadas.png" },
+                    new Menu { Page = new GruposMostrar(), MenuTitle = "Grupos", MenuDetail = "Muestra los grupos creados con las notas.", Icon = "XSeleccionar_opciones.png" },
+                    new Menu { Page = new NotasBuscar(), MenuTitle = "Buscar", MenuDetail = "Buscar texto en las notas.", Icon = "XBuscar.png" }
+                };
+                if (UsuarioSQL.UsuarioLogin.Email.ToLower() != "prueba")
+                {
+                    menu.Add(new Menu { Page = new UsuarioPerfil(UsuarioSQL.UsuarioLogin), MenuTitle = "Perfil", MenuDetail = "Modifica el perfil del usuario actual", Icon = "XConfigurar_usuario.png" });
+                }
+                if (UsuarioSQL.UsuarioLogin.Email.ToLower().IndexOf("elguille.info@") > -1)
+                {
+                    menu.Add(new Menu { Page = new UsuariosMostrar(), MenuTitle = "Usuarios", MenuDetail = "Muestra los usuarios activos.", Icon = "XUsuarios.png" });
+                }
+                menu.Add(new Menu { Page = new Configuracion(), MenuTitle = "Configuración", MenuDetail = "Configuración del programa.", Icon = "XConfigApp.png" });
+                if (UsuarioSQL.UsuarioLogin.Email.ToLower() != "prueba")
+                {
+                    menu.Add(new Menu { Page = new UsuarioValidar(), MenuTitle = "Validar Email", MenuDetail = "Validar el correo usado para entrar en la aplicación.", Icon = "XUsuarioValidar.png" });
+                }
             }
-            if (!(UsuarioSQL.UsuarioLogin is null) &&  UsuarioSQL.UsuarioLogin.Email.ToLower().IndexOf("elguille.info@") > -1)
-            {
-                menu.Add(new Menu { Page = new UsuariosMostrar(), MenuTitle = "Usuarios", MenuDetail = "Muestra los usuarios activos.", Icon = "XUsuarios.png" });
-            }
-            menu.Add(new Menu { Page = new Configuracion(), MenuTitle = "Configuración", MenuDetail = "Configuración del programa.", Icon = "XConfigApp.png" });
             menu.Add(new Menu { Page = new Comentarios(), MenuTitle = "Comentarios", MenuDetail = "Enviar comentarios a elGuille.", Icon = "XEnviarComentarios.png" });
+            menu.Add(new Menu { Page = new AcercaDegsNotasNET(), MenuTitle = "Acerca de...", MenuDetail = "Información breve de la aplicación.", Icon = "XAppInfo.png" });
             menu.Add(new Menu { Page = new Login(), MenuTitle = "Cambiar de Usuario", MenuDetail = "Cambiar de usuario o iniciar sesión.", Icon = "XLogin.png" });
             ListMenu.ItemsSource = menu;
         }
@@ -57,7 +67,7 @@ namespace gsNotasNET
                 LabelInfo.Text = "No hay usuario logueado.";
             }
             else
-                LabelInfo.Text = $"Sesión iniciada con {UsuarioSQL.UsuarioLogin.Email}.";
+                LabelInfo.Text = $"Usuario: {UsuarioSQL.UsuarioLogin.Email} ({UsuarioSQL.UsuarioLogin.Nombre}).";
 
             MyMenu();
         }

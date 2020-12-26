@@ -18,7 +18,7 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2..25";
+        public static string AppVersion { get; } = "v2..26";
 
         /// <summary>
         /// El nombre de la aplicación
@@ -66,6 +66,27 @@ namespace gsNotasNET
             get { return (bool)Application.Current.Properties["RecordarPassword"]; }
             set { Application.Current.Properties["RecordarPassword"] = value; } 
         }
+        //
+        public static string BuscarTexto
+        {
+            get { return Application.Current.Properties["BuscarTexto"].ToString(); }
+            set { Application.Current.Properties["BuscarTexto"] = value; }
+        }
+        public static bool BuscarFavoritas
+        {
+            get { return (bool)Application.Current.Properties["BuscarFavoritas"]; }
+            set { Application.Current.Properties["BuscarFavoritas"] = value; }
+        }
+        public static bool BuscarArchivadas
+        {
+            get { return (bool)Application.Current.Properties["BuscarArchivadas"]; }
+            set { Application.Current.Properties["BuscarArchivadas"] = value; }
+        }
+        public static bool BuscarEliminadas
+        {
+            get { return (bool)Application.Current.Properties["BuscarEliminadas"]; }
+            set { Application.Current.Properties["BuscarEliminadas"] = value; }
+        }
 
         private void CrearPropiedadesApp()
         {
@@ -77,6 +98,15 @@ namespace gsNotasNET
                 Application.Current.Properties.Add("RecordarUsuario", false);
             if (!Application.Current.Properties.ContainsKey("RecordarPassword"))
                 Application.Current.Properties.Add("RecordarPassword",false);
+            // Para la búsqueda
+            if (!Application.Current.Properties.ContainsKey("BuscarTexto"))
+                Application.Current.Properties.Add("BuscarTexto", "");
+            if (!Application.Current.Properties.ContainsKey("BuscarFavoritas"))
+                Application.Current.Properties.Add("BuscarFavoritas", false);
+            if (!Application.Current.Properties.ContainsKey("BuscarArchivadas"))
+                Application.Current.Properties.Add("BuscarArchivadas", false);
+            if (!Application.Current.Properties.ContainsKey("BuscarEliminadas"))
+                Application.Current.Properties.Add("BuscarEliminadas", false);
         }
 
         /// <summary>

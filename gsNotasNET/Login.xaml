@@ -5,8 +5,7 @@
              Title="gsNotasNET.Android">
     <ContentPage.Content>
         <StackLayout BackgroundColor="{StaticResource AppTextColor}" Margin="4">
-            <Label BackgroundColor="{StaticResource AppTextColor}" 
-                   TextColor="{StaticResource AppBackgroundColor}"
+            <Label BackgroundColor="{StaticResource AppTextColor}" TextColor="{StaticResource AppBackgroundColor}"
                    FontSize="Medium"
                    VerticalOptions="StartAndExpand" Padding="10">
                 <Label.Text>Indica tu usuario y contraseña.

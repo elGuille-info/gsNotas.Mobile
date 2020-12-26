@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.NotasBuscar"
+             Appearing="ContentPage_Appearing"
+             Title="Buscar en las notas">
+    <StackLayout Margin="{StaticResource PageMargin}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="70" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Editor x:Name="txtBuscar" Placeholder="Texto a buscar" 
+                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                    FontSize="Medium" HeightRequest="45" />
+            <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+                <Label Text="Favoritas: " />
+                <Switch x:Name="chkFavorita" 
+                        IsToggled="{Binding Favorita}"  />
+            </StackLayout>
+            <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                <Label Text="Archivadas: " />
+                <Switch x:Name="chkArchivada" 
+                        IsToggled="{Binding Archivada}"  />
+            </StackLayout>
+            <Button x:Name="btnBuscar" Text="Buscar" 
+                    Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                    Clicked="btnBuscar_Clicked" />
+            <Label x:Name="LabelAviso" 
+                   Text="Indica el texto a buscar y pulsa en el botón. Si marcas Favorita o Archivada se tendrán en cuenta ese tipo de notas, si no, se incluirán todas las favoritas o archivadas."
+                   Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+        </Grid>
+        <Grid Margin="{StaticResource PageMargin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label x:Name="LabelInfo" Text=""/>
+            <!-- por motivos de rendimiento y memoria se debe especificar RecycleElement al construir una nueva vista de lista -->
+            <ListView x:Name="listView" Grid.Row="1" ItemTapped="Handle_ItemTapped"
+                  CachingStrategy="RecycleElement"
+                  ItemSelected="OnListViewItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding TituloNota}" FontAttributes="Bold" />
+                                <Label>
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0}, Fav. {2}, Mod. {1}, Arch. {3}">
+                                            <Binding Path="Grupo"/>
+                                            <Binding Path="Modificada"/>
+                                            <Binding Path="Favorita"/>
+                                            <Binding Path="Archivada"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </StackLayout>
+</ContentPage>

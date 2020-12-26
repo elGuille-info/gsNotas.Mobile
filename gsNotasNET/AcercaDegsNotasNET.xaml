@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.AcercaDegsNotasNET">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="{StaticResource AppTextColor}" Margin="4">
+            <Label x:Name="LabelTitulo" Text="" FontSize="Medium" HorizontalTextAlignment="Center" Padding="2"
+                   TextColor="{StaticResource AppTextColor}" BackgroundColor="{StaticResource AppBackgroundColor}"/>
+            <Label BackgroundColor="{StaticResource AppTextColor}" TextColor="{StaticResource AppBackgroundColor}"
+                   FontSize="Medium"
+                   VerticalOptions="StartAndExpand" Padding="10">
+                <Label.Text>Esta es una utilidad para guardar notas en una base de datos de SQL Server.
+
+Debes registrarte si quieres tener tus propias notas solo visibles para ti.
+Una vez que te registres, tendrás que validar tu correo.
+
+Podrás añadir notas indicando si quieres que se marquen como favoritas (aparecen primero en la lista de notas).
+
+También puedes marcar una nota como archivada o eliminada. Las notas eliminadas en realidad no se eliminan y puedes recuperarlas cuando quieras.
+
+Puedes hacer búsqueda en las notas: todas (sin incluir las eliminadas), las favoritas o las archivadas.
+
+Espero que te sea de utilidad.
+Guillermo.</Label.Text>
+            </Label>
+            <Button x:Name="btnPrivacidad" Text="Política de privacidad" 
+                    Grid.Row="1" HeightRequest="35"
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="{StaticResource AppBackgroundColor}"
+                    TextColor="{StaticResource AppTextColor}"
+                    Clicked="btnPrivacidad_Clicked" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Xamarin.Forms;
-using gsNotasNET.Models;
-using gsNotasNET.Data;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
+
+using gsNotasNET.Models;
+
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+//using System.IO;
+using gsNotasNET.Data;
+//using System.ComponentModel;
+//using System.Runtime.CompilerServices;
+//using Xamarin.Essentials;
 
 namespace gsNotasNET
 {
@@ -94,10 +99,10 @@ namespace gsNotasNET
             //gsNotasNET.APIs.ApisDriveDocs.GuardandoNotas += ApisDriveDocs_GuardandoNotas;
 
             //var lasNotas = new Dictionary<string, List<string>>();
-            //var grupos = NotaSQL.Grupos();
-            //foreach(var g in grupos)
+            //var grupos = NotaSQL.Grupos(UsuarioSQL.UsuarioLogin.ID);
+            //foreach (var g in grupos)
             //{
-            //    if(!lasNotas.ContainsKey(g))
+            //    if (!lasNotas.ContainsKey(g))
             //    {
             //        lasNotas.Add(g, new List<string>());
 
@@ -117,12 +122,12 @@ namespace gsNotasNET
 
             //    LabelInfo.Text = $"Se han copiado {t} notas en los documentos de Drive.";
             //}
-            //catch(Exception ex)
+            //catch (Exception ex)
             //{
             //    var crlf = "\r\n";
-            //    await Navigation.PushAsync(new NoteEntryPage
+            //    await Navigation.PushAsync(new NotaEditar
             //    {
-            //        BindingContext = new Nota() { Text = $"Error:{crlf}{ex.Message}", Grupo = "Drive-Docs" }
+            //        BindingContext = new NotaSQL() { Texto = $"Error:{crlf}{ex.Message}", Grupo = "Drive-Docs" }
             //    }); ;
             //    ApisDriveDocs_FinalizadoGuardarNotasEnDrive();
             //}
