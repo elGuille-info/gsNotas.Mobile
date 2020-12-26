@@ -44,7 +44,7 @@ namespace gsNotasNET
             }
             if(_Usuarios is null || _Usuarios.Count() == 0)
             {
-                _Usuarios = UsuarioSQL.Usuarios();
+                _Usuarios = UsuarioSQL.Usuarios(todos: true);
             }
             listView.ItemsSource = _Usuarios;
 

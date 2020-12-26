@@ -507,7 +507,7 @@ namespace gsNotasNET.Models
                 sel += "WHERE ";
             sel += $"({sArchivadas} AND {sEliminadas}) ";
 
-            sel += "ORDER BY Grupo ASC, Favorita, Modificada DESC, ID";
+            sel += "ORDER BY Favorita, Grupo ASC, Modificada DESC, ID";
             var con = new SqlConnection(CadenaConexion);
             try
             {

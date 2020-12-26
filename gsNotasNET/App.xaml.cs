@@ -18,7 +18,7 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2..26";
+        public static string AppVersion { get; } = "v2..28";
 
         /// <summary>
         /// El nombre de la aplicación
@@ -95,7 +95,7 @@ namespace gsNotasNET
             if (!Application.Current.Properties.ContainsKey("UltimoPassword"))
                 Application.Current.Properties.Add("UltimoPassword", "");
             if (!Application.Current.Properties.ContainsKey("RecordarUsuario"))
-                Application.Current.Properties.Add("RecordarUsuario", false);
+                Application.Current.Properties.Add("RecordarUsuario", true);
             if (!Application.Current.Properties.ContainsKey("RecordarPassword"))
                 Application.Current.Properties.Add("RecordarPassword",false);
             // Para la búsqueda

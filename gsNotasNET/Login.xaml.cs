@@ -32,7 +32,7 @@ namespace gsNotasNET
                 email.Text = App.UltimoUsuario;
             else
             {
-#if true
+#if false
                 email.Text = Usuario;
 #else
                 email.Text = "prueba";
@@ -42,7 +42,7 @@ namespace gsNotasNET
                 password.Text = App.UltimoPassword;
             else
             {
-#if true
+#if false
                 password.Text = Password;
 #else
                 password.Text = "";

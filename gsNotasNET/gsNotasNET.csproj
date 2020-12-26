@@ -13,12 +13,12 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
     <RepositoryUrl>https://github.com/elGuille-info/gsNotasNETF</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>notas notes dot-net dotnet net-core netcore xamarin android c# c-sharp csharp</PackageTags>
-    <PackageReleaseNotes>v2.0.0.26 26-dic-2020 Añado buscar las notas.</PackageReleaseNotes>
+    <PackageReleaseNotes>v2.0.0.28 26-dic-2020 Ya está la base de datos lista para usar.</PackageReleaseNotes>
     <NeutralLanguage>es-ES</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-      <PackageVersion>2.0.0.26</PackageVersion>
-      <Version>2.0.0.26</Version>
-      <FileVersion>2.0.0.26</FileVersion>
+      <PackageVersion>2.0.0.28</PackageVersion>
+      <Version>2.0.0.28</Version>
+      <FileVersion>2.0.0.28</FileVersion>
     <!--<SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>E:\gsCodigo_00\elGuille\elGuille.snk</AssemblyOriginatorKeyFile>-->
   </PropertyGroup>
