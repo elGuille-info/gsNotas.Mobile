@@ -12,6 +12,8 @@ Puedes registrarte directamente en la aplicación o mandar un mensaje a **coreos
 
 En las releases está el paquete de instalación.
 
+<br>
+<br>
 
 ## Ya está el instalador para la versión 2.0.0.25 del 25-dic-2020
 <br>
