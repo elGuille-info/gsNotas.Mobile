@@ -51,7 +51,7 @@ namespace gsNotasNET
             // Solo si hay texto en buscar
             if (txtBuscar.Text.Any())
             {
-                var notas = NotaSQL.NotasBuscar(UsuarioSQL.UsuarioLogin.ID, txtBuscar.Text, chkFavorita.IsToggled, chkArchivada.IsToggled);
+                var notas = NotaSQL.NotasBuscar(UsuarioSQL.UsuarioLogin.ID, txtBuscar.Text, chkFavorita.IsToggled, chkArchivada.IsToggled, chkEliminada.IsToggled);
                 listView.ItemsSource = notas;
                 var plural = notas.Count() == 1 ? "" : "s";
                 LabelInfo.Text = $"Hallada{plural} {notas.Count()} nota{plural}.";

@@ -20,6 +20,7 @@ namespace gsNotasNET.Models
         public bool Archivada { get; set; } = false;
         public bool Eliminada { get; set; } = false;
         public bool Favorita { get; set; } = false;
+        public bool Sincronizada { get; set; } = false;
 
         private int LongitudTituloNota = 50;
         /// <summary>
@@ -156,7 +157,7 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"UPDATE {TablaNotas} SET idUsuario = @idUsuario, Grupo = @Grupo, Texto = @Texto, Modificada = @Modificada, Archivada = @Archivada, Eliminada = @Eliminada, Favorita = @Favorita  WHERE (ID = @ID)";
+                    sCommand = $"UPDATE {TablaNotas} SET idUsuario = @idUsuario, Grupo = @Grupo, Texto = @Texto, Modificada = @Modificada, Archivada = @Archivada, Eliminada = @Eliminada, Favorita = @Favorita, Sincronizada = @Sincronizada  WHERE (ID = @ID)";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@ID", nota.ID);
@@ -167,6 +168,7 @@ namespace gsNotasNET.Models
                     cmd.Parameters.AddWithValue("@Archivada", nota.Archivada);
                     cmd.Parameters.AddWithValue("@Eliminada", nota.Eliminada);
                     cmd.Parameters.AddWithValue("@Favorita", nota.Favorita);
+                    cmd.Parameters.AddWithValue("@Sincronizada", nota.Sincronizada);
 
                     cmd.Transaction = tran;
                     cmd.ExecuteNonQuery();
@@ -221,7 +223,7 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"INSERT INTO {TablaNotas} (idUsuario, Grupo, Texto, Modificada, Archivada, Eliminada, Favorita) VALUES(@idUsuario, @Grupo, @Texto, @Modificada, @Archivada, @Eliminada, @Favorita) SELECT @@Identity";
+                    sCommand = $"INSERT INTO {TablaNotas} (idUsuario, Grupo, Texto, Modificada, Archivada, Eliminada, Favorita, Sincronizada) VALUES(@idUsuario, @Grupo, @Texto, @Modificada, @Archivada, @Eliminada, @Favorita, @Sincronizada) SELECT @@Identity";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@idUsuario", nota.idUsuario);
@@ -231,6 +233,7 @@ namespace gsNotasNET.Models
                     cmd.Parameters.AddWithValue("@Archivada", nota.Archivada);
                     cmd.Parameters.AddWithValue("@Eliminada", nota.Eliminada);
                     cmd.Parameters.AddWithValue("@Favorita", nota.Favorita);
+                    cmd.Parameters.AddWithValue("@Sincronizada", nota.Sincronizada);
 
                     cmd.Transaction = tran;
 
@@ -507,7 +510,7 @@ namespace gsNotasNET.Models
                 sel += "WHERE ";
             sel += $"({sArchivadas} AND {sEliminadas}) ";
 
-            sel += "ORDER BY Favorita, Grupo ASC, Modificada DESC, ID";
+            sel += "ORDER BY Favorita DESC, Modificada DESC, Grupo ASC, ID";
             var con = new SqlConnection(CadenaConexion);
             try
             {
@@ -576,14 +579,15 @@ namespace gsNotasNET.Models
         /// </summary>
         /// <param name="idUsuario">El id del usuario.</param>
         /// <param name="buscar">El texto a buscar.</param>
-        /// <param name="archivada">Si se busca en las archivadas.</param>
-        /// <param name="favorita">Si se busca en las favoritas.</param>
+        /// <param name="archivadas">Si se busca en las archivadas.</param>
+        /// <param name="favoritas">Si se busca en las favoritas.</param>
+        /// <param name="eliminadas">Si se busca en las eliminadas.</param>
         /// <returns>Una colección con las notas halladas.</returns>
-        public static List<NotaSQL> NotasBuscar(int idUsuario, string buscar, bool favoritas, bool archivadas)
+        public static List<NotaSQL> NotasBuscar(int idUsuario, string buscar, bool favoritas, bool archivadas, bool eliminadas)
         {
             var colNotas = new List<NotaSQL>();
 
-            string sArchivadas, sFavoritas;
+            string sArchivadas, sFavoritas, sEliminadas;
 
             if (!archivadas)
             {
@@ -602,11 +606,15 @@ namespace gsNotasNET.Models
             {
                 sFavoritas = "(Favorita = 1) ";
             }
+            if (!eliminadas)
+                sEliminadas = "(Eliminada = 1 OR Eliminada = 0)";
+            else
+                sEliminadas = "(Eliminada = 1)";
 
             var sel = $"SELECT * FROM {TablaNotas} ";
             sel += $"WHERE idUsuario = {idUsuario} AND Texto like '%{buscar}%' " + 
-                   $"AND {sFavoritas} AND {sArchivadas} ";
-            sel += "ORDER BY Grupo ASC, Favorita, Modificada DESC, ID";
+                   $"AND {sFavoritas} AND {sArchivadas} AND {sEliminadas} ";
+            sel += "ORDER BY Favorita DESC, Modificada DESC, Grupo ASC, ID";
 
             var con = new SqlConnection(CadenaConexion);
             try

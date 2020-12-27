@@ -82,7 +82,10 @@ namespace gsNotasNET.Data
 
         public Task<int> DeleteNoteAsync(Nota note)
         {
-            return _database.DeleteAsync(note);
+            // No eliminar la nota
+            note.Eliminada = true;
+            return SaveNoteAsync(note);
+            //return _database.DeleteAsync(note);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2..28";
+        public static string AppVersion { get; } = "v2..29";
 
         /// <summary>
         /// El nombre de la aplicación

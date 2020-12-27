@@ -28,34 +28,29 @@ namespace gsNotasNET
             _pagina = pagina;
             Title = $"{App.AppName} {App.AppVersion}";
 
+            var modoDebug = false;
+
+            if (System.Diagnostics.Debugger.IsAttached)
+                modoDebug = true;
+
             if (App.RecordarUsuario)
                 email.Text = App.UltimoUsuario;
             else
             {
-#if false
-                email.Text = Usuario;
-#else
-                email.Text = "prueba";
-#endif
+                if (modoDebug)
+                    email.Text = Usuario;
+                else
+                    email.Text = "prueba";
             }
             if (App.RecordarPassword)
                 password.Text = App.UltimoPassword;
             else
             {
-#if false
-                password.Text = Password;
-#else
-                password.Text = "";
-#endif
+                if (modoDebug)
+                    password.Text = Password;
+                else
+                    password.Text = "";
             }
-            //#if true // Para probar sin tener que indicar mi usuario y password
-            //            email.Text = Usuario;
-            //            password.Text = Password;
-
-            //#else
-            //            email.Text = "prueba";
-            //            password.Text = "1234";
-            //#endif
         }
 
         async private void btnAcceder_Clicked(object sender, EventArgs e)

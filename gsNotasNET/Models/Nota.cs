@@ -8,9 +8,14 @@ namespace gsNotasNET.Models
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
-        public string Text { get; set; }
-        public DateTime Date { get; set; }
+        public string Texto { get; set; }
+        public DateTime Modificada { get; set; }
         public string Grupo { get; set; }
+        public bool Archivada { get; set; } = false;
+        public bool Eliminada { get; set; } = false;
+        public bool Favorita { get; set; } = false;
+        public bool Sincronizada { get; set; } = false;
+
 
         //public string Detalle()
         //{

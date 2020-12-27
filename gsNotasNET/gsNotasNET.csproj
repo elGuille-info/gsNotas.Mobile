@@ -7,18 +7,18 @@
 Se utiliza una base de datos para guardar las notas.
 Lamentablemente no se pueden copiar las notas a Google Drive.
 
-(para .NET Standard 2.0 revisión del 26-dic-2020)</Description>
+(para .NET Standard 2.0 revisión del 27-dic-2020)</Description>
     <Copyright>(c) Guillermo Som (elGuille), 2020</Copyright>
     <PackageProjectUrl>http://www.elguillemola.com/utilidades-net/utilidades-para-net-framework-4-8/gsnotasnetf/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/elGuille-info/gsNotasNETF</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>notas notes dot-net dotnet net-core netcore xamarin android c# c-sharp csharp</PackageTags>
-    <PackageReleaseNotes>v2.0.0.28 26-dic-2020 Ya está la base de datos lista para usar.</PackageReleaseNotes>
+    <PackageReleaseNotes>v2.0.0.29 27-dic-2020 Un par de cambios en editar nota, etc.</PackageReleaseNotes>
     <NeutralLanguage>es-ES</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-      <PackageVersion>2.0.0.28</PackageVersion>
-      <Version>2.0.0.28</Version>
-      <FileVersion>2.0.0.28</FileVersion>
+      <PackageVersion>2.0.0.29</PackageVersion>
+      <Version>2.0.0.29</Version>
+      <FileVersion>2.0.0.29</FileVersion>
     <!--<SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>E:\gsCodigo_00\elGuille\elGuille.snk</AssemblyOriginatorKeyFile>-->
   </PropertyGroup>

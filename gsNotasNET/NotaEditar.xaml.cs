@@ -28,6 +28,7 @@ namespace gsNotasNET
             nota.Modificada = DateTime.UtcNow;
             nota.Archivada = chkArchivada.IsToggled;
             nota.Favorita = chkFavorita.IsToggled;
+            nota.Eliminada = chkEliminada.IsToggled;
 
             NotaSQL.GuardarNota(nota);
             await Navigation.PopAsync();

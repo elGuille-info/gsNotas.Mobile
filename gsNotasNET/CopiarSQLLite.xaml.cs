@@ -47,13 +47,17 @@ namespace gsNotasNET
             var total = 0;
             foreach(var note in App.Database.GetNotesAsync().Result)
             {
-                if (!note.Text.Any())
+                if (!note.Texto.Any())
                     continue;
                 var nota = new NotaSQL();
                 nota.idUsuario = UsuarioSQL.UsuarioLogin.ID;
-                nota.Texto = note.Text;
-                nota.Modificada = note.Date;
+                nota.Texto = note.Texto;
+                nota.Modificada = note.Modificada;
                 nota.Grupo = note.Grupo;
+                nota.Eliminada = note.Eliminada;
+                nota.Archivada = note.Archivada;
+                nota.Favorita = note.Favorita;
+                nota.Sincronizada = note.Sincronizada;
                 NotaSQL.GuardarNota(nota);
                 total++;
             }
