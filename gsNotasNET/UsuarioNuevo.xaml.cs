@@ -39,7 +39,7 @@ namespace gsNotasNET
                 // Comprobar si ya existe ese usuario
                 if (UsuarioSQL.Existe(Email.Text))
                 {
-                    LabelInfo.Text = "Debes una cuenta de correo no registrada.";
+                    LabelInfo.Text = "Debes indicar una cuenta de correo no registrada.";
                     LabelInfo.IsVisible = true;
                     Email.Focus();
                     return;

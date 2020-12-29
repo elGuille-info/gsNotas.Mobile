@@ -17,11 +17,15 @@ namespace gsNotasNET.Models
         public string Nombre { get; set; }
         public string ClaveSHA { get; set; }
         public DateTime Alta { get; set; }
-        public DateTime Baja { get; set; }
+        //public DateTime Baja { get; set; }
         public DateTime UltimoAcceso { get; set; }
         public bool Eliminado { get; set; } = false;
         public bool Validado { get; set; } = false;
-        public bool NotasCopiadas { get; set; } = false;
+        //public bool NotasCopiadas { get; set; } = false;
+        public string VersionPrograma { get; set; } = "gsNotasNET.Android v2.0.0.0";
+        public int Cuota { get; set; } = 100;
+        public decimal Pagos { get; set; } = 0;
+
         //public bool NotasCopiadasAndroid { get; set; } = false;
         //public string CrLf { get; } = "\r\n";
 
@@ -37,12 +41,15 @@ namespace gsNotasNET.Models
             Nombre = "";
             ClaveSHA = "";
             Alta = DateTime.UtcNow;
-            Baja = new DateTime(2099, 12, 31);
+            //Baja = new DateTime(2099, 12, 31);
             UltimoAcceso = DateTime.UtcNow;
             Eliminado = false;
             Validado = false;
-            NotasCopiadas = false;
+            //NotasCopiadas = false;
+            VersionPrograma = $"{App.AppName} {App.AppVersion}";
             //NotasCopiadasAndroid = false;
+            Cuota = 100;
+            Pagos = 0;
         }
 
         /// <summary>
@@ -71,7 +78,7 @@ namespace gsNotasNET.Models
 
             if (usuario.ID == 0 && password.Any())
             {
-                usuario.ClaveSHA = GenerarClaveSHA1(usuario.Email, password);
+                usuario.ClaveSHA = GenerarClaveSHA1(usuario.Email.TrimEnd(), password);
                 return UsuarioSQL.Insert(usuario);
             }
             else if(usuario.ID != 0)
@@ -119,7 +126,6 @@ namespace gsNotasNET.Models
         /// <returns>El número de usuarios afectados (o cero si no se pudo eliminar).</returns>
         public static int Delete(UsuarioSQL usuario)
         {
-            usuario.Baja = DateTime.UtcNow;
             usuario.Eliminado = true;
             var msg = Actualizar(usuario);
 
@@ -159,20 +165,22 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"UPDATE {TablaUsuarios} SET Email = @Email, Nombre = @Nombre, ClaveSHA = @ClaveSHA, Alta = @Alta, Baja = @Baja, UltimoAcceso = @UltimoAcceso, Eliminado = @Eliminado, Validado = @Validado, NotasCopiadas = @NotasCopiadas WHERE (ID = @ID)";
+                    sCommand = $"UPDATE {TablaUsuarios} SET Email = @Email, Nombre = @Nombre, ClaveSHA = @ClaveSHA, Alta = @Alta, UltimoAcceso = @UltimoAcceso, Eliminado = @Eliminado, Validado = @Validado, VersionPrograma = @VersionPrograma, Cuota = @Cuota, Pagos = @Pagos WHERE (ID = @ID)";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@ID", usuario.ID);
-                    cmd.Parameters.AddWithValue("@Email", usuario.Email);
-                    cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                    cmd.Parameters.AddWithValue("@Email", usuario.Email.TrimEnd());
+                    cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre.TrimEnd());
                     cmd.Parameters.AddWithValue("@ClaveSHA", usuario.ClaveSHA);
                     cmd.Parameters.AddWithValue("@Alta", usuario.Alta);
-                    cmd.Parameters.AddWithValue("@Baja", usuario.Baja);
+                    //cmd.Parameters.AddWithValue("@Baja", usuario.Baja);
                     cmd.Parameters.AddWithValue("@UltimoAcceso", usuario.UltimoAcceso);
                     cmd.Parameters.AddWithValue("@Eliminado", usuario.Eliminado);
                     cmd.Parameters.AddWithValue("@Validado", usuario.Validado);
-                    cmd.Parameters.AddWithValue("@NotasCopiadas", usuario.NotasCopiadas);
-                    //cmd.Parameters.AddWithValue("@NotasCopiadasAndroid", usuario.NotasCopiadasAndroid);
+                    //cmd.Parameters.AddWithValue("@NotasCopiadas", usuario.NotasCopiadas);
+                    cmd.Parameters.AddWithValue("@VersionPrograma", usuario.VersionPrograma.TrimEnd());
+                    cmd.Parameters.AddWithValue("@Cuota", usuario.Cuota);
+                    cmd.Parameters.AddWithValue("@Pagos", usuario.Pagos);
 
                     cmd.Transaction = tran;
                     cmd.ExecuteNonQuery();
@@ -228,19 +236,21 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"INSERT INTO {TablaUsuarios} (Email, Nombre, ClaveSHA, Alta, Baja, UltimoAcceso, Eliminado, Validado, NotasCopiadas) VALUES(@Email, @Nombre, @ClaveSHA, @Alta, @Baja, @UltimoAcceso, @Eliminado, @Validado, @NotasCopiadas) SELECT @@Identity";
+                    sCommand = $"INSERT INTO {TablaUsuarios} (Email, Nombre, ClaveSHA, Alta, UltimoAcceso, Eliminado, Validado, VersionPrograma, Cuota, Pagos) VALUES(@Email, @Nombre, @ClaveSHA, @Alta, @UltimoAcceso, @Eliminado, @Validado, @VersionPrograma, @Cuota, @Pagos) SELECT @@Identity";
                     cmd.CommandText = sCommand;
 
-                    cmd.Parameters.AddWithValue("@Email", usuario.Email);
-                    cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                    cmd.Parameters.AddWithValue("@Email", usuario.Email.TrimEnd());
+                    cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre.TrimEnd());
                     cmd.Parameters.AddWithValue("@ClaveSHA", usuario.ClaveSHA);
                     cmd.Parameters.AddWithValue("@Alta", usuario.Alta);
-                    cmd.Parameters.AddWithValue("@Baja", usuario.Baja);
+                    //cmd.Parameters.AddWithValue("@Baja", usuario.Baja);
                     cmd.Parameters.AddWithValue("@UltimoAcceso", usuario.UltimoAcceso);
                     cmd.Parameters.AddWithValue("@Eliminado", usuario.Eliminado);
                     cmd.Parameters.AddWithValue("@Validado", usuario.Validado);
-                    cmd.Parameters.AddWithValue("@NotasCopiadas", usuario.NotasCopiadas);
-                    //cmd.Parameters.AddWithValue("@NotasCopiadasAndroid", usuario.NotasCopiadasAndroid);
+                    //cmd.Parameters.AddWithValue("@NotasCopiadas", usuario.NotasCopiadas);
+                    cmd.Parameters.AddWithValue("@VersionPrograma", usuario.VersionPrograma.TrimEnd());
+                    cmd.Parameters.AddWithValue("@Cuota", usuario.Cuota);
+                    cmd.Parameters.AddWithValue("@Pagos", usuario.Pagos);
 
                     cmd.Transaction = tran;
 
@@ -440,7 +450,7 @@ namespace gsNotasNET.Models
             var usuario = new UsuarioSQL();
 
             var sel = $"SELECT * FROM {TablaUsuarios} " + 
-                      $"WHERE Email = '{email}' "+ 
+                      $"WHERE Email = '{email.TrimEnd()}' "+ 
                       "ORDER BY ID";
             var con = new SqlConnection(CadenaConexion);
             try
@@ -478,7 +488,7 @@ namespace gsNotasNET.Models
         public static bool Existe(string email)
         {
             var sel = $"SELECT Count(*) FROM {TablaUsuarios} " +
-                      $"WHERE Email = '{email}' ";
+                      $"WHERE Email = '{email.TrimEnd()}' ";
             var res = false;
             var con = new SqlConnection(CadenaConexion);
             try
@@ -511,8 +521,8 @@ namespace gsNotasNET.Models
         /// <remarks>Se asigna UsuarioLogin, si el ID es cero es que el usuario no existe.</remarks>
         public static bool ComprobarContraseña(string email, string password)
         {
-            var claveSHA = GenerarClaveSHA1(email, password);
-            var usuario = Usuario(email);
+            var claveSHA = GenerarClaveSHA1(email.TrimEnd(), password);
+            var usuario = Usuario(email.TrimEnd());
             
             if (claveSHA == usuario.ClaveSHA)
             {
@@ -546,9 +556,6 @@ namespace gsNotasNET.Models
             var fec = new DateTime(1900, 1, 1);
             DateTime.TryParse(reader["Alta"].ToString(), out fec);
             usuario.Alta = fec;
-            fec = new DateTime(2900, 12, 31);
-            DateTime.TryParse(reader["Baja"].ToString(), out fec);
-            usuario.Baja = fec;
             fec = DateTime.Now;
             DateTime.TryParse(reader["UltimoAcceso"].ToString(), out fec);
             usuario.UltimoAcceso = fec;
@@ -558,14 +565,15 @@ namespace gsNotasNET.Models
             valorBool = false;
             bool.TryParse(reader["Validado"].ToString(), out valorBool);
             usuario.Validado = valorBool;
-            valorBool = false;
-            bool.TryParse(reader["NotasCopiadas"].ToString(), out valorBool);
-            usuario.NotasCopiadas = valorBool;
-            //valorBool = false;
-            //bool.TryParse(reader["NotasCopiadasAndroid"].ToString(), out valorBool);
-            //usuario.NotasCopiadasAndroid = valorBool;
+            usuario.VersionPrograma = reader["VersionPrograma"].ToString().TrimEnd();
+            id = 0;
+            int.TryParse(reader["Cuota"].ToString(), out id);
+            usuario.Cuota = id;
+            decimal dec = 0;
+            decimal.TryParse(reader["Pagos"].ToString(), out dec);
+            usuario.Pagos = dec;
 
-            return usuario; // new Task<UsuarioSQL>(() => usuario);
+            return usuario;
         }
     }
 }

@@ -28,12 +28,27 @@ namespace gsNotasNET.Models
         {
             List<NotaSQL> colNotas;
 
-            // Si el usuario es elGuille, mostrar todos los grupos
-            // si no, solo los del usuario y todas las notas (estén o no archivadas o eliminadas)
-            if (usuario.Email.ToLower().IndexOf("elguille.info@") > -1)
-                colNotas = NotaSQL.NotasUsuario(0);
+            if (App.UsarNotasLocal)
+            {
+                //colNotas = new List<NotaSQL>();
+                //
+                //var colNotes = App.Database.GetNotesAsync().Result;
+                //foreach (var note in colNotes)
+                //{
+                //    colNotas.Add(note);
+                //}
+
+                colNotas = App.Database.Notas(App.Database.GetNotesAsync());
+            }
             else
-                colNotas = NotaSQL.NotasUsuario(usuario.ID);
+            {
+                // Si el usuario es elGuille, mostrar todos los grupos
+                // si no, solo los del usuario y todas las notas (estén o no archivadas o eliminadas)
+                if (usuario.Email.ToLower().IndexOf("elguille.info@") > -1)
+                    colNotas = NotaSQL.NotasUsuario(0);
+                else
+                    colNotas = NotaSQL.NotasUsuario(usuario.ID);
+            }
 
             // Primero añadir a la colección de tipo Dictionary
             // para evitar repetidos

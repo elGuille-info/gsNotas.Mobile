@@ -21,20 +21,20 @@ namespace gsNotasNET
 			InitializeComponent ();
             Current = this;
             Title = $"Buscar - {App.AppName} {App.AppVersion}";
-
-            txtBuscar.Text = App.BuscarTexto;
-            chkArchivada.IsToggled = App.BuscarArchivadas;
-            chkFavorita.IsToggled = App.BuscarFavoritas;
         }
 
         async private void ContentPage_Appearing(object sender, EventArgs e)
         {
-            if (UsuarioSQL.UsuarioLogin is null)
+            if (UsuarioSQL.UsuarioLogin is null || UsuarioSQL.UsuarioLogin.ID == 0 || UsuarioSQL.UsuarioLogin.Email == "prueba")
             {
                 await Navigation.PushAsync(new Login(Current));
                 return;
             }
-            AsignarBúsqueda();
+            txtBuscar.Text = App.BuscarTexto;
+            chkArchivada.IsToggled = App.BuscarArchivadas;
+            chkFavorita.IsToggled = App.BuscarFavoritas;
+            chkNotificar.IsToggled = App.BuscarNotificar;
+            //AsignarBúsqueda();
         }
 
         private void btnBuscar_Clicked(object sender, EventArgs e)
@@ -42,6 +42,7 @@ namespace gsNotasNET
             App.BuscarTexto = txtBuscar.Text;
             App.BuscarArchivadas = chkArchivada.IsToggled;
             App.BuscarFavoritas = chkFavorita.IsToggled;
+            App.BuscarNotificar = chkNotificar.IsToggled;
 
             AsignarBúsqueda();
         }
@@ -51,7 +52,12 @@ namespace gsNotasNET
             // Solo si hay texto en buscar
             if (txtBuscar.Text.Any())
             {
-                var notas = NotaSQL.NotasBuscar(UsuarioSQL.UsuarioLogin.ID, txtBuscar.Text, chkFavorita.IsToggled, chkArchivada.IsToggled, chkEliminada.IsToggled);
+                List<NotaSQL> notas;
+                if (App.UsarNotasLocal)
+                    notas = App.Database.BuscarNotas(txtBuscar.Text); 
+                else
+                    notas = NotaSQL.NotasBuscar(UsuarioSQL.UsuarioLogin.ID, txtBuscar.Text, chkFavorita.IsToggled, chkArchivada.IsToggled, chkEliminada.IsToggled, chkNotificar.IsToggled);
+
                 listView.ItemsSource = notas;
                 var plural = notas.Count() == 1 ? "" : "s";
                 LabelInfo.Text = $"Hallada{plural} {notas.Count()} nota{plural}.";

@@ -7,18 +7,22 @@
             <Label x:Name="LabelTitulo" Text="" FontSize="Medium" HorizontalTextAlignment="Center" Padding="2"
                    TextColor="{StaticResource AppTextColor}" BackgroundColor="{StaticResource AppBackgroundColor}"/>
             <Label BackgroundColor="{StaticResource AppTextColor}" TextColor="{StaticResource AppBackgroundColor}"
-                   FontSize="Medium"
-                   VerticalOptions="StartAndExpand" Padding="10">
-                <Label.Text>Esta es una utilidad para guardar notas en una base de datos de SQL Server.
+                   FontSize="Small"
+                   VerticalOptions="StartAndExpand" Padding="6">
+                <Label.Text>Esta es una utilidad para guardar notas en una base de datos remota de SQL Server y de forma local en este dispositivo.
 
-Debes registrarte si quieres tener tus propias notas solo visibles para ti.
+Para usar las notas en SQL Server (en la nube) debes registrarte.
 Una vez que te registres, tendrás que validar tu correo.
 
-Podrás añadir notas indicando si quieres que se marquen como favoritas (aparecen primero en la lista de notas).
+Hay un máximo de notas en SQL Server (ver tu perfil para saber cuantas) si necesitas más, contacta conmigo y te ampliaré la cuota máxima por un módico precio.
 
-También puedes marcar una nota como archivada o eliminada. Las notas eliminadas en realidad no se eliminan y puedes recuperarlas cuando quieras.
+Podrás añadir notas indicando si quieres que se marquen como favoritas (aparecen primero en la lista de notas), para notificar, archivadas o eliminadas.
 
-Puedes hacer búsqueda en las notas: todas (sin incluir las eliminadas), las favoritas o las archivadas.
+Las notas para notificar se mostrarán cuando hagas login. En la configuración puedes indicar que no se muestren al hacer login.
+Las notas eliminadas en realidad no se eliminan y puedes recuperarlas cuando quieras.
+
+Puedes buscar en las notas: todas, las favoritas, las notificables, las archivadas o las eliminadas o cualquier mezcla de estos valores.
+Cuando se busca en la base local se busca el texto indicado en TODAS las notas.
 
 Espero que te sea de utilidad.
 Guillermo.</Label.Text>

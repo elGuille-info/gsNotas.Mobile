@@ -22,19 +22,23 @@ Gracias.</Label.Text>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-            <Label Text="Email: *" FontSize="Small" Grid.Row="0" />
-            <Entry x:Name="Email" Placeholder="Correo" Grid.Row="0" Grid.Column="1"
+            <Label Text="Email:* " FontSize="Small" Grid.Row="0" />
+            <Entry x:Name="Email" Placeholder="Correo" 
+                   Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
                    BackgroundColor="{StaticResource AppTextColor}" IsTextPredictionEnabled="True" 
                    TextColor="{StaticResource AppBackgroundColor}" />
             <Label Text="Password:* " FontSize="Small" Grid.Row="1" />
-                <Entry x:Name="Password" Placeholder="Password" IsPassword="True" Grid.Row="1" Grid.Column="1"
-                    BackgroundColor="{StaticResource AppTextColor}"
-                    TextColor="{StaticResource AppBackgroundColor}" />
+            <Entry x:Name="Password" Placeholder="Password" IsPassword="True" 
+                   Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                   BackgroundColor="{StaticResource AppTextColor}"
+                   TextColor="{StaticResource AppBackgroundColor}" />
             <Label Text="Nombre:* " FontSize="Small" Grid.Row="2" />
-                <Entry x:Name="Nombre" Placeholder="Nombre y apellidos" Grid.Row="2" Grid.Column="1"
-                    BackgroundColor="{StaticResource AppTextColor}"
-                    TextColor="{StaticResource AppBackgroundColor}" />
+            <Entry x:Name="Nombre" Placeholder="Nombre y apellidos" 
+                   Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                   BackgroundColor="{StaticResource AppTextColor}"
+                   TextColor="{StaticResource AppBackgroundColor}" />
             </Grid>
             <Button x:Name="btnRegistrar" Text="Registrar" 
                     BackgroundColor="{StaticResource AppBackgroundColor}" 

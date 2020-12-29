@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Appearing="ContentPage_Appearing"
+             x:Class="gsNotasNET.SincronizarBases"
+             Title="Sincronizar bases de datos">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label x:Name="LabelInfo"
+                VerticalOptions="CenterAndExpand" FontSize="Large" Padding="20"
+                HorizontalOptions="CenterAndExpand">
+                <Label.Text>Sincronizar las notas de la base local (SQL Lite) y remota (SQL Server).
+
+Esto te permitirá trabajar sin conexión (sin acceso a internet).
+
+Para usar las notas en local, se hará cuando se detecte que no hay conexión a internet o si así lo indicas en la configuración.</Label.Text>
+                </Label>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Notas NO sincronizadas en base LOCAL:" />
+                <Label x:Name="LabelLocalNoSinc" />
+            </StackLayout>
+            <Button x:Name="btnSincLocal" Text="Sinc. Notas local a remoto" Clicked="btnSincLocal_Clicked" />
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Notas NO sincronizadas en base REMOTA:" />
+                <Label x:Name="LabelRemotaNoSinc" />
+            </StackLayout>
+            <Button x:Name="btnSincRemoto" Text="Sinc. Notas remoto a local" Clicked="btnSincRemoto_Clicked" />
+            <Button x:Name="btnFinalizar" Clicked="btnFinalizar_Clicked"
+                    Text="Finalizar" IsVisible="False" />
+            <Label x:Name="LabelError" Text="" BackgroundColor="Red" TextColor="Yellow" />
+            <Button x:Name="btnPrivacidad" Text="Política de privacidad" 
+                    Grid.Row="1" HeightRequest="35"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="btnPrivacidad_Clicked" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

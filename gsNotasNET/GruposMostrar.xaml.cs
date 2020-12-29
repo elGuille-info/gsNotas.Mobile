@@ -15,7 +15,7 @@ namespace gsNotasNET
     public partial class GruposMostrar : ContentPage
     {
         public static GruposMostrar Current;
-        private static List<Grupo> _Grupos;
+        private List<Grupo> _Grupos;
         public GruposMostrar()
         {
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace gsNotasNET
 
         async private void ContentPage_Appearing(object sender, EventArgs e)
         {
-            if (UsuarioSQL.UsuarioLogin is null)
+            if (UsuarioSQL.UsuarioLogin is null || UsuarioSQL.UsuarioLogin.ID == 0 || UsuarioSQL.UsuarioLogin.Email == "prueba")
             {
                 await Navigation.PushAsync(new Login(Current));
                 LabelInfo.Text = "No hay usuario logueado.";
@@ -34,20 +34,18 @@ namespace gsNotasNET
             }
 
             if (_Grupos is null || _Grupos.Count == 0)
+            {
                 _Grupos = Grupo.Grupos(UsuarioSQL.UsuarioLogin);
+            }
             listView.ItemsSource = _Grupos;
-            TituloNotas();
+
+            var plural = _Grupos.Count() == 1 ? "" : "s";
+            LabelInfo.Text = $"Hay {_Grupos.Count()} grupo{plural}.";
         }
 
         private void btnPrivacidad_Clicked(object sender, EventArgs e)
         {
             _ = App.MostrarPoliticaPrivacidad();
-        }
-
-        public static void TituloNotas()
-        {
-            Current.Title = $"{App.AppName} {App.AppVersion}";
-            Current.LabelInfo.Text = $"Hay {_Grupos.Count()} grupos."; ;
         }
 
         async void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)

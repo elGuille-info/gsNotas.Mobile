@@ -12,7 +12,8 @@ namespace gsNotasNET.Models
 {
     public class NotaSQL : NotasNETSQLDatabase
     {
-        public int ID { get; set; }
+        public virtual int ID { get; set; }
+
         public int idUsuario { get; set; }
         public string Texto { get; set; }
         public DateTime Modificada { get; set; }
@@ -21,6 +22,16 @@ namespace gsNotasNET.Models
         public bool Eliminada { get; set; } = false;
         public bool Favorita { get; set; } = false;
         public bool Sincronizada { get; set; } = false;
+        public bool Notificar { get; set; } = false;
+
+        /// <summary>
+        /// Este ID se usará para asociar el ID de la nota local con la remota y viceversa.
+        /// </summary>
+        /// <remarks>
+        /// En la base local este ID indicará el ID de la nota remota.
+        /// En la base remota este ID indicará el ID de la nota local.
+        /// </remarks>
+        public int idNota { get; set; }
 
         private int LongitudTituloNota = 50;
         /// <summary>
@@ -44,6 +55,33 @@ namespace gsNotasNET.Models
             }
         }
 
+        /// <summary>
+        /// Copiar una nota de tipo <see cref="NotaSQL"/> a una del tipo <see cref="Nota"/>.
+        /// </summary>
+        /// <param name="note">La nota de tipo <see cref="NotaSQL"/>.</param>
+        /// <returns>Una copia del tipo <see cref="Nota"/>.</returns>
+        public Nota ComoNotaLocal()
+        {
+            NotaSQL nota = this;
+
+            // Se copian todos los valores tal como está en esta nota.
+            // ya que al editarla se usa como NotaSQL aunque sea del tipo Nota.
+            var note = new Nota
+            {
+                //ID = nota.ID,
+                Archivada = nota.Archivada,
+                Eliminada = nota.Eliminada,
+                Favorita = nota.Favorita,
+                Grupo = nota.Grupo,
+                Modificada = nota.Modificada,
+                Notificar = nota.Notificar,
+                Sincronizada = nota.Sincronizada,
+                Texto = nota.Texto,
+                idNota = nota.idNota
+            };
+            return note;
+        }
+
         public NotaSQL()
         {
             ID = 0;
@@ -53,6 +91,10 @@ namespace gsNotasNET.Models
             Grupo = "";
             Archivada = false;
             Eliminada = false;
+            Favorita = false;
+            Sincronizada = false;
+            Notificar = false;
+            idNota = 0;
         }
 
         /// <summary>
@@ -68,13 +110,21 @@ namespace gsNotasNET.Models
             if (nota is null)
                 return 0; // new Task<int>(() => 0);
 
-            if (nota.ID == 0)
+            try
             {
-                return NotaSQL.Insert(nota);
+                if (nota.ID == 0)
+                {
+                    return NotaSQL.Insert(nota);
+                }
+                else
+                {
+                    return NotaSQL.Update(nota);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return NotaSQL.Update(nota);
+                Debug.WriteLine(ex.Message);
+                return 0;
             }
         }
 
@@ -157,7 +207,7 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"UPDATE {TablaNotas} SET idUsuario = @idUsuario, Grupo = @Grupo, Texto = @Texto, Modificada = @Modificada, Archivada = @Archivada, Eliminada = @Eliminada, Favorita = @Favorita, Sincronizada = @Sincronizada  WHERE (ID = @ID)";
+                    sCommand = $"UPDATE {TablaNotas} SET idUsuario = @idUsuario, Grupo = @Grupo, Texto = @Texto, Modificada = @Modificada, Archivada = @Archivada, Eliminada = @Eliminada, Favorita = @Favorita, Sincronizada = @Sincronizada, Notificar = @Notificar, idNota = @idNota  WHERE (ID = @ID)";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@ID", nota.ID);
@@ -169,6 +219,8 @@ namespace gsNotasNET.Models
                     cmd.Parameters.AddWithValue("@Eliminada", nota.Eliminada);
                     cmd.Parameters.AddWithValue("@Favorita", nota.Favorita);
                     cmd.Parameters.AddWithValue("@Sincronizada", nota.Sincronizada);
+                    cmd.Parameters.AddWithValue("@Notificar", nota.Notificar);
+                    cmd.Parameters.AddWithValue("@idNota", nota.idNota);
 
                     cmd.Transaction = tran;
                     cmd.ExecuteNonQuery();
@@ -223,7 +275,7 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"INSERT INTO {TablaNotas} (idUsuario, Grupo, Texto, Modificada, Archivada, Eliminada, Favorita, Sincronizada) VALUES(@idUsuario, @Grupo, @Texto, @Modificada, @Archivada, @Eliminada, @Favorita, @Sincronizada) SELECT @@Identity";
+                    sCommand = $"INSERT INTO {TablaNotas} (idUsuario, Grupo, Texto, Modificada, Archivada, Eliminada, Favorita, Sincronizada, Notificar, idNota) VALUES(@idUsuario, @Grupo, @Texto, @Modificada, @Archivada, @Eliminada, @Favorita, @Sincronizada, @Notificar, @idNota) SELECT @@Identity";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@idUsuario", nota.idUsuario);
@@ -234,6 +286,8 @@ namespace gsNotasNET.Models
                     cmd.Parameters.AddWithValue("@Eliminada", nota.Eliminada);
                     cmd.Parameters.AddWithValue("@Favorita", nota.Favorita);
                     cmd.Parameters.AddWithValue("@Sincronizada", nota.Sincronizada);
+                    cmd.Parameters.AddWithValue("@Notificar", nota.Notificar);
+                    cmd.Parameters.AddWithValue("@idNota", nota.idNota);
 
                     cmd.Transaction = tran;
 
@@ -347,7 +401,7 @@ namespace gsNotasNET.Models
             int ret = 0;
 
             var sel = $"SELECT Count(*) FROM {TablaNotas} " +
-                       "WHERE idUsuario = {idUsuario} AND (Eliminada = 0  AND Archivada = 0)";
+                      $"WHERE idUsuario = {idUsuario} AND (Eliminada = 0  AND Archivada = 0)";
             var con = new SqlConnection(CadenaConexion);
             try
             {
@@ -370,12 +424,14 @@ namespace gsNotasNET.Models
             return ret; // new Task<int>(() => ret);
         }
 
+        #region Estos métodos ya no son necesarios
+        
         /// <summary>
         /// El total de notas archivadas, si no están eliminadas.
         /// </summary>
         /// <param name="idUsuario"></param>
         /// <returns></returns>
-        internal static int CountArchivadas(int idUsuario)
+        private int CountArchivadas(int idUsuario)
         {
             int ret = 0;
 
@@ -408,7 +464,7 @@ namespace gsNotasNET.Models
         /// </summary>
         /// <param name="idUsuario"></param>
         /// <returns></returns>
-        internal static int CountEliminadas(int idUsuario)
+        private int CountEliminadas(int idUsuario)
         {
             int ret = 0;
 
@@ -441,12 +497,12 @@ namespace gsNotasNET.Models
         /// </summary>
         /// <param name="idUsuario"></param>
         /// <returns></returns>
-        internal static int CountFavoritas(int idUsuario)
+        private int CountFavoritas(int idUsuario)
         {
             int ret = 0;
 
             var sel = $"SELECT Count(*) FROM {TablaNotas} " +
-                       "WHERE idUsuario = {idUsuario} AND Favorita = 1 AND (Eliminada = 0  AND Archivada = 0)";
+                      $"WHERE idUsuario = {idUsuario} AND Favorita = 1 AND (Eliminada = 0  AND Archivada = 0)";
             var con = new SqlConnection(CadenaConexion);
             try
             {
@@ -469,6 +525,8 @@ namespace gsNotasNET.Models
             return ret; // new Task<int>(() => ret);
         }
 
+
+        #endregion
 
         /// <summary>
         /// Devuelve una lista de todas las notas del usuario indicado que no están archivadas ni eliminadas.
@@ -575,6 +633,44 @@ namespace gsNotasNET.Models
         }
 
         /// <summary>
+        /// Devuelve las notas no sincronizadas del usuario indicado.
+        /// </summary>
+        /// <param name="idUsuario">El ID delk usuario.</param>
+        /// <returns>Una colección del tipo <see cref="NotaSQL"/>.</returns>
+        public static List<NotaSQL> NotasNoSincronizadas(int idUsuario)
+        {
+            var colNotas = new List<NotaSQL>();
+
+            var sel = $"SELECT * FROM {TablaNotas} ";
+            sel += $"WHERE idUsuario = {idUsuario} AND Sincronizada = 0 ";
+            sel += "ORDER BY Favorita DESC, Grupo ASC, Modificada DESC, ID";
+
+            var con = new SqlConnection(CadenaConexion);
+            try
+            {
+                con.Open();
+                var cmd = new SqlCommand(sel, con);
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    colNotas.Add(AsignarNota(reader));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (!(con is null))
+                    con.Close();
+            }
+
+            return colNotas;
+        }
+
+        /// <summary>
         /// Buscar notas según el texto indicado.
         /// </summary>
         /// <param name="idUsuario">El id del usuario.</param>
@@ -582,12 +678,13 @@ namespace gsNotasNET.Models
         /// <param name="archivadas">Si se busca en las archivadas.</param>
         /// <param name="favoritas">Si se busca en las favoritas.</param>
         /// <param name="eliminadas">Si se busca en las eliminadas.</param>
+        /// <param name="notificar">Si se debe buscar en las marcadas para notificar.</param>
         /// <returns>Una colección con las notas halladas.</returns>
-        public static List<NotaSQL> NotasBuscar(int idUsuario, string buscar, bool favoritas, bool archivadas, bool eliminadas)
+        public static List<NotaSQL> NotasBuscar(int idUsuario, string buscar, bool favoritas, bool archivadas, bool eliminadas, bool notificar)
         {
             var colNotas = new List<NotaSQL>();
 
-            string sArchivadas, sFavoritas, sEliminadas;
+            string sArchivadas, sFavoritas, sEliminadas, sNotificar;
 
             if (!archivadas)
             {
@@ -610,10 +707,14 @@ namespace gsNotasNET.Models
                 sEliminadas = "(Eliminada = 1 OR Eliminada = 0)";
             else
                 sEliminadas = "(Eliminada = 1)";
+            if (!notificar)
+                sNotificar = "(Notificar = 1 OR Notificar = 0)";
+            else
+                sNotificar = "(Notificar = 1)";
 
             var sel = $"SELECT * FROM {TablaNotas} ";
             sel += $"WHERE idUsuario = {idUsuario} AND Texto like '%{buscar}%' " + 
-                   $"AND {sFavoritas} AND {sArchivadas} AND {sEliminadas} ";
+                   $"AND {sFavoritas} AND {sArchivadas} AND {sEliminadas} AND {sNotificar} ";
             sel += "ORDER BY Favorita DESC, Modificada DESC, Grupo ASC, ID";
 
             var con = new SqlConnection(CadenaConexion);
@@ -646,7 +747,10 @@ namespace gsNotasNET.Models
         /// Devuelve la nota con el ID indicado.
         /// </summary>
         /// <param name="id">El id de la nota a obtener.</param>
-        /// <returns>Un objeto del tipo <see cref="NotaSQL"/> con la nota indicada.</returns>
+        /// <returns>
+        /// Un objeto del tipo <see cref="NotaSQL"/> con la nota indicada.
+        /// O un objeto nuevo (ID = 0) si no existe en la base de datos.
+        /// </returns>
         /// <remarks>Se busca la nota con ese ID esté o no eliminada o archivada.</remarks>
         internal static NotaSQL Nota(int id)
         {
@@ -680,6 +784,54 @@ namespace gsNotasNET.Models
             return nota;
         }
 
+        public static List<NotaSQL> Buscar(string where)
+        {
+            return Buscar(UsuarioSQL.UsuarioLogin.ID, where);
+        }
+
+        /// <summary>
+        /// Busca en las notas del usuario indicado lo indicado en where
+        /// </summary>
+        /// <param name="idUsuario">El ID del usuario que ha hecho login.</param>
+        /// <param name="where">Cadena a usar en WHERE con la búsqueda a realizar.</param>
+        /// <returns>Una colección de tipo <see cref="NotaSQL"/>.</returns>
+        /// <remarks>
+        /// En <see cref="where"/> se indicará lo que se quiere comprobar:
+        /// Notificar = 1 AND Eliminada = 0
+        /// </remarks>
+        public static List<NotaSQL> Buscar(int idUsuario, string where)
+        {
+            var colNotas = new List<NotaSQL>();
+
+            var sel = $"SELECT * FROM {TablaNotas} ";
+            sel += $"WHERE idUsuario = {idUsuario} AND ({where}) ";
+            sel += "ORDER BY Favorita DESC, Grupo ASC, Modificada DESC, ID";
+
+            var con = new SqlConnection(CadenaConexion);
+            try
+            {
+                con.Open();
+                var cmd = new SqlCommand(sel, con);
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    colNotas.Add(AsignarNota(reader));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (!(con is null))
+                    con.Close();
+            }
+
+            return colNotas;
+        }
+
         /// <summary>
         /// Asigna un objeto a partir de los datos del SQLReader.
         /// </summary>
@@ -709,6 +861,12 @@ namespace gsNotasNET.Models
             valorBool = false;
             bool.TryParse(reader["Favorita"].ToString(), out valorBool);
             nota.Favorita = valorBool;
+            valorBool = false;
+            bool.TryParse(reader["Sincronizada"].ToString(), out valorBool);
+            nota.Sincronizada = valorBool;
+            valorBool = false;
+            bool.TryParse(reader["Notificar"].ToString(), out valorBool);
+            nota.Notificar = valorBool;
 
             return nota; // new Task<NotaSQL>(() => nota);
         }

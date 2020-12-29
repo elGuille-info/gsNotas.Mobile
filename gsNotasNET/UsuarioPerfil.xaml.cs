@@ -39,13 +39,12 @@ namespace gsNotasNET
 
         async private void ContentPage_Appearing(object sender, EventArgs e)
         {
-            if (UsuarioSQL.UsuarioLogin is null)
+            if (UsuarioSQL.UsuarioLogin is null || UsuarioSQL.UsuarioLogin.Email == "prueba")
             {
                 await Navigation.PushAsync(new Login(Current));
                 LabelInfo.Text = "";
                 return;
             }
-
         }
 
         /// <summary>
@@ -53,9 +52,9 @@ namespace gsNotasNET
         /// </summary>
         private void ContentPage_BindingContextChanged(object sender, EventArgs e)
         {
-            LabelAviso.IsVisible = false;
+            //LabelAviso.IsVisible = false;
 
-            if (UsuarioSQL.UsuarioLogin is null || UsuarioSQL.UsuarioLogin.ID == 0)
+            if (UsuarioSQL.UsuarioLogin is null || UsuarioSQL.UsuarioLogin.ID == 0 || UsuarioSQL.UsuarioLogin.Email == "prueba")
                 return;
 
             // si es el usuario de prueba no permitir cambios
@@ -67,7 +66,7 @@ namespace gsNotasNET
                 Password.IsEnabled = false;
                 Email.IsEnabled = false;
                 ClaveSHA.IsEnabled = false;
-                chkNotasCopiadas.IsEnabled = false;
+                //chkNotasCopiadas.IsEnabled = false;
                 chkValidado.IsEnabled = false;
                 Nombre.IsEnabled = false;
             }
@@ -75,6 +74,8 @@ namespace gsNotasNET
             //if (usuario is null)
             //    return;
 
+            txtCuota.Text = usuario.Cuota.ToString("#,##0");
+            chkValidado.IsEnabled = (usuario.Email.ToLower().IndexOf("elguille.info@") > -1);
             LabelInfo.Text = $"Perfil de {usuario.Email}";
         }
 
@@ -153,7 +154,7 @@ namespace gsNotasNET
                 await App.SendEmail("Cambio de email", sb.ToString(), usuario.Email);
 
                 btnGuardar.IsEnabled = false;
-                LabelAviso.Text = "Has indicado un nuevo email. No se guardarán los cambios. Responde a los 2 emials enviados. Gracias.";
+                LabelAviso.Text = "Has indicado un nuevo email. No se guardan los cambios. Responde a los 2 emails enviados. Gracias.";
                 LabelAviso.IsVisible = true;
                 Email.Focus();
             }

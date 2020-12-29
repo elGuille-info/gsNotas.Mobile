@@ -16,6 +16,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <StackLayout Grid.Column="0" Orientation="Vertical">
                 <Label Text="Favorita: " 
@@ -25,23 +26,31 @@
                         IsToggled="{Binding Favorita}"  />
             </StackLayout>
             <StackLayout Grid.Column="1" Orientation="Vertical">
+                <Label Text="Notificar: "
+                       TextColor="{StaticResource AppTextColor}"/>
+                <Switch x:Name="chkNotificar" 
+                        BackgroundColor="{StaticResource NavigationBarColor}" 
+                        IsToggled="{Binding Notificar}"  />
+            </StackLayout>
+            <StackLayout Grid.Column="2" Orientation="Vertical">
                 <Label Text="Archivada: "
                        TextColor="{StaticResource AppTextColor}"/>
                 <Switch x:Name="chkArchivada" 
                         BackgroundColor="{StaticResource NavigationBarColor}" 
                         IsToggled="{Binding Archivada}"  />
             </StackLayout>
-            <StackLayout Grid.Column="2" Orientation="Vertical">
+            <StackLayout Grid.Column="3" Orientation="Vertical">
                 <Label Text="Eliminada: "
                        TextColor="{StaticResource AppTextColor}"/>
                 <Switch x:Name="chkEliminada" 
                         BackgroundColor="{StaticResource NavigationBarColor}" 
                         IsToggled="{Binding Eliminada}"  />
             </StackLayout>
-            <Button Grid.Row="1" Grid.ColumnSpan="3" Text="Guardar" Clicked="OnSaveButtonClicked" />
-            <!--<Button Grid.Row="1" Grid.Column="2" Text="Eliminar" Clicked="OnDeleteButtonClicked" />-->
-            <Editor Placeholder="Grupo" Text="{Binding Grupo}" 
-                    Grid.Row="2" Grid.ColumnSpan="3"
+            <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" 
+                    Text="Guardar" Clicked="OnSaveButtonClicked" />
+            <!-- Text="{Binding Grupo}"  -->
+            <Editor x:Name="txtGrupo" Placeholder="Grupo" 
+                    Grid.Row="2" Grid.ColumnSpan="4"
                     FontSize="Small" HeightRequest="35" />
         </Grid>
         <Grid>

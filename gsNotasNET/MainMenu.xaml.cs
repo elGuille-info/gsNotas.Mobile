@@ -34,6 +34,7 @@ namespace gsNotasNET
                 {
                     new Menu { Page = new NotasActivas(), MenuTitle = "Notas", MenuDetail = "Muestra las notas no archivadas.", Icon = "XNotas.png" },
                     new Menu { Page = new NotasFavoritas(), MenuTitle = "Notas Favoritas", MenuDetail = "Muestra las notas favoritas.", Icon = "XConfigurar_usuario_clip.png" },
+                    new Menu { Page = new NotasNotificar(), MenuTitle = "Notas para Notificar", MenuDetail = "Muestra las notas indicadas para notificar.", Icon = "XNotificar.png" },
                     new Menu { Page = new NotasArchivadas(), MenuTitle = "Notas Archivadas", MenuDetail = "Muestra las notas archivadas.", Icon = "XGrupos.png" },
                     new Menu { Page = new NotasEliminadas(), MenuTitle = "Notas Eliminadas", MenuDetail = "Muestra las notas eliminadas.", Icon = "XNotasEliminadas.png" },
                     new Menu { Page = new GruposMostrar(), MenuTitle = "Grupos", MenuDetail = "Muestra los grupos creados con las notas.", Icon = "XSeleccionar_opciones.png" },
@@ -51,6 +52,7 @@ namespace gsNotasNET
                 if (UsuarioSQL.UsuarioLogin.Email.ToLower() != "prueba")
                 {
                     menu.Add(new Menu { Page = new UsuarioValidar(), MenuTitle = "Validar Email", MenuDetail = "Validar el correo usado para entrar en la aplicación.", Icon = "XUsuarioValidar.png" });
+                    menu.Add(new Menu { Page = new SincronizarBases(), MenuTitle = "Sincronizar", MenuDetail = "Sincronizar las bases de datos local y remota.", Icon = "XSincronizar.png" });
                 }
             }
             menu.Add(new Menu { Page = new Comentarios(), MenuTitle = "Comentarios", MenuDetail = "Enviar comentarios a elGuille.", Icon = "XEnviarComentarios.png" });
@@ -62,12 +64,17 @@ namespace gsNotasNET
         {
             // Al mostrarse, si el usuario no es elguille.info@
             // no mostrar el menú de mostrar usuarios.
-            if (UsuarioSQL.UsuarioLogin is null)
+            if (UsuarioSQL.UsuarioLogin is null || UsuarioSQL.UsuarioLogin.ID == 0 || UsuarioSQL.UsuarioLogin.Email == "prueba")
             {
                 LabelInfo.Text = "No hay usuario logueado.";
             }
             else
                 LabelInfo.Text = $"Usuario: {UsuarioSQL.UsuarioLogin.Email} ({UsuarioSQL.UsuarioLogin.Nombre}).";
+
+            if (!App.HayConexionInternet())
+                LabelInternet.Text = $"{App.TipoConexion} Deberías usar la base local.";
+            else
+                LabelInternet.Text = $"{App.TipoConexion}";
 
             MyMenu();
         }

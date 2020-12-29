@@ -8,7 +8,7 @@
     <!-- Padding="0,40,0,0" Left, Top 40, Right, Botton -->
     <ContentPage.Resources>
         <Style TargetType="{x:Type ImageSource}">
-            <Setter Property="AbsoluteLayout.HeightRequest" Value="25" />
+            <Setter Property="AbsoluteLayout.HeightRequest" Value="20" />
         </Style>
     </ContentPage.Resources>
     <StackLayout>
@@ -30,5 +30,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Label x:Name="LabelInternet" Text=""  Padding="3,0,3,0" FontSize="Small" />
     </StackLayout>
 </ContentPage>

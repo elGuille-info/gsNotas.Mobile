@@ -30,8 +30,12 @@ namespace gsNotasNET
 
             var modoDebug = false;
 
+            // por ahora no usar esto, para probarlo como en el dispositivo final
             if (System.Diagnostics.Debugger.IsAttached)
-                modoDebug = true;
+            {
+                //modoDebug = true;
+                modoDebug = false;
+            }
 
             if (App.RecordarUsuario)
                 email.Text = App.UltimoUsuario;
@@ -80,19 +84,28 @@ namespace gsNotasNET
                         "Te he enviado un correo con el código de validación. " +
                         $"Úsalo en la página de validar antes de {minutos} minuto{plural}. Gracias.";
                     LabelInfo.IsVisible = true;
-                    //VolverAMain();
-                    //await Navigation.PushAsync(new MainMenu());
-                    //Application.Current.MainPage = new NavigationPage(new MainMenu());
-                    //return;
                 }
                 else
                 {
-                    if (!UsuarioSQL.UsuarioLogin.NotasCopiadas)
+                    // Guardar los datos de último acceso, etc.
+                    UsuarioSQL.UsuarioLogin.UltimoAcceso = DateTime.UtcNow;
+                    UsuarioSQL.UsuarioLogin.VersionPrograma = $"{App.AppName} {App.AppVersion}";
+                    UsuarioSQL.GuardarUsuario(UsuarioSQL.UsuarioLogin);
+
+                    // si se deben mostrar las notas a notificar
+                    if (App.Notificar)
                     {
-                        // Si se han copiado las notas de SQL Lite.
-                        // Hasta que no esté validado no se copiarán.
-                        await Navigation.PushAsync(new CopiarSQLLite(_pagina));
-                        return;
+                        // Comprobar si hay notas a notificar
+                        var colNotificar = NotaSQL.Buscar(UsuarioSQL.UsuarioLogin.ID, "Notificar = 1 AND Eliminada = 0");
+                        if (colNotificar.Count() == 0)
+                        {
+                            VolverAMain();
+                            return;
+                        }
+                        // Mostrar la ventana de las notas marcadas para notificar
+                        //await Navigation.PushAsync(new NotasNotificar());
+                        //return;
+                        _pagina = new NotasNotificar();
                     }
                 }
                 VolverAMain();

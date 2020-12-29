@@ -15,6 +15,8 @@ namespace gsNotasNET
 	public partial class NotasEliminadas : ContentPage
 	{
         private static NotasEliminadas Current;
+        private List<NotaSQL> colNotas = null;
+
         public NotasEliminadas ()
 		{
 			InitializeComponent ();
@@ -24,15 +26,21 @@ namespace gsNotasNET
 
         async private void ContentPage_Appearing(object sender, EventArgs e)
         {
-            if (UsuarioSQL.UsuarioLogin is null)
+            if (UsuarioSQL.UsuarioLogin is null || UsuarioSQL.UsuarioLogin.ID == 0 || UsuarioSQL.UsuarioLogin.Email == "prueba")
             {
                 await Navigation.PushAsync(new Login(Current));
                 return;
             }
             // Solo las notas eliminadas
-            listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, eliminadas: true);
+            if(App.UsarNotasLocal)
+                colNotas = App.Database.NotasEliminadas();
+            else 
+                colNotas = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, eliminadas: true);
+            
+            listView.ItemsSource = colNotas;
 
-            Current.LabelInfo.Text = $"{UsuarioSQL.UsuarioLogin.Email} - con {NotaSQL.CountEliminadas(UsuarioSQL.UsuarioLogin.ID)} notas eliminadas.";
+            var plural = colNotas.Count() == 1 ? "" : "s";
+            LabelInfo.Text = $"{UsuarioSQL.UsuarioLogin.Email} con {colNotas.Count()} nota{plural} eliminada{plural}."; ;
         }
 
         private void btnPrivacidad_Clicked(object sender, EventArgs e)

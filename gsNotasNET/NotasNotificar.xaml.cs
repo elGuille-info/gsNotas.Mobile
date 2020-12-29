@@ -12,13 +12,13 @@ using Xamarin.Forms.Xaml;
 namespace gsNotasNET
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NotasArchivadas : ContentPage
+    public partial class NotasNotificar : ContentPage
     {
-        private static NotasArchivadas Current;
+        private static NotasNotificar Current;
 
         private List<NotaSQL> colNotas = null;
 
-        public NotasArchivadas()
+        public NotasNotificar()
         {
             InitializeComponent();
             Current = this;
@@ -32,15 +32,15 @@ namespace gsNotasNET
                 await Navigation.PushAsync(new Login(Current));
                 return;
             }
-            // Solo las notas archivadas y no eliminadas
+            // Ls notas a notificar que no estén eliminadas
             if (App.UsarNotasLocal)
-                colNotas = App.Database.NotasArchivadas();
+                colNotas = App.Database.NotasNotificar();
             else
-                colNotas = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, archivadas: true);
+                colNotas = NotaSQL.Buscar(UsuarioSQL.UsuarioLogin.ID, "Notificar = 1 AND Eliminada = 0");
             listView.ItemsSource = colNotas;
 
             var plural = colNotas.Count() == 1 ? "" : "s";
-            LabelInfo.Text = $"{UsuarioSQL.UsuarioLogin.Email} con {colNotas.Count()} nota{plural} archivada{plural}."; ;
+            LabelInfo.Text = $"{UsuarioSQL.UsuarioLogin.Email} con {colNotas.Count()} nota{plural} a notificar."; ;
         }
 
         private void btnPrivacidad_Clicked(object sender, EventArgs e)

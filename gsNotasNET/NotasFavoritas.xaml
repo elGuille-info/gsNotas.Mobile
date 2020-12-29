@@ -25,11 +25,13 @@
                             <Label Text="{Binding TituloNota}" FontAttributes="Bold" />
                             <Label>
                                 <Label.Text>
-                                    <MultiBinding StringFormat="{}{0}, Fav. {2}, Mod. {1}, Arch. {3}">
+                                    <MultiBinding StringFormat="{}{0}, {1:dd/MM/yyyy HH:mm}, F.{2}, N.{5}, A.{3}, E.{4}">
                                         <Binding Path="Grupo"/>
                                         <Binding Path="Modificada"/>
                                         <Binding Path="Favorita"/>
                                         <Binding Path="Archivada"/>
+                                        <Binding Path="Eliminada"/>
+                                        <Binding Path="Notificar"/>
                                     </MultiBinding>
                                 </Label.Text>
                             </Label>

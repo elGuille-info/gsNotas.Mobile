@@ -16,9 +16,10 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Editor x:Name="txtBuscar" Placeholder="Texto a buscar" 
-                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
                     FontSize="Medium" HeightRequest="45" />
             <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Vertical">
                 <Label Text="Favoritas: " />
@@ -26,21 +27,26 @@
                         IsToggled="{Binding Favorita}"  />
             </StackLayout>
             <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                <Label Text="Notificar: " />
+                <Switch x:Name="chkNotificar" 
+                        IsToggled="{Binding Notificar}"  />
+            </StackLayout>
+            <StackLayout Grid.Row="1" Grid.Column="2" Orientation="Vertical">
                 <Label Text="Archivadas: " />
                 <Switch x:Name="chkArchivada" 
                         IsToggled="{Binding Archivada}"  />
             </StackLayout>
-            <StackLayout Grid.Row="1" Grid.Column="2" Orientation="Vertical">
+            <StackLayout Grid.Row="1" Grid.Column="3" Orientation="Vertical">
                 <Label Text="Eliminadas: " />
                 <Switch x:Name="chkEliminada" 
                         IsToggled="{Binding Eliminada}"  />
             </StackLayout>
             <Button x:Name="btnBuscar" Text="Buscar" 
-                    Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                    Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"
                     Clicked="btnBuscar_Clicked" />
             <Label x:Name="LabelAviso" 
-                   Text="Indica el texto a buscar y pulsa en el botón. Si marcas Favorita o Archivada se tendrán en cuenta ese tipo de notas, si no, se incluirán todas las favoritas o archivadas."
-                   Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                   Text="Indica el texto a buscar y pulsa en el botón. Si marcas Favorita, Notificar, Archivada o Eliminada se tendrán en cuenta ese tipo de notas, si no, se incluirán todas las favoritas, para notificar y las archivadas."
+                   Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"
                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
         </Grid>
         <Grid Margin="{StaticResource PageMargin}">
@@ -63,12 +69,13 @@
                                 <Label Text="{Binding TituloNota}" FontAttributes="Bold" />
                                 <Label>
                                     <Label.Text>
-                                        <MultiBinding StringFormat="{}{0}, Fav. {2}, Mod. {1}, Arch. {3}, Elim. {4}">
+                                        <MultiBinding StringFormat="{}{0}, {1:dd/MM/yyyy HH:mm}, F.{2}, N.{5}, A.{3}, E.{4}">
                                             <Binding Path="Grupo"/>
                                             <Binding Path="Modificada"/>
                                             <Binding Path="Favorita"/>
                                             <Binding Path="Archivada"/>
                                             <Binding Path="Eliminada"/>
+                                            <Binding Path="Notificar"/>
                                         </MultiBinding>
                                     </Label.Text>
                                 </Label>

@@ -1,15 +1,18 @@
 ﻿using System;
 using System.IO;
-using Xamarin.Forms;
-using gsNotasNET.Data;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
-using gsNotasNET.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
 using System.Text;
 using System.Net.Mail;
+
+using gsNotasNET.Models;
+using gsNotasNET.Data;
+
+using Xamarin.Forms;
+using Xamarin.Essentials;
+
 
 namespace gsNotasNET
 {
@@ -18,7 +21,7 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2..29";
+        public static string AppVersion { get; } = "v2..31";
 
         /// <summary>
         /// El nombre de la aplicación
@@ -44,6 +47,42 @@ namespace gsNotasNET
             //MainPage = new NavigationPage(new Login(new MainMenu()));
 
             MainPage = new NavigationPage(new MainMenu());
+        }
+
+        public static string TipoConexion { get; private set; }
+
+        public static bool HayConexionInternet()
+        {
+            var current = Connectivity.NetworkAccess;
+
+            //TipoConexion = current.ToString();
+
+            if (current == NetworkAccess.Internet)
+            {
+                // Connection to internet is available
+                TipoConexion = "Hay conexión a Internet.";
+                return true;
+            }
+            else if (current == NetworkAccess.ConstrainedInternet)
+            {
+                TipoConexion = "No hay conexión a Internet: ConstrainedIternet.";
+                return false;
+            }
+            else if (current == NetworkAccess.Local)
+            {
+                TipoConexion = "No hay conexión a Internet: Local.";
+                return false;
+            }
+            else if (current == NetworkAccess.Unknown)
+            {
+                TipoConexion = "No hay conexión a Internet: Unknown.";
+                return false;
+            }
+            else //if (current == NetworkAccess.None)
+            {
+                TipoConexion = "No hay conexión a Internet: None.";
+                return false;
+            }
         }
 
         public static string UltimoUsuario
@@ -87,6 +126,33 @@ namespace gsNotasNET
             get { return (bool)Application.Current.Properties["BuscarEliminadas"]; }
             set { Application.Current.Properties["BuscarEliminadas"] = value; }
         }
+        public static bool BuscarNotificar
+        {
+            get { return (bool)Application.Current.Properties["BuscarNotificar"]; }
+            set { Application.Current.Properties["BuscarNotificar"] = value; }
+        }
+        // Sinconizar y usar base local
+        public static bool SincronizarAuto
+        {
+            get { return (bool)Application.Current.Properties["SincronizarAuto"]; }
+            set { Application.Current.Properties["SincronizarAuto"] = value; }
+        }
+        public static bool UsarNotasLocal
+        {
+            get { return (bool)Application.Current.Properties["UsarNotasLocal"]; }
+            set { Application.Current.Properties["UsarNotasLocal"] = value; }
+        }
+        public static bool Notificar
+        {
+            get { return (bool)Application.Current.Properties["Notificar"]; }
+            set { Application.Current.Properties["Notificar"] = value; }
+        }
+        //
+        public static string UltimoGrupo
+        {
+            get { return Application.Current.Properties["UltimoGrupo"].ToString(); }
+            set { Application.Current.Properties["UltimoGrupo"] = value; }
+        }
 
         private void CrearPropiedadesApp()
         {
@@ -107,6 +173,20 @@ namespace gsNotasNET
                 Application.Current.Properties.Add("BuscarArchivadas", false);
             if (!Application.Current.Properties.ContainsKey("BuscarEliminadas"))
                 Application.Current.Properties.Add("BuscarEliminadas", false);
+            if (!Application.Current.Properties.ContainsKey("BuscarNotificar"))
+                Application.Current.Properties.Add("BuscarNotificar", false);
+            // Para sincronizar las notas
+            if (!Application.Current.Properties.ContainsKey("SincronizarAuto"))
+                Application.Current.Properties.Add("SincronizarAuto", true);
+            if (!Application.Current.Properties.ContainsKey("UsarNotasLocal"))
+                Application.Current.Properties.Add("UsarNotasLocal", false);
+            // Notificar las notas marcadas como notificar
+            if (!Application.Current.Properties.ContainsKey("Notificar"))
+                Application.Current.Properties.Add("Notificar", true);
+            // El último grupo indicado en editar notas
+            if (!Application.Current.Properties.ContainsKey("UltimoGrupo"))
+                Application.Current.Properties.Add("UltimoGrupo", "");
+
         }
 
         /// <summary>

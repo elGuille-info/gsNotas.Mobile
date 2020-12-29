@@ -28,13 +28,16 @@ namespace gsNotasNET
 
         async private void ContentPage_Appearing(object sender, EventArgs e)
         {
-            if (UsuarioSQL.UsuarioLogin is null)
+            if (UsuarioSQL.UsuarioLogin is null || UsuarioSQL.UsuarioLogin.ID == 0 || UsuarioSQL.UsuarioLogin.Email == "prueba")
             {
                 await Navigation.PushAsync(new Login(Current));
                 return;
             }
             // Solo las notas que no estén archivadas ni eliminadas
-            listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, archivadas: false, eliminadas: false);
+            if (App.UsarNotasLocal)
+                listView.ItemsSource = App.Database.NotasUsuarioAsync(archivadas: false, eliminadas: false).Result;
+            else
+                listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, archivadas: false, eliminadas: false);
             TituloNotas();
         }
 
@@ -57,11 +60,22 @@ namespace gsNotasNET
             }
         }
 
-        public static void TituloNotas()
+        async public static void TituloNotas()
         {
             string s = "";
-            var total = NotaSQL.Count(UsuarioSQL.UsuarioLogin.ID);
-            var nGrupos = NotaSQL.Grupos(UsuarioSQL.UsuarioLogin.ID).Count();
+            var total = 0;
+            var nGrupos = 0; 
+            if(App.UsarNotasLocal)
+            {
+                total = await App.Database.CountAsync();
+                nGrupos = App.Database.Grupos().Count();
+            }
+            else
+            {
+                total = NotaSQL.Count(UsuarioSQL.UsuarioLogin.ID);
+                nGrupos = NotaSQL.Grupos(UsuarioSQL.UsuarioLogin.ID).Count();
+            }
+
             var sGrupo = "";
             if (nGrupos == 0)
                 sGrupo = "sin grupos";

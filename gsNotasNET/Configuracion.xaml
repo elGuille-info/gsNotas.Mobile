@@ -4,7 +4,7 @@
              x:Class="gsNotasNET.Configuracion"
              Appearing="ContentPage_Appearing"
              Title="Configuración">
-    <Grid>
+    <Grid Margin="{StaticResource PageMargin}">
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
             <RowDefinition Height="*" />
@@ -12,26 +12,47 @@
             <RowDefinition Height="35" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0" x:Name="LabelInfo" BackgroundColor="{StaticResource AppTextColor}" 
-               TextColor="{StaticResource AppBackgroundColor}"
+               TextColor="{StaticResource AppBackgroundColor}" Padding="4"
                Text="Indica los valores de la configuración de la aplicación."/>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="35" />
-                <RowDefinition Height="35" />
-                <RowDefinition Height="35" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Text="Usuario:" Grid.Row="0" Grid.Column="0"/>
-            <Label x:Name="LabelUsuario" Text="" Grid.Row="0" Grid.Column="1"/>
-            <Label Text="Recordar usuario: " FontSize="Medium" Grid.Row="1" Grid.Column="0" />
-            <Switch x:Name="chkRecordarUsuario" IsToggled="False" Grid.Row="1" Grid.Column="1" />
-            <Label Text="Recordar password: " FontSize="Medium" Grid.Row="2" Grid.Column="0" />
-            <Switch x:Name="chkRecordarPassword" IsToggled="False" Grid.Row="2" Grid.Column="1" />
+            <!--<Label Text="Usuario:" FontSize="Medium" 
+                   Grid.Row="0" Grid.Column="0"/>-->
+            <Label x:Name="LabelUsuario" Text="" FontSize="Medium"
+                   Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+            <Label Text="Recordar usuario: " FontSize="Medium" 
+                   Grid.Row="1" Grid.Column="0" />
+            <Switch x:Name="chkRecordarUsuario" IsToggled="False" 
+                    Grid.Row="1" Grid.Column="1" />
+            <Label Text="Recordar password: " FontSize="Medium" 
+                   Grid.Row="2" Grid.Column="0" />
+            <Switch x:Name="chkRecordarPassword" IsToggled="False" 
+                    Grid.Row="2" Grid.Column="1" />
+            <Label Text="Mantener las notas sincronizadas:" FontSize="Medium" 
+                   Grid.Row="3" Grid.Column="0" />
+            <Switch x:Name="chkSincronizarAuto" IsToggled="False" IsEnabled="False"
+                    Grid.Row="3" Grid.Column="1" />
+            <Label Text="Mostrar las notas a Notificar:" FontSize="Medium" 
+                   Grid.Row="4" Grid.Column="0" />
+            <Switch x:Name="chkNotificar" IsToggled="False" 
+                    Grid.Row="4" Grid.Column="1" />
+            <Label Text="Usar las notas locales:" FontSize="Medium" 
+                   Grid.Row="5" Grid.Column="0" />
+            <Switch x:Name="chkUsarLocal" IsToggled="False" 
+                    Grid.Row="5" Grid.Column="1" />
         </Grid>
-        <Button x:Name="btnAplicar" Text="Aplicar"  
+        <Button x:Name="btnAplicar" Text="Guardar"  
                 Grid.Row="2" Padding="2"
                 HorizontalOptions="FillAndExpand"
                 Clicked="btnAplicar_Clicked" />

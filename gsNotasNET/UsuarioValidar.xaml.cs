@@ -25,8 +25,10 @@ namespace gsNotasNET
             _pagina = pagina;
             Current = this;
             Title = $"{App.AppName} {App.AppVersion}";
-            if (UsuarioSQL.UsuarioLogin is null)
+            
+            if (UsuarioSQL.UsuarioLogin is null || UsuarioSQL.UsuarioLogin.ID == 0 || UsuarioSQL.UsuarioLogin.Email == "prueba")
                 return;
+
             // si no se ha indicado, generar un código de validación
             if (string.IsNullOrEmpty(codigoValidar))
             {
@@ -39,7 +41,7 @@ namespace gsNotasNET
 
         async private void ContentPage_Appearing(object sender, EventArgs e)
         {
-            if (UsuarioSQL.UsuarioLogin is null)
+            if (UsuarioSQL.UsuarioLogin is null || UsuarioSQL.UsuarioLogin.ID == 0 || UsuarioSQL.UsuarioLogin.Email == "prueba")
             {
                 await Navigation.PushAsync(new Login(Current));
                 LabelInfo.Text = "No hay usuario logueado.";

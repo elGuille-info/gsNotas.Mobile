@@ -8838,19 +8838,22 @@ namespace gsNotasNET.Droid
 			public const int XNota_Azul = 2131165322;
 			
 			// aapt resource value: 0x7F07008E
-			public const int XPCerrar = 2131165326;
+			public const int XNotificar = 2131165326;
 			
 			// aapt resource value: 0x7F07008F
 			public const int XSeleccionar_opciones = 2131165327;
 			
 			// aapt resource value: 0x7F070090
-			public const int XUsuario = 2131165328;
+			public const int XSincronizar = 2131165328;
 			
 			// aapt resource value: 0x7F070091
-			public const int XUsuarios = 2131165329;
+			public const int XUsuario = 2131165329;
 			
 			// aapt resource value: 0x7F070092
-			public const int XUsuarioValidar = 2131165330;
+			public const int XUsuarios = 2131165330;
+			
+			// aapt resource value: 0x7F070093
+			public const int XUsuarioValidar = 2131165331;
 			
 			static Drawable()
 			{

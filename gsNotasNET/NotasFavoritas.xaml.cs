@@ -16,22 +16,32 @@ namespace gsNotasNET
     {
         private static NotasFavoritas Current;
 
+        private List<NotaSQL> colNotas = null;
+
         public NotasFavoritas()
         {
             InitializeComponent();
             Current = this;
+            Title = $"{App.AppName} {App.AppVersion}";
         }
 
         async private void ContentPage_Appearing(object sender, EventArgs e)
         {
-            if (UsuarioSQL.UsuarioLogin is null)
+            if (UsuarioSQL.UsuarioLogin is null || UsuarioSQL.UsuarioLogin.ID == 0 || UsuarioSQL.UsuarioLogin.Email == "prueba")
             {
                 await Navigation.PushAsync(new Login(Current));
                 return;
             }
-            // Solo las notas archivadas y no eliminadas
-            listView.ItemsSource = NotaSQL.NotasFavoritas(UsuarioSQL.UsuarioLogin.ID);
-            TituloNotas();
+            // Solo las notas favoritas
+            if (App.UsarNotasLocal)
+                colNotas = App.Database.NotasFavoritas();
+            else
+                colNotas = NotaSQL.NotasFavoritas(UsuarioSQL.UsuarioLogin.ID);
+            listView.ItemsSource = colNotas;
+
+            var plural = colNotas.Count() == 1 ? "" : "s";
+            LabelInfo.Text = $"{UsuarioSQL.UsuarioLogin.Email} con {colNotas.Count()} nota{plural} favorita{plural}."; ;
+
         }
 
         private void btnPrivacidad_Clicked(object sender, EventArgs e)
@@ -48,12 +58,6 @@ namespace gsNotasNET
                     BindingContext = e.SelectedItem as NotaSQL
                 });
             }
-        }
-
-        public static void TituloNotas()
-        {
-            Current.Title = $"{App.AppName} {App.AppVersion}";
-            Current.LabelInfo.Text = $"{UsuarioSQL.UsuarioLogin.Email} - con {NotaSQL.CountFavoritas(UsuarioSQL.UsuarioLogin.ID)} notas favoritas."; ;
         }
 
         void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
