@@ -103,9 +103,11 @@ namespace gsNotasNET
                             return;
                         }
                         // Mostrar la ventana de las notas marcadas para notificar
-                        //await Navigation.PushAsync(new NotasNotificar());
-                        //return;
-                        _pagina = new NotasNotificar();
+                        await Navigation.PushAsync(new NotasMostrar(NotasDatosMostrar.Notificar));
+                        
+                        //Application.Current.MainPage = new NavigationPage(new MainMenu());
+                        return;
+                        //_pagina = new NotasMostrar(NotasDatosMostrar.Notificar);
                     }
                 }
                 VolverAMain();

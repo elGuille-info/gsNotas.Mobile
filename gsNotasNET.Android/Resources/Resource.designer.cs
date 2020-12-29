@@ -8799,61 +8799,67 @@ namespace gsNotasNET.Droid
 			public const int XAppInfo = 2131165312;
 			
 			// aapt resource value: 0x7F070081
-			public const int XBuscar = 2131165313;
+			public const int XArchivadas = 2131165313;
 			
 			// aapt resource value: 0x7F070082
-			public const int XConfigApp = 2131165314;
+			public const int XBuscar = 2131165314;
 			
 			// aapt resource value: 0x7F070083
-			public const int XConfiguracion = 2131165315;
+			public const int XConfigApp = 2131165315;
 			
 			// aapt resource value: 0x7F070084
-			public const int XConfigurar_usuario = 2131165316;
+			public const int XConfiguracion = 2131165316;
 			
 			// aapt resource value: 0x7F070085
-			public const int XConfigurar_usuario_clip = 2131165317;
+			public const int XConfigurar_usuario = 2131165317;
 			
 			// aapt resource value: 0x7F070086
-			public const int XEnviarComentarios = 2131165318;
+			public const int XConfigurar_usuario_clip = 2131165318;
 			
 			// aapt resource value: 0x7F070087
-			public const int XEscribir_nota = 2131165319;
+			public const int XEnviarComentarios = 2131165319;
 			
 			// aapt resource value: 0x7F070088
-			public const int XGrupos = 2131165320;
+			public const int XEscribir_nota = 2131165320;
 			
 			// aapt resource value: 0x7F070089
-			public const int XLogin = 2131165321;
-			
-			// aapt resource value: 0x7F07008B
-			public const int XNotaOK = 2131165323;
-			
-			// aapt resource value: 0x7F07008C
-			public const int XNotas = 2131165324;
-			
-			// aapt resource value: 0x7F07008D
-			public const int XNotasEliminadas = 2131165325;
+			public const int XFavoritas = 2131165321;
 			
 			// aapt resource value: 0x7F07008A
-			public const int XNota_Azul = 2131165322;
+			public const int XGrupos = 2131165322;
+			
+			// aapt resource value: 0x7F07008B
+			public const int XLocal = 2131165323;
+			
+			// aapt resource value: 0x7F07008C
+			public const int XLogin = 2131165324;
 			
 			// aapt resource value: 0x7F07008E
-			public const int XNotificar = 2131165326;
+			public const int XNotaOK = 2131165326;
 			
 			// aapt resource value: 0x7F07008F
-			public const int XSeleccionar_opciones = 2131165327;
+			public const int XNotas = 2131165327;
 			
 			// aapt resource value: 0x7F070090
-			public const int XSincronizar = 2131165328;
+			public const int XNotasEliminadas = 2131165328;
+			
+			// aapt resource value: 0x7F07008D
+			public const int XNota_Azul = 2131165325;
 			
 			// aapt resource value: 0x7F070091
-			public const int XUsuario = 2131165329;
+			public const int XNotificar = 2131165329;
 			
 			// aapt resource value: 0x7F070092
-			public const int XUsuarios = 2131165330;
+			public const int XSincronizar = 2131165330;
 			
 			// aapt resource value: 0x7F070093
-			public const int XUsuarioValidar = 2131165331;
+			public const int XUsuario = 2131165331;
+			
+			// aapt resource value: 0x7F070094
+			public const int XUsuarios = 2131165332;
+			
+			// aapt resource value: 0x7F070095
+			public const int XUsuarioValidar = 2131165333;
 			
 			static Drawable()
 			{

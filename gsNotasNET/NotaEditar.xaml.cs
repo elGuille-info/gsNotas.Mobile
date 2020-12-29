@@ -11,6 +11,8 @@ namespace gsNotasNET
 {
     public partial class NotaEditar : ContentPage
     {
+        public NotasDatosMostrar DatosMostrar;
+
         public NotaEditar()
         {
             InitializeComponent();
@@ -38,7 +40,7 @@ namespace gsNotasNET
 
             var note = nota.ComoNotaLocal();
 
-            if (App.UsarNotasLocal)
+            if (App.UsarNotasLocal || DatosMostrar == NotasDatosMostrar.Local)
             {
                 note.ID = nota.ID;
                 await App.Database.SaveNoteAsync(note);
@@ -64,7 +66,7 @@ namespace gsNotasNET
             if(App.HayConexionInternet())
             {
                 // Sincronizar la nota
-                if (App.UsarNotasLocal)
+                if (App.UsarNotasLocal || DatosMostrar == NotasDatosMostrar.Local)
                 {
                     // Se ha guardado como nota local
                     if (note.idNota != 0)

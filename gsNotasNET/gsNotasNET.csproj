@@ -54,6 +54,9 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
     <Compile Update="Configuracion.xaml.cs">
       <DependentUpon>Configuracion.xaml</DependentUpon>
     </Compile>
+    <Compile Update="NotasMostrar.xaml.cs">
+      <DependentUpon>NotasMostrar.xaml</DependentUpon>
+    </Compile>
     <Compile Update="SincronizarBases.xaml.cs">
       <DependentUpon>SincronizarBases.xaml</DependentUpon>
     </Compile>
@@ -117,15 +120,6 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
     <EmbeddedResource Update="NotasBuscar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="NotasEliminadas.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="NotasFavoritas.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="NotasNotificar.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="UsuarioNuevo.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -135,7 +129,7 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
     <EmbeddedResource Update="UsuariosMostrar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="NotasArchivadas.xaml">
+    <EmbeddedResource Update="NotasMostrar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="UsuarioValidar.xaml">

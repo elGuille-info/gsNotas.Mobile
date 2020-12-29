@@ -20,6 +20,19 @@ namespace gsNotasNET
             InitializeComponent();
             Current = this;
             Title = $"Menú - {App.AppName} {App.AppVersion}";
+
+            // si se deben mostrar las notas a notificar
+            if (App.Notificar)
+            {
+                // Comprobar si hay notas a notificar
+                var colNotificar = NotaSQL.Buscar(UsuarioSQL.UsuarioLogin.ID, "Notificar = 1 AND Eliminada = 0");
+                if (colNotificar.Count() != 0)
+                {
+                    // Mostrar la ventana de las notas marcadas para notificar
+                    Navigation.PushAsync(new NotasMostrar(NotasDatosMostrar.Notificar));
+                }
+            }
+            MyMenu();
         }
 
         public void MyMenu()
@@ -33,11 +46,12 @@ namespace gsNotasNET
                 menu = new()
                 {
                     new Menu { Page = new NotasActivas(), MenuTitle = "Notas", MenuDetail = "Muestra las notas no archivadas.", Icon = "XNotas.png" },
-                    new Menu { Page = new NotasFavoritas(), MenuTitle = "Notas Favoritas", MenuDetail = "Muestra las notas favoritas.", Icon = "XConfigurar_usuario_clip.png" },
-                    new Menu { Page = new NotasNotificar(), MenuTitle = "Notas para Notificar", MenuDetail = "Muestra las notas indicadas para notificar.", Icon = "XNotificar.png" },
-                    new Menu { Page = new NotasArchivadas(), MenuTitle = "Notas Archivadas", MenuDetail = "Muestra las notas archivadas.", Icon = "XGrupos.png" },
-                    new Menu { Page = new NotasEliminadas(), MenuTitle = "Notas Eliminadas", MenuDetail = "Muestra las notas eliminadas.", Icon = "XNotasEliminadas.png" },
-                    new Menu { Page = new GruposMostrar(), MenuTitle = "Grupos", MenuDetail = "Muestra los grupos creados con las notas.", Icon = "XSeleccionar_opciones.png" },
+                    new Menu { Page = new NotasMostrar(NotasDatosMostrar.Favoritas), MenuTitle = "Notas Favoritas", MenuDetail = "Muestra las notas favoritas.", Icon = "XFavoritas.png" },
+                    new Menu { Page = new NotasMostrar(NotasDatosMostrar.Notificar), MenuTitle = "Notas para Notificar", MenuDetail = "Muestra las notas indicadas para notificar.", Icon = "XNotificar.png" },
+                    new Menu { Page = new NotasMostrar(NotasDatosMostrar.Archivadas), MenuTitle = "Notas Archivadas", MenuDetail = "Muestra las notas archivadas.", Icon = "XArchivadas.png" },
+                    new Menu { Page = new NotasMostrar(NotasDatosMostrar.Eliminadas), MenuTitle = "Notas Eliminadas", MenuDetail = "Muestra las notas eliminadas.", Icon = "XNotasEliminadas.png" },
+                    new Menu { Page = new NotasMostrar(NotasDatosMostrar.Local), MenuTitle = "Notas Locales (solo ver)", MenuDetail = "Muestra todas las notas de la base local.", Icon = "XLocal.png" },
+                    new Menu { Page = new GruposMostrar(), MenuTitle = "Grupos", MenuDetail = "Muestra los grupos creados con las notas.", Icon = "XGrupos.png" },
                     new Menu { Page = new NotasBuscar(), MenuTitle = "Buscar", MenuDetail = "Buscar texto en las notas.", Icon = "XBuscar.png" }
                 };
                 if (UsuarioSQL.UsuarioLogin.Email.ToLower() != "prueba")

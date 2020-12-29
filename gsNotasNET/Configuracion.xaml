@@ -22,6 +22,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -39,18 +40,22 @@
                    Grid.Row="2" Grid.Column="0" />
             <Switch x:Name="chkRecordarPassword" IsToggled="False" 
                     Grid.Row="2" Grid.Column="1" />
-            <Label Text="Mantener las notas sincronizadas:" FontSize="Medium" 
+            <Label Text="Iniciar con el último usuario: " FontSize="Medium" 
                    Grid.Row="3" Grid.Column="0" />
-            <Switch x:Name="chkSincronizarAuto" IsToggled="False" IsEnabled="False"
+            <Switch x:Name="chkIniciarConUsuario" IsToggled="False" 
                     Grid.Row="3" Grid.Column="1" />
-            <Label Text="Mostrar las notas a Notificar:" FontSize="Medium" 
+            <Label Text="Mantener las notas sincronizadas:" FontSize="Medium" 
                    Grid.Row="4" Grid.Column="0" />
-            <Switch x:Name="chkNotificar" IsToggled="False" 
+            <Switch x:Name="chkSincronizarAuto" IsToggled="False" IsEnabled="False"
                     Grid.Row="4" Grid.Column="1" />
-            <Label Text="Usar las notas locales:" FontSize="Medium" 
+            <Label Text="Mostrar las notas a Notificar:" FontSize="Medium" 
                    Grid.Row="5" Grid.Column="0" />
-            <Switch x:Name="chkUsarLocal" IsToggled="False" 
+            <Switch x:Name="chkNotificar" IsToggled="False" 
                     Grid.Row="5" Grid.Column="1" />
+            <Label Text="Usar las notas locales:" FontSize="Medium" 
+                   Grid.Row="6" Grid.Column="0" />
+            <Switch x:Name="chkUsarLocal" IsToggled="False" 
+                    Grid.Row="6" Grid.Column="1" />
         </Grid>
         <Button x:Name="btnAplicar" Text="Guardar"  
                 Grid.Row="2" Padding="2"

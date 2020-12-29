@@ -43,6 +43,13 @@ namespace gsNotasNET
             // Iniciar con el usuario de prueba.
             var usuario = UsuarioSQL.Usuario("prueba");
 
+            if(IniciarConUsuario)
+            {
+                var usuario2 = UsuarioSQL.Usuario(UltimoUsuario);
+                if (usuario2.ID == 0)
+                    UsuarioSQL.UsuarioLogin = usuario;
+            }
+
             // Iniciar con la página Login que vuelva a MainMenu.
             //MainPage = new NavigationPage(new Login(new MainMenu()));
 
@@ -87,70 +94,144 @@ namespace gsNotasNET
 
         public static string UltimoUsuario
         {
-            get { return Application.Current.Properties["UltimoUsuario"].ToString(); }
+            get 
+            {
+                if (Application.Current.Properties["UltimoUsuario"] is null)
+                    return "";
+                return Application.Current.Properties["UltimoUsuario"].ToString(); 
+            }
             set { Application.Current.Properties["UltimoUsuario"] = value; }
         }
         public static string UltimoPassword
         {
-            get { return Application.Current.Properties["UltimoPassword"].ToString(); }
+            get 
+            {
+                if (Application.Current.Properties["UltimoPassword"] is null)
+                    return "";
+                return Application.Current.Properties["UltimoPassword"].ToString(); 
+            }
             set { Application.Current.Properties["UltimoPassword"] = value; }
         }
         public static bool RecordarUsuario
         {
-            get { return (bool)Application.Current.Properties["RecordarUsuario"]; }
+            get 
+            {
+                if (Application.Current.Properties["RecordarUsuario"] is null)
+                    return true;
+                return (bool)Application.Current.Properties["RecordarUsuario"]; 
+            }
             set { Application.Current.Properties["RecordarUsuario"] = value; }
         }
         public static bool RecordarPassword 
         {
-            get { return (bool)Application.Current.Properties["RecordarPassword"]; }
+            get 
+            {
+                if (Application.Current.Properties["RecordarPassword"] is null)
+                    return false;
+                return (bool)Application.Current.Properties["RecordarPassword"]; 
+            }
             set { Application.Current.Properties["RecordarPassword"] = value; } 
+        }
+        public static bool IniciarConUsuario
+        {
+            get 
+            {
+                if (Application.Current.Properties["IniciarConUsuario"] is null)
+                    return false;
+                return (bool)Application.Current.Properties["IniciarConUsuario"]; 
+            }
+            set { Application.Current.Properties["IniciarConUsuario"] = value; }
         }
         //
         public static string BuscarTexto
         {
-            get { return Application.Current.Properties["BuscarTexto"].ToString(); }
+            get 
+            {
+                if (Application.Current.Properties["BuscarTexto"] is null)
+                    return "";
+                return Application.Current.Properties["BuscarTexto"].ToString(); 
+            }
             set { Application.Current.Properties["BuscarTexto"] = value; }
         }
         public static bool BuscarFavoritas
         {
-            get { return (bool)Application.Current.Properties["BuscarFavoritas"]; }
+            get 
+            {
+                if (Application.Current.Properties["BuscarFavoritas"] is null)
+                    return false;
+                return (bool)Application.Current.Properties["BuscarFavoritas"]; }
             set { Application.Current.Properties["BuscarFavoritas"] = value; }
         }
         public static bool BuscarArchivadas
         {
-            get { return (bool)Application.Current.Properties["BuscarArchivadas"]; }
+            get 
+            {
+                if (Application.Current.Properties["BuscarArchivadas"] is null)
+                    return false;
+                return (bool)Application.Current.Properties["BuscarArchivadas"]; 
+            }
             set { Application.Current.Properties["BuscarArchivadas"] = value; }
         }
         public static bool BuscarEliminadas
         {
-            get { return (bool)Application.Current.Properties["BuscarEliminadas"]; }
+            get 
+            {
+                if (Application.Current.Properties["BuscarEliminadas"] is null)
+                    return false;
+                return (bool)Application.Current.Properties["BuscarEliminadas"]; 
+            }
             set { Application.Current.Properties["BuscarEliminadas"] = value; }
         }
         public static bool BuscarNotificar
         {
-            get { return (bool)Application.Current.Properties["BuscarNotificar"]; }
+            get 
+            {
+                if (Application.Current.Properties["BuscarNotificar"] is null)
+                    return false;
+                return (bool)Application.Current.Properties["BuscarNotificar"]; 
+            }
             set { Application.Current.Properties["BuscarNotificar"] = value; }
         }
         // Sinconizar y usar base local
         public static bool SincronizarAuto
         {
-            get { return (bool)Application.Current.Properties["SincronizarAuto"]; }
+            get 
+            { 
+                if(Application.Current.Properties["SincronizarAuto"] is null)
+                        return true;
+                return (bool)Application.Current.Properties["SincronizarAuto"];
+            }
             set { Application.Current.Properties["SincronizarAuto"] = value; }
         }
         public static bool UsarNotasLocal
         {
-            get { return (bool)Application.Current.Properties["UsarNotasLocal"]; }
+            get 
+            {
+                if (Application.Current.Properties["UsarNotasLocal"] is null)
+                    return false;
+                return (bool)Application.Current.Properties["UsarNotasLocal"]; 
+            }
             set { Application.Current.Properties["UsarNotasLocal"] = value; }
         }
         public static bool Notificar
         {
-            get { return (bool)Application.Current.Properties["Notificar"]; }
+            get 
+            {
+                if (Application.Current.Properties["Notificar"] is null)
+                    return true;
+                return (bool)Application.Current.Properties["Notificar"]; 
+            }
             set { Application.Current.Properties["Notificar"] = value; }
         }
         //
         public static string UltimoGrupo
         {
-            get { return Application.Current.Properties["UltimoGrupo"].ToString(); }
+            get 
+            {
+                if (Application.Current.Properties["UltimoGrupo"] is null)
+                    return "";
+                return Application.Current.Properties["UltimoGrupo"].ToString(); 
+            }
             set { Application.Current.Properties["UltimoGrupo"] = value; }
         }
 
@@ -164,6 +245,8 @@ namespace gsNotasNET
                 Application.Current.Properties.Add("RecordarUsuario", true);
             if (!Application.Current.Properties.ContainsKey("RecordarPassword"))
                 Application.Current.Properties.Add("RecordarPassword",false);
+            if (!Application.Current.Properties.ContainsKey("IniciarConUsuario"))
+                Application.Current.Properties.Add("IniciarConUsuario", false);
             // Para la búsqueda
             if (!Application.Current.Properties.ContainsKey("BuscarTexto"))
                 Application.Current.Properties.Add("BuscarTexto", "");

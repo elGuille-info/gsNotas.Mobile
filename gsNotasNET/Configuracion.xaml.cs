@@ -34,6 +34,7 @@ namespace gsNotasNET
 
             App.RecordarPassword = chkRecordarPassword.IsToggled;
             App.RecordarUsuario = chkRecordarUsuario.IsToggled;
+            App.IniciarConUsuario = chkIniciarConUsuario.IsToggled;
             // Las notas siempre estarán sincronizadas
             App.SincronizarAuto = true; // chkSincronizarAuto.IsToggled;
             App.Notificar = chkNotificar.IsToggled;
@@ -59,6 +60,7 @@ namespace gsNotasNET
             }
             chkRecordarPassword.IsToggled = App.RecordarPassword;
             chkRecordarUsuario.IsToggled = App.RecordarUsuario;
+            chkIniciarConUsuario.IsToggled = App.IniciarConUsuario;
             chkSincronizarAuto.IsToggled = App.SincronizarAuto;
             chkNotificar.IsToggled = App.Notificar;
             chkUsarLocal.IsToggled = App.UsarNotasLocal;

@@ -20,6 +20,9 @@ namespace gsNotasNET
     public partial class NotasActivas : ContentPage
     {
         public static NotasActivas Current;
+
+        private List<NotaSQL> colNotas = null;
+
         public NotasActivas()
         {
             InitializeComponent();
@@ -35,9 +38,11 @@ namespace gsNotasNET
             }
             // Solo las notas que no estén archivadas ni eliminadas
             if (App.UsarNotasLocal)
-                listView.ItemsSource = App.Database.NotasUsuarioAsync(archivadas: false, eliminadas: false).Result;
+                colNotas = App.Database.Notas(App.Database.NotasUsuarioAsync(archivadas: false, eliminadas: false));
             else
-                listView.ItemsSource = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, archivadas: false, eliminadas: false);
+                colNotas = NotaSQL.NotasUsuario(UsuarioSQL.UsuarioLogin.ID, archivadas: false, eliminadas: false);
+
+            listView.ItemsSource = colNotas;
             TituloNotas();
         }
 
@@ -45,6 +50,7 @@ namespace gsNotasNET
         {
             await Navigation.PushAsync(new NotaEditar
             {
+                DatosMostrar = NotasDatosMostrar.Activas,
                 BindingContext = new NotaSQL()
             });
         }
@@ -55,6 +61,7 @@ namespace gsNotasNET
             {
                 await Navigation.PushAsync(new NotaEditar
                 {
+                    DatosMostrar = NotasDatosMostrar.Activas,
                     BindingContext = e.SelectedItem as NotaSQL
                 });
             }

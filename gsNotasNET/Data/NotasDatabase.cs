@@ -86,6 +86,15 @@ namespace gsNotasNET.Data
         }
 
         /// <summary>
+        /// Devuelve todas las notas.
+        /// </summary>
+        /// <returns>Una colección con todas las notas.</returns>
+        public List<NotaSQL> NotasTodas()
+        {
+            return Notas(_database.Table<Nota>().ToListAsync());
+        }
+
+        /// <summary>
         /// Devuelve la lista de notas a mostrar en la página NotasActivas.
         /// </summary>
         /// <param name="archivadas"></param>

@@ -102,7 +102,7 @@
     <AndroidAsset Include="Assets\encrypted-string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\XGrupos.png" />
+    <AndroidResource Include="Resources\drawable\XArchivadas.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\XLogin.png" />
@@ -123,7 +123,7 @@
     <AndroidResource Include="Resources\drawable\XEscribir_nota.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\XSeleccionar_opciones.png" />
+    <AndroidResource Include="Resources\drawable\XGrupos.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\encrypted-string-correos-elguille.txt" />
@@ -163,6 +163,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\XNotificar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\XLocal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\XFavoritas.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
