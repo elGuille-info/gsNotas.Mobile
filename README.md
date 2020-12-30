@@ -3,13 +3,20 @@
 
 # Las cosas de la versión 2.0.0.*
 
-## Ayuda sobre la versión 2.0.0.32 del 30 de diciembre de 2020
+## Ayuda sobre la versión 2.0.0.33 del 30 de diciembre de 2020
+Mira el contenido en [este enlace a la Ayuda v2.0.0.33](https://github.com/elGuille-info/gsNotasNET.Android/blob/master/Ayuda-v2.0.0.33.md)
+
+El paquete de instalación te lo puedes descargar de [la Release gsNotasNET.Android v2.0.0.33](https://github.com/elGuille-info/gsNotasNET.Android/releases/tag/v2.0.0.33)
+
+<br>
+---
+<br>
 Mira el contenido en [este enlace a la Ayuda v2.0.0.32](https://github.com/elGuille-info/gsNotasNET.Android/blob/master/Ayuda-v2.0.0.32.md)
 
 El paquete de instalación te lo puedes descargar de [la Release gsNotasNET.Android v2.0.0.32](https://github.com/elGuille-info/gsNotasNET.Android/releases/tag/v2.0.0.32)
 
 <br>
----
+
 
 Mira el contenido en [este enlace a la Ayuda v2.0.0.31](https://github.com/elGuille-info/gsNotasNET.Android/blob/master/Ayuda%20v2.0.0.31.md)
 
