@@ -30,19 +30,25 @@ namespace gsNotasNET
 
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
-			System.Reflection.Assembly ensamblado = typeof(AcercaDegsNotasNET).Assembly;
+			// Esto solo funciona en DEBUG
+			//if (System.Diagnostics.Debugger.IsAttached)
+			{
+				System.Reflection.Assembly ensamblado = typeof(AcercaDegsNotasNET).Assembly;
+				//var ensamblado = System.Reflection.Assembly.GetExecutingAssembly();
 
-			var versionWeb = "xx";
-			string msgVersion;
+				var versionWeb = "xx";
+				string msgVersion;
 
-			var cualVersion = VersionUtilidades.CompararVersionWeb(ensamblado, ref versionWeb);
+				//var cualVersion = VersionUtilidades.CompararVersionWeb(ensamblado, ref versionWeb);
+				var cualVersion = VersionUtilidades.CompararVersionWeb(App.AppName, App.AppVersionFull, ref versionWeb);
 
-			if (cualVersion == 1)
-				msgVersion = $"Existe una versión más reciente de '{App.AppName}': v{versionWeb}.";
-			else //if (cualVersion == -1)
-				msgVersion = $"Esta versión de '{App.AppName}' es la más reciente.";
+				if (cualVersion == 1)
+					msgVersion = $"Existe una versión más reciente de '{App.AppName}': v{versionWeb}.";
+				else //if (cualVersion == -1)
+					msgVersion = $"Esta versión de '{App.AppName}' es la más reciente.";
 
-			LabelVersion.Text = msgVersion;
+				LabelVersion.Text = msgVersion;
+			}
 		}
 	}
 }

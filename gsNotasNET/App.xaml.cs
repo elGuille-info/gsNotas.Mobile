@@ -21,7 +21,9 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2..32";
+        public static string AppVersion { get; } = "v2..33";
+
+        public static string AppVersionFull { get; } = "2.0.0.33";
 
         /// <summary>
         /// El nombre de la aplicación
@@ -486,7 +488,11 @@ namespace gsNotasNET
             {
                 if (database == null)
                 {
-                    database = new NotasDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "gsNotasNET.db3"));
+                    if (App.AppName.Contains("Debug"))
+                        database = new NotasDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "gsNotasNET.db3"));
+                    else
+                        database = new NotasDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "gsNotasNETLocal.db3"));
+                    //database = new NotasDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "gsNotasNET.db3"));
                 }
                 return database;
             }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using gsNotasNET.APIs;
 using gsNotasNET.Models;
 
 using Xamarin.Forms;
@@ -74,6 +75,7 @@ namespace gsNotasNET
             menu.Add(new Menu { Page = new Login(), MenuTitle = "Cambiar de Usuario", MenuDetail = "Cambiar de usuario o iniciar sesión.", Icon = "XLogin.png" });
             ListMenu.ItemsSource = menu;
         }
+
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
             // Al mostrarse, si el usuario no es elguille.info@
@@ -85,10 +87,42 @@ namespace gsNotasNET
             else
                 LabelInfo.Text = $"Usuario: {UsuarioSQL.UsuarioLogin.Email} ({UsuarioSQL.UsuarioLogin.Nombre}).";
 
+            string msgVersion = "";
+
+            try
+            {
+                //System.Reflection.Assembly ensamblado = typeof(AcercaDegsNotasNET).Assembly;
+                var ensamblado = System.Reflection.Assembly.GetExecutingAssembly();
+
+                var versionWeb = "xx";
+
+
+                //var cualVersion = VersionUtilidades.CompararVersionWeb(ensamblado, ref versionWeb);
+                var cualVersion = VersionUtilidades.CompararVersionWeb(App.AppName, App.AppVersionFull, ref versionWeb);
+
+                if (cualVersion == 1)
+                    msgVersion = $"Hay una versión más reciente: v{versionWeb}.";
+                else //if (cualVersion == -1)
+                    msgVersion = $"Esta versión es la más reciente.";
+            }
+            catch (Exception ex)
+            {
+                var nota = new NotaSQL();
+                nota.Texto = $"Error:\n\r{ex.Message}";
+                nota.Grupo = "Error";
+                Navigation.PushAsync(new NotaEditar
+                {
+                    DatosMostrar = NotasDatosMostrar.Activas,
+                    BindingContext = nota
+                });
+            }
+
             if (!App.HayConexionInternet())
                 LabelInternet.Text = $"{App.TipoConexion} Deberías usar la base local.";
             else
                 LabelInternet.Text = $"{App.TipoConexion}";
+
+            LabelInternet.Text += $" {msgVersion}";
 
             MyMenu();
         }
