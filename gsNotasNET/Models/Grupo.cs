@@ -18,42 +18,40 @@ namespace gsNotasNET.Models
         public int NotasArchivadas { get; set; }
         public int NotasEliminadas { get; set; }
         public int NotasFavoritas { get; set; }
-        //public string CrLf { get; } = "\r\n";
 
         /// <summary>
-        /// Los grupos que hay asignados
+        /// Las notas obtenidas al llamar al método Grupos.
+        /// </summary>
+        public static List<NotaSQL> NotasGrupos;
+
+        /// <summary>
+        /// Los grupos que hay asignados.
         /// </summary>
         /// <returns>Una colección de tipo string</returns>
+        /// <remarks>Aquí se tiene en cuenta si se están usando las notas locales o las remotas.</remarks>
         public static List<Grupo> Grupos(UsuarioSQL usuario)
         {
-            List<NotaSQL> colNotas;
-
             if (App.UsarNotasLocal)
             {
-                //colNotas = new List<NotaSQL>();
-                //
-                //var colNotes = App.Database.GetNotesAsync().Result;
-                //foreach (var note in colNotes)
-                //{
-                //    colNotas.Add(note);
-                //}
-
-                colNotas = App.Database.Notas(App.Database.GetNotesAsync());
+                NotasGrupos = App.Database.Notas(App.Database.GetNotesAsync());
             }
             else
             {
-                // Si el usuario es elGuille, mostrar todos los grupos
-                // si no, solo los del usuario y todas las notas (estén o no archivadas o eliminadas)
-                if (usuario.Email.ToLower().IndexOf("elguille.info@") > -1)
-                    colNotas = NotaSQL.NotasUsuario(0);
-                else
-                    colNotas = NotaSQL.NotasUsuario(usuario.ID);
+                //// Si el usuario es elGuille, mostrar todos los grupos
+                //// si no, solo los del usuario y todas las notas (estén o no archivadas o eliminadas)
+                //if (usuario.Email.ToLower().IndexOf("elguille.info@") > -1)
+                //    colNotas = NotaSQL.NotasUsuario(0);
+                //else
+                //    colNotas = NotaSQL.NotasUsuario(usuario.ID);
+
+                // Mostrar solo las notas del usuario logueado.
+                NotasGrupos = NotaSQL.NotasUsuario(usuario.ID);
             }
 
             // Primero añadir a la colección de tipo Dictionary
             // para evitar repetidos
             var gruposDict = new Dictionary<string, Grupo>();
-            foreach (var s in colNotas)
+            foreach (var s in NotasGrupos)
             {
                 if (!gruposDict.ContainsKey(s.Grupo))
                 {
@@ -76,6 +74,19 @@ namespace gsNotasNET.Models
                 grupos.Add(gruposDict[gd]);
             }
             return grupos;
+        }
+
+        /// <summary>
+        /// Devuelve las notas del grupo indicado.
+        /// </summary>
+        /// <param name="grupo">El nombre del grupo del que se devolverán las notas.</param>
+        /// <returns>Una colección de tipo <see cref="List{NotaSQL}"/>.</returns>
+        public static List<NotaSQL> NotasDelGrupo(string grupo)
+        {
+            if (NotasGrupos is null)
+                Grupos(UsuarioSQL.UsuarioLogin);
+
+            return NotasGrupos.Where((n) => n.Grupo == grupo).ToList<NotaSQL>();
         }
     }
 }

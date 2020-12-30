@@ -34,6 +34,7 @@ namespace gsNotasNET.Models
         public int idNota { get; set; }
 
         private int LongitudTituloNota = 50;
+
         /// <summary>
         /// Solo es valor local, no en la base de datos.
         /// </summary>
@@ -378,8 +379,8 @@ namespace gsNotasNET.Models
         /// <returns>Una colección de tipo string</returns>
         public static List<string> Grupos(int idUsuario)
         {
-            // todas las notas estén o no archivadas
-            var colNotas = NotasUsuario(idUsuario, true);
+            // todas las notas estén o no archivadas, pero no las eliminadas
+            var colNotas = NotasUsuario(idUsuario, archivadas:null, eliminadas:false);
             var grupos = new List<string>();
             foreach (var s in colNotas)
             {
@@ -529,7 +530,7 @@ namespace gsNotasNET.Models
         #endregion
 
         /// <summary>
-        /// Devuelve una lista de todas las notas del usuario indicado que no están archivadas ni eliminadas.
+        /// Devuelve una lista de todas las notas del usuario indicado.
         /// </summary>
         /// <param name="idUsuario">El id del usuario. Si es cero, mostrar todas.</param>
         /// <param name="archivadas">true para mostrar las archivadas. null para no tenerlo en cuenta.</param>
@@ -674,13 +675,15 @@ namespace gsNotasNET.Models
         /// Buscar notas según el texto indicado.
         /// </summary>
         /// <param name="idUsuario">El id del usuario.</param>
-        /// <param name="buscar">El texto a buscar.</param>
+        /// <param name="buscar">El texto a buscar en el Texto.</param>
+        /// <param name="buscarGrupo">El texto a buscar en la propiedad Grupo.</param>
         /// <param name="archivadas">Si se busca en las archivadas.</param>
         /// <param name="favoritas">Si se busca en las favoritas.</param>
         /// <param name="eliminadas">Si se busca en las eliminadas.</param>
         /// <param name="notificar">Si se debe buscar en las marcadas para notificar.</param>
         /// <returns>Una colección con las notas halladas.</returns>
-        public static List<NotaSQL> NotasBuscar(int idUsuario, string buscar, bool favoritas, bool archivadas, bool eliminadas, bool notificar)
+        public static List<NotaSQL> NotasBuscar(int idUsuario, string buscar, string buscarGrupo, 
+                                                bool favoritas, bool archivadas, bool eliminadas, bool notificar)
         {
             var colNotas = new List<NotaSQL>();
 
@@ -712,8 +715,17 @@ namespace gsNotasNET.Models
             else
                 sNotificar = "(Notificar = 1)";
 
+            var sGrupo = "";
+            if (buscarGrupo.Any())
+            {
+                sGrupo = $"AND Grupo like '%{buscarGrupo}%' ";
+            }
+            var sTexto = "";
+            if (buscar.Any())
+                sTexto = $"AND Texto like '%{buscar}%' ";
+
             var sel = $"SELECT * FROM {TablaNotas} ";
-            sel += $"WHERE idUsuario = {idUsuario} AND Texto like '%{buscar}%' " + 
+            sel += $"WHERE idUsuario = {idUsuario} {sTexto} {sGrupo} " + 
                    $"AND {sFavoritas} AND {sArchivadas} AND {sEliminadas} AND {sNotificar} ";
             sel += "ORDER BY Favorita DESC, Modificada DESC, Grupo ASC, ID";
 

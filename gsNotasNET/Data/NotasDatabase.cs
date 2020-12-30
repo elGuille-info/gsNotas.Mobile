@@ -158,16 +158,31 @@ namespace gsNotasNET.Data
         //}
 
         /// <summary>
-        /// Busca en todas las notas el texto indicado.
+        /// Busca en todas las notas el texto indicado en las propiedades Texto y/o Grupo.
         /// </summary>
-        /// <param name="texto"></param>
+        /// <param name="texto">El texto a buscar en Texto.</param>
+        /// <param name="grupo">El texto a buscar en Grupo.</param>
         /// <returns></returns>
-        public List<NotaSQL> BuscarNotas(string texto)
+        public List<NotaSQL> BuscarNotas(string texto, string grupo)
         {
-            texto = texto.ToLower();
-            return Notas( _database.Table<Nota>()
-                            .Where(n => n.Texto.ToLower().IndexOf(texto) > -1)
-                            .ToListAsync());
+            if (texto.Any())
+                texto = texto.ToLower();
+            if(grupo.Any())
+                grupo = grupo.ToLower();
+
+            if (texto.Any() && grupo.Any())
+                return Notas(_database.Table<Nota>()
+                    .Where(n => n.Texto.ToLower().IndexOf(texto) > -1 &&
+                                n.Grupo.ToLower().IndexOf(grupo) > -1)
+                    .ToListAsync());
+            else if(grupo.Any())
+                return Notas(_database.Table<Nota>()
+                    .Where(n => n.Grupo.ToLower().IndexOf(grupo) > -1)
+                    .ToListAsync());
+            else
+                return Notas(_database.Table<Nota>()
+                    .Where(n => n.Texto.ToLower().IndexOf(texto) > -1)
+                    .ToListAsync());
         }
 
         /// <summary>

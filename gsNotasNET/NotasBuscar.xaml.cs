@@ -31,6 +31,7 @@ namespace gsNotasNET
                 return;
             }
             txtBuscar.Text = App.BuscarTexto;
+            txtBuscarGrupo.Text = App.BuscarGrupo;
             chkArchivada.IsToggled = App.BuscarArchivadas;
             chkFavorita.IsToggled = App.BuscarFavoritas;
             chkNotificar.IsToggled = App.BuscarNotificar;
@@ -40,6 +41,7 @@ namespace gsNotasNET
         private void btnBuscar_Clicked(object sender, EventArgs e)
         {
             App.BuscarTexto = txtBuscar.Text;
+            App.BuscarGrupo = txtBuscarGrupo.Text;
             App.BuscarArchivadas = chkArchivada.IsToggled;
             App.BuscarFavoritas = chkFavorita.IsToggled;
             App.BuscarNotificar = chkNotificar.IsToggled;
@@ -50,13 +52,15 @@ namespace gsNotasNET
         private void AsignarBúsqueda()
         {
             // Solo si hay texto en buscar
-            if (txtBuscar.Text.Any())
+            if (txtBuscar.Text.Any() || txtBuscarGrupo.Text.Any())
             {
                 List<NotaSQL> notas;
                 if (App.UsarNotasLocal)
-                    notas = App.Database.BuscarNotas(txtBuscar.Text); 
+                    notas = App.Database.BuscarNotas(txtBuscar.Text, txtBuscarGrupo.Text); 
                 else
-                    notas = NotaSQL.NotasBuscar(UsuarioSQL.UsuarioLogin.ID, txtBuscar.Text, chkFavorita.IsToggled, chkArchivada.IsToggled, chkEliminada.IsToggled, chkNotificar.IsToggled);
+                    notas = NotaSQL.NotasBuscar(UsuarioSQL.UsuarioLogin.ID, txtBuscar.Text, txtBuscarGrupo.Text, 
+                                                chkFavorita.IsToggled, chkArchivada.IsToggled, 
+                                                chkEliminada.IsToggled, chkNotificar.IsToggled);
 
                 listView.ItemsSource = notas;
                 var plural = notas.Count() == 1 ? "" : "s";

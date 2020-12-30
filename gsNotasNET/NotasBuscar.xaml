@@ -7,10 +7,11 @@
     <StackLayout Margin="{StaticResource PageMargin}">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="45" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="70" />
                 <RowDefinition Height="70" />
                 <RowDefinition Height="35" />
-                <RowDefinition Height="70" />
+                <RowDefinition Height="80" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -18,35 +19,42 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Editor x:Name="txtBuscar" Placeholder="Texto a buscar" 
-                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
+            <StackLayout Grid.Row="0" Grid.ColumnSpan="4" Orientation="Vertical">
+                <Label Text="Buscar en Texto:" FontSize="Medium" />
+                <Editor x:Name="txtBuscar" Placeholder="Texto a buscar en 'Texto'" 
                     FontSize="Medium" HeightRequest="45" />
-            <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+            </StackLayout>
+            <StackLayout Grid.Row="1" Grid.ColumnSpan="4" Orientation="Vertical">
+                <Label Text="Buscar en Grupo:" FontSize="Medium" />
+                <Editor x:Name="txtBuscarGrupo" Placeholder="Texto a buscar en 'Grupo'" 
+                    FontSize="Medium" HeightRequest="45" />
+            </StackLayout>
+            <StackLayout Grid.Row="2" Grid.Column="0" Orientation="Vertical">
                 <Label Text="Favoritas: " />
                 <Switch x:Name="chkFavorita" 
                         IsToggled="{Binding Favorita}"  />
             </StackLayout>
-            <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+            <StackLayout Grid.Row="2" Grid.Column="1" Orientation="Vertical">
                 <Label Text="Notificar: " />
                 <Switch x:Name="chkNotificar" 
                         IsToggled="{Binding Notificar}"  />
             </StackLayout>
-            <StackLayout Grid.Row="1" Grid.Column="2" Orientation="Vertical">
+            <StackLayout Grid.Row="2" Grid.Column="2" Orientation="Vertical">
                 <Label Text="Archivadas: " />
                 <Switch x:Name="chkArchivada" 
                         IsToggled="{Binding Archivada}"  />
             </StackLayout>
-            <StackLayout Grid.Row="1" Grid.Column="3" Orientation="Vertical">
+            <StackLayout Grid.Row="2" Grid.Column="3" Orientation="Vertical">
                 <Label Text="Eliminadas: " />
                 <Switch x:Name="chkEliminada" 
                         IsToggled="{Binding Eliminada}"  />
             </StackLayout>
             <Button x:Name="btnBuscar" Text="Buscar" 
-                    Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"
+                    Grid.Row="3" Grid.ColumnSpan="4"
                     Clicked="btnBuscar_Clicked" />
             <Label x:Name="LabelAviso" 
-                   Text="Indica el texto a buscar y pulsa en el botón. Si marcas Favorita, Notificar, Archivada o Eliminada se tendrán en cuenta ese tipo de notas, si no, se incluirán todas las favoritas, para notificar y las archivadas."
-                   Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"
+                   Text="Indica el texto a buscar en el 'Texto' de la nota y/o en 'Grupo' y pulsa BUSCAR. En la base local solo se busca el texto y el grupo. Si marcas Favorita, Notificar, Archivada o Eliminada se tendrán en cuenta ese tipo de notas, si no, se incluirán todas las favoritas, para notificar, las archivadas y las eliminadas."
+                   Grid.Row="4" Grid.ColumnSpan="4"
                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
         </Grid>
         <Grid Margin="{StaticResource PageMargin}">

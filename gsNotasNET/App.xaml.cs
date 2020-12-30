@@ -21,7 +21,7 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2..31";
+        public static string AppVersion { get; } = "v2..32";
 
         /// <summary>
         /// El nombre de la aplicación
@@ -153,6 +153,16 @@ namespace gsNotasNET
             }
             set { Application.Current.Properties["BuscarTexto"] = value; }
         }
+        public static string BuscarGrupo
+        {
+            get
+            {
+                if (Application.Current.Properties["BuscarGrupo"] is null)
+                    return "";
+                return Application.Current.Properties["BuscarGrupo"].ToString();
+            }
+            set { Application.Current.Properties["BuscarGrupo"] = value; }
+        }
         public static bool BuscarFavoritas
         {
             get 
@@ -250,6 +260,8 @@ namespace gsNotasNET
             // Para la búsqueda
             if (!Application.Current.Properties.ContainsKey("BuscarTexto"))
                 Application.Current.Properties.Add("BuscarTexto", "");
+            if (!Application.Current.Properties.ContainsKey("BuscarGrupo"))
+                Application.Current.Properties.Add("BuscarGrupo", "");
             if (!Application.Current.Properties.ContainsKey("BuscarFavoritas"))
                 Application.Current.Properties.Add("BuscarFavoritas", false);
             if (!Application.Current.Properties.ContainsKey("BuscarArchivadas"))
