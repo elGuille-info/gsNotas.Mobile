@@ -10,7 +10,9 @@ El paquete de instalación te lo puedes descargar de [la Release gsNotasNET.Andr
 
 <br>
 ---
+
 Mira el contenido en [este enlace a la Ayuda v2.0.0.31](https://github.com/elGuille-info/gsNotasNET.Android/blob/master/Ayuda%20v2.0.0.31.md)
+
 <br>
 <br>
 Ahora se accede a una base de datos de SQL Server.
