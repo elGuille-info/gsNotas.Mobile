@@ -3,6 +3,16 @@
 
 # Las cosas de la versión 2.0.0.*
 
+## Ayuda sobre la versión 2.0.0.31 del 29 de diciembre de 2020
+Mira el contenido en [este enlace a la Ayuda v2.0.0.31](https://github.com/elGuille-info/gsNotasNET.Android/blob/master/Ayuda%20v2.0.0.31.md)
+
+
+El paquete de instalación te lo puedes descargar de [la Release gsNotasNET.Android v2.0.0.31](https://github.com/elGuille-info/gsNotasNET.Android/releases/tag/v2.0.0.31)
+
+<br>
+---
+<br>
+<br>
 Ahora se accede a una base de datos de SQL Server.
 
 ## gsNotasNET.Android v2.0.0.28
