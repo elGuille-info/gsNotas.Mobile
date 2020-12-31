@@ -59,8 +59,8 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1791-pre5" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.0-rc1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1829-pre6" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1-preview1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />

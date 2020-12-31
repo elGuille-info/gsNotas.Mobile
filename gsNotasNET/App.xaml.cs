@@ -33,6 +33,7 @@ namespace gsNotasNET
         public App()
         {
             InitializeComponent();
+
             // Crear las propiedades de la aplicación
             CrearPropiedadesApp();
 

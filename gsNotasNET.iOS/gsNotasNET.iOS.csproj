@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-      <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -85,9 +85,9 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.0-rc1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1-preview1" />
     <PackageReference Include="Xamarin.Forms">
-      <Version>5.0.0.1791-pre5</Version>
+      <Version>5.0.0.1829-pre6</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
