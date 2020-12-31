@@ -82,4 +82,5 @@ De todas formas, antes de eliminarlas, comprobaré que no haya notas distintas a
 
 # Las cosas de la versión 1.0.0.*
 
-Las puedes ver (con algunas capturas) en [este enlace](https://github.com/elGuille-info/gsNotasNET.Android/blob/master/Las-cosas-de-la-versi%C3%B3n-1.0.0.*.md).
+Las puedes ver (con algunas capturas) en [este enlace](https://github.com/elGuille-info/gsNotasNET.Android/blob/master/Las-cosas-de-la-version-1.md).
+
