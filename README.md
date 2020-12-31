@@ -13,6 +13,18 @@
 >
 
 
+## Visto lo visto, seguramente crearé otro proyecto que solo acceda a la base de datos local
+
+De esa forma comprobaré si funciona en los tres dispositivos.
+
+Y espero poder usar alguna forma de guardar _en la  nube_ los datos locales.
+
+Pero eso, seguramente será el año que viene ;-) (ahora es 31 de diciembre de 2020 17:12 GMT+1)
+
+
+<br>
+<br>
+
 # Las cosas de la versión 2.0.0.*
 
 ## Ayuda sobre la versión 2.0.0.33 del 30 de diciembre de 2020
