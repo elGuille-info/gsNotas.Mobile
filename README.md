@@ -3,7 +3,9 @@
 
 > **NOTA sobre los proyectos para iOS y UWP**
 >
-> He incluido esos dos tipos de proyectos, pero no he sido capaz de ahcerlos funcionar ni usando el Visual Studio para Windows ni para Mac.
+> He incluido esos dos tipos de proyectos, pero no he sido capaz de hacerlos funcionar ni usando el Visual Studio para Windows.
+> El proyecto de iOS tampoco lo he podido ejecutr (sin errores) con el Visual Studio para Mac (en un Mac que me han dado acceso remotamente).
+> El proyecto de UWP no ha funcionado con el Visual Studio para Windows (en el Mac parece ser que no se puede usar), da error, pero no llega ni a ejecutar el código de la aplicación, y no soy capaz de saber qué _falta_ por configurar... :-(
 >
 > El de UWP (universal Windows Platform) solo se puede usar en el VS para Windows.
 >
