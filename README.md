@@ -12,6 +12,7 @@
 > El de UWP (universal Windows Platform) solo se puede usar en el VS para Windows.
 >
 
+<br>
 
 ## Visto lo visto, seguramente crearé otro proyecto que solo acceda a la base de datos local
 
