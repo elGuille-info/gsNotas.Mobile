@@ -1,6 +1,14 @@
 # gsNotasNET.Android
  Aplicación para tomar notas y usar en dispositivos Android.
 
+> **NOTA sobre los proyectos para iOS y UWP**
+>
+> He incluido esos dos tipos de proyectos, pero no he sido capaz de ahcerlos funcionar ni usando el Visual Studio para Windows ni para Mac.
+>
+> El de UWP (universal Windows Platform) solo se puede usar en el VS para Windows.
+>
+
+
 # Las cosas de la versión 2.0.0.*
 
 ## Ayuda sobre la versión 2.0.0.33 del 30 de diciembre de 2020
