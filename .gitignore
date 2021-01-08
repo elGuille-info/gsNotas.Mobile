@@ -8,6 +8,9 @@
 *.snk
 encrypted-string*.txt
 client_secret*.json
+**/.vs
+**/bin
+**/obj
 
 # User-specific files
 *.rsuser
