@@ -7,10 +7,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitleAttribute("gsNotasNET.UWP")]
-[assembly: AssemblyDescriptionAttribute("Utilidad para tomar notas y guardarlas en el dispositivo. (revisión del 31-dic-2020)")]
+[assembly: AssemblyDescription("Utilidad para tomar notas y guardarlas en el dispositivo. (revisión del 3-abr-2021)")]
 [assembly: AssemblyCompanyAttribute("elGuille")]
 [assembly: AssemblyProductAttribute("gsNotasNET.UWP")]
-[assembly: AssemblyCopyrightAttribute("Copyright © Guillermo Som (elGuille), 2020")]
+[assembly: AssemblyCopyright("Copyright © Guillermo Som (elGuille), 2020-2021")]
 [assembly: AssemblyTrademarkAttribute("Creado con Xamarin.Forms y .NET Standard 2.0")]
 
 // Version information for an assembly consists of the following four values:

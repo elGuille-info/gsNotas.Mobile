@@ -21,9 +21,9 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2..33";
+        public static string AppVersion { get; } = "v2..34";
 
-        public static string AppVersionFull { get; } = "2.0.0.33";
+        public static string AppVersionFull { get; } = "2.0.0.34";
 
         /// <summary>
         /// El nombre de la aplicación
@@ -61,36 +61,47 @@ namespace gsNotasNET
 
         public static string TipoConexion { get; private set; }
 
+        /// <summary>
+        /// Comprobar si hay conexión a internet.
+        /// </summary>
+        /// <returns>Un valor verdadero si hay conexión a Internet.</returns>
         public static bool HayConexionInternet()
         {
             var current = Connectivity.NetworkAccess;
 
             //TipoConexion = current.ToString();
+            var sb = new StringBuilder();
+            sb.Append("(");
+            foreach (var cp in Connectivity.ConnectionProfiles)
+            {
+                sb.Append($"{cp.ToString()}; ");
+            }
+            var cnnPro = sb.ToString().TrimEnd(new char[] { ';', ' ' }) + ")";
 
             if (current == NetworkAccess.Internet)
             {
                 // Connection to internet is available
-                TipoConexion = "Hay conexión a Internet.";
+                TipoConexion = $"Hay conexión a Internet. {cnnPro}";
                 return true;
             }
             else if (current == NetworkAccess.ConstrainedInternet)
             {
-                TipoConexion = "No hay conexión a Internet: ConstrainedIternet.";
+                TipoConexion = $"Sin conexión a Internet. {cnnPro}";
                 return false;
             }
             else if (current == NetworkAccess.Local)
             {
-                TipoConexion = "No hay conexión a Internet: Local.";
+                TipoConexion = $"Sin conexión a Internet. {cnnPro}";
                 return false;
             }
             else if (current == NetworkAccess.Unknown)
             {
-                TipoConexion = "No hay conexión a Internet: Unknown.";
+                TipoConexion = $"Sin conexión a Internet. {cnnPro}";
                 return false;
             }
             else //if (current == NetworkAccess.None)
             {
-                TipoConexion = "No hay conexión a Internet: None.";
+                TipoConexion = $"Sin conexión a Internet. {cnnPro}";
                 return false;
             }
         }

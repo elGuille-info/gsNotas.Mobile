@@ -118,7 +118,7 @@ namespace gsNotasNET
             }
 
             if (!App.HayConexionInternet())
-                LabelInternet.Text = $"{App.TipoConexion} Deberías usar la base local.";
+                LabelInternet.Text = $"ATENCIÓN: {App.TipoConexion} Deberías usar la base local.";
             else
                 LabelInternet.Text = $"{App.TipoConexion}";
 

@@ -9,24 +9,26 @@
 Se utiliza una base de datos para guardar las notas.
 Lamentablemente no se pueden copiar las notas a Google Drive.
 
-(para .NET Standard 2.0 revisión del 30-dic-2020)</Description>
-    <Copyright>(c) Guillermo Som (elGuille), 2020</Copyright>
+(para .NET Standard 2.0 revisión del 3-abr-2021)</Description>
+    <Copyright>(c) Guillermo Som (elGuille), 2020-2021</Copyright>
     <PackageProjectUrl>http://www.elguillemola.com/utilidades-net/utilidades-para-net-framework-4-8/gsnotasnetf/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/elGuille-info/gsNotasNETF</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>notas notes dot-net dotnet net-core netcore xamarin android c# c-sharp csharp</PackageTags>
-    <PackageReleaseNotes>v2.0.0.33 30-dic-2020 Nuevas características.</PackageReleaseNotes>
+    <PackageReleaseNotes>v2.0.0.34 3-abr-2021 Más detalle con la información de si hay conexión a Internet.
+v2.0.0.33 30-dic-2020 Nuevas características.</PackageReleaseNotes>
     <NeutralLanguage>es-ES</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
       <PackageVersion>2.0.0.33</PackageVersion>
-      <Version>2.0.0.33</Version>
-      <FileVersion>2.0.0.33</FileVersion>
+      <Version>2.0.0.34</Version>
+      <FileVersion>2.0.0.34</FileVersion>
     <!--<SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>E:\gsCodigo_00\elGuille\elGuille.snk</AssemblyOriginatorKeyFile>-->
   </PropertyGroup>
     
     <PropertyGroup>
         <LangVersion>latest</LangVersion>
+        <AssemblyVersion>2.0.0.34</AssemblyVersion>
     </PropertyGroup>
     
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -48,7 +50,7 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.0-beta" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1829-pre6" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1-preview1" />
   </ItemGroup>
 
