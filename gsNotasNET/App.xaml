@@ -29,9 +29,13 @@
 
         <Style TargetType="{x:Type Entry}" ApplyToDerivedTypes="True" CanCascade="True">
             <Setter Property="TextColor" Value="{StaticResource AppTextColor}" />
+            <Setter Property="PlaceholderColor" Value="LightGray"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}"/>
         </Style>
         <Style TargetType="{x:Type Editor}" ApplyToDerivedTypes="True" CanCascade="True">
             <Setter Property="TextColor" Value="{StaticResource AppTextColor}" />
+            <Setter Property="PlaceholderColor" Value="LightGray"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}"/>
         </Style>
         <Style TargetType="{x:Type Label}" ApplyToDerivedTypes="True" CanCascade="True">
             <Setter Property="TextColor" Value="{StaticResource AppTextColor}" />
