@@ -6,7 +6,13 @@
 # Versión 2.1.*
 <br>
 Esta nueva versión (actualmente la v2.1.0.4) ya es funcional con bases de datos de SQL Server y SQLite tanto en dispositivos de Android como de UWP.<br>
-Aún no está lista la de iOS (aunque el esquema del proyecto esté en este repositorio).<br>
+<br>
+
+**Nota del 27-may-2021 13:22**<br>
+Acabo de probar la versión para iPhone (iOS) y me funciona en mi móvil iPhone 7plus<br>
+A ver si soy capaz de crear un *distribuible* de la aplicación compilada... 
+
+<br>
 <br>
 
 Para más detalles, mejor que leas lo que he puesto en mi blog: <a href="https://www.elguillemola.com/gsnotas-mobile-v2-1-0-4/" target="_blank">gsNotas.Mobile v2.1.0.4</a>.
