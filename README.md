@@ -8,7 +8,7 @@
 Esta nueva versión (actualmente la v2.1.0.4) ya es funcional con bases de datos de SQL Server y SQLite tanto en dispositivos de Android como de UWP.<br>
 Aún no está lista la de iOS (aunque el esquema del proyecto esté en este repositorio).<br>
 <br>
-Para más detalles, mejor que leas lo que he puesto en mi blog: [gsNotas - multiplataforma móvil](https://www.elguillemola.com/utilidades-net/gsnotasnet-android-multiplataforma-movil/).
+Para más detalles, mejor que leas lo que he puesto en mi blog: [gsNotas - multiplataforma móvil](https://www.elguillemola.com/utilidades-net/gsnotasnet-android-multiplataforma-movil).
 
 <br>
 <br>
