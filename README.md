@@ -18,6 +18,7 @@ Las puedes ver en [este enlace](https://github.com/elGuille-info/gsNotas.Mobile/
 
 <br>
 <br>
+
 # Las cosas de la versión 1.0.0.*
 
 Las puedes ver (con algunas capturas) en [este enlace](https://github.com/elGuille-info/gsNotasNET.Mobile/blob/master/Las-cosas-de-la-version-1.md).
