@@ -19,9 +19,8 @@ Para más detalles, mejor que leas lo que he puesto en mi blog: <a href="https:/
 
 <br>
 <br>
-<br>
 
-Si quieres, [descarga la release v2.1.0.4 con el paquete de instalación para Android](https://github.com/elGuille-info/gsNotas.Mobile/releases/tag/v2.1.0.4).
+Si quieres, [descarga la release v2.1.0.5 con el paquete de instalación para Android](https://github.com/elGuille-info/gsNotas.Mobile/releases/tag/v2.1.0.5).
 
 <br>
 <br>
