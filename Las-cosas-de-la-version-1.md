@@ -12,8 +12,8 @@ Unas capturas del programa funcionando en mi móvil Google Pixel 4a:
 
 > Actualizadas las capturas a la versión 1.0.0.17
 
-![alt text](http://www.elguillemola.com/img/img2020/gsNotasNET.Android-04.png "Captura de la aplicación en funcionamiento")
+![alt text](https://www.elguillemola.com/img/img2020/gsNotasNET.Android-04.png "Captura de la aplicación en funcionamiento")
 
-![alt text](http://www.elguillemola.com/img/img2020/gsNotasNET.Android-05.png "Figura 2.")
+![alt text](https://www.elguillemola.com/img/img2020/gsNotasNET.Android-05.png "Figura 2.")
 
-![alt text](http://www.elguillemola.com/img/img2020/gsNotasNET.Android-02.png "Figura 3.")
+![alt text](https://www.elguillemola.com/img/img2020/gsNotasNET.Android-02.png "Figura 3.")
