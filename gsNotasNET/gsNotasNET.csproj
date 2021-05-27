@@ -15,7 +15,9 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
     <RepositoryUrl>https://github.com/elGuille-info/gsNotasNETF</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>notas notes dot-net dotnet net-core netcore xamarin android c# c-sharp csharp</PackageTags>
-    <PackageReleaseNotes>v2.1.0.3 26-may-2021 Cambio en los colores por el tema claro/oscuro del dispositivo Android.
+    <PackageReleaseNotes>v2.1.0.5 27-may-2021 Cambio algunos colores para probar el tema oscuro. Ya compila para iOS.
+v2.1.0.4 26-may-2021 Compilo las versiones de Android y UWP.
+v2.1.0.3 26-may-2021 Cambio en los colores por el tema claro/oscuro del dispositivo Android.
 v2.1.0.2 26-may-2021 Más cambios en la presentación para adaptarlo al Android.
 v2.1.0.2 25-may-2021 Añado la tabla NotasMax.
 v2.1.0.1 24-may-2021 Cambios en el color del fondo y texto.
@@ -28,7 +30,7 @@ v2.0.0.33 30-dic-2020 Nuevas características.</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
       <PackageVersion>2.0.0.33</PackageVersion>
       <Version>2.1.0.0</Version>
-      <FileVersion>2.1.0.4</FileVersion>
+      <FileVersion>2.1.0.5</FileVersion>
     <!--<SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>E:\gsCodigo_00\elGuille\elGuille.snk</AssemblyOriginatorKeyFile>-->
   </PropertyGroup>
