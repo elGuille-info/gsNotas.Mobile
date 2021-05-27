@@ -1,6 +1,8 @@
 # gsNotasNET.Android
  Aplicación para tomar notas y usar en dispositivos Android.
 
+<br>
+<br>
 
 # Las cosas de la versión 2.0.0.*
 
