@@ -1,5 +1,5 @@
 # gsNotasNET.Mobile
- Aplicación para tomar notas y usar en dispositivos Android, Windows Universal Platform (UWP) e iOS (iPhone).
+ Aplicación para tomar notas (en base de SQL Server y SQLite) y usar en dispositivos Android, Windows Universal Platform (UWP) e iOS (iPhone).
 
 <br>
 
