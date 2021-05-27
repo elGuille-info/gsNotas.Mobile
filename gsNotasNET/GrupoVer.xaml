@@ -3,16 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="gsNotasNET.GrupoVer"
              Title="Ver Grupo"
+             Appearing="ContentPage_Appearing"
              BindingContextChanged="ContentPage_BindingContextChanged">
-    <Grid Margin="{StaticResource PageMargin}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="35" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+    <StackLayout>
+        <Label x:Name="LabelInfo" Text="" Style="{StaticResource LabelInfoSmall}"/>
+        <Grid Margin="{StaticResource PageMargin}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="35" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -25,28 +21,20 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label x:Name="LabelInfo" Text="" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Medium"/>
-            <Label Text="Nombre: " Grid.Row="1" Grid.Column="0"  FontSize="Medium" />
-            <Label Text="{Binding Nombre}" FontSize="Medium" Grid.Row="1" Grid.Column="1" />
-            <Label Text="Usuario: "  Grid.Row="2" Grid.Column="0" />
-            <Label Text="{Binding Usuario}" Grid.Row="2" Grid.Column="1" />
-            <Label Text="Notas: " Grid.Row="3" Grid.Column="0" />
-            <Label Text="{Binding Notas}" Grid.Row="3" Grid.Column="1" />
-            <Label Text="Notas favoritas: " Grid.Row="4" Grid.Column="0" />
-            <Label Text="{Binding NotasFavoritas}" Grid.Row="4" Grid.Column="1"/>
-            <Label Text="Notas archivadas: " Grid.Row="5" Grid.Column="0" />
-            <Label Text="{Binding NotasArchivadas}" Grid.Row="5" Grid.Column="1"/>
-            <Label Text="Notas Eliminadas: " Grid.Row="6" Grid.Column="0"/>
-            <Label Text="{Binding NotasEliminadas}" Grid.Row="6" Grid.Column="1" />
+            <Label Text="Nombre: " Grid.Row="0" Grid.Column="0"  FontSize="Medium" />
+            <Label Text="{Binding Nombre}" FontSize="Medium" Grid.Row="0" Grid.Column="1" />
+            <Label Text="Usuario: "  Grid.Row="1" Grid.Column="0" />
+            <Label Text="{Binding Usuario}" Grid.Row="1" Grid.Column="1" />
+            <Label Text="Notas: " Grid.Row="2" Grid.Column="0" />
+            <Label Text="{Binding Notas}" Grid.Row="2" Grid.Column="1" />
+            <Label Text="Notas favoritas: " Grid.Row="3" Grid.Column="0" />
+            <Label Text="{Binding NotasFavoritas}" Grid.Row="3" Grid.Column="1"/>
+            <Label Text="Notas archivadas: " Grid.Row="4" Grid.Column="0" />
+            <Label Text="{Binding NotasArchivadas}" Grid.Row="4" Grid.Column="1"/>
+            <Label Text="Notas Eliminadas: " Grid.Row="5" Grid.Column="0"/>
+            <Label Text="{Binding NotasEliminadas}" Grid.Row="5" Grid.Column="1" />
         </Grid>
-        <!-- Mostrar las notas de este grupo -->
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <ScrollView Margin="{StaticResource PageMargin}">
             <!-- por motivos de rendimiento y memoria se debe especificar RecycleElement al construir una nueva vista de lista -->
             <ListView x:Name="listView" ItemTapped="Handle_ItemTapped"
                   CachingStrategy="RecycleElement"
@@ -55,8 +43,9 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout>
-                                <Label Text="{Binding TituloNota}" FontAttributes="Bold" />
-                                <Label>
+                                <Label Text="{Binding TituloNota}" FontAttributes="Bold" 
+                                       TextColor="{StaticResource AppTextColor}" />
+                                <Label TextColor="Firebrick">
                                     <Label.Text>
                                         <MultiBinding StringFormat="{}{0}, {1:dd/MM/yyyy HH:mm}, F.{2}, N.{5}, A.{3}, E.{4}">
                                             <Binding Path="Grupo"/>
@@ -73,10 +62,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </Grid>
-        <Button x:Name="btnPrivacidad" Text="Política de privacidad" 
-                    Grid.Row="2" HeightRequest="35"
-                    HorizontalOptions="FillAndExpand"
-                    Clicked="btnPrivacidad_Clicked" />
-    </Grid>
+        </ScrollView>
+        <Label x:Name="LabelStatus" Text="" Style="{StaticResource LabelStatus}" />
+    </StackLayout>
 </ContentPage>

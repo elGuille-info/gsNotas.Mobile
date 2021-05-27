@@ -34,13 +34,17 @@ namespace gsNotasNET
         {
             InitializeComponent();
             //Current = this;
-            Title = $"{App.AppName} {App.AppVersion}";
+            //Title = $"{App.AppName} {App.AppVersion}";
+
+            Title = $"Notas {datosMostrar}";
             
             DatosMostrar = datosMostrar;
         }
 
         async private void ContentPage_Appearing(object sender, EventArgs e)
         {
+            LabelStatus.Text = App.StatusInfo;
+
             if (UsuarioSQL.UsuarioLogin is null || UsuarioSQL.UsuarioLogin.ID == 0 || UsuarioSQL.UsuarioLogin.Email == "prueba")
             {
                 await Navigation.PushAsync(new Login(this));
@@ -110,10 +114,10 @@ namespace gsNotasNET
             LabelInfo.Text = $"{UsuarioSQL.UsuarioLogin.Email} con {colNotas.Count()} nota{plural} {sDatos}{plural2}";
         }
 
-        private void btnPrivacidad_Clicked(object sender, EventArgs e)
-        {
-            _ = App.MostrarPoliticaPrivacidad();
-        }
+        //private void btnPrivacidad_Clicked(object sender, EventArgs e)
+        //{
+        //    _ = App.MostrarPoliticaPrivacidad();
+        //}
 
         async private void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
         {

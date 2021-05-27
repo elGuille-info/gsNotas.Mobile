@@ -20,11 +20,13 @@ namespace gsNotasNET
 		{
 			InitializeComponent ();
             Current = this;
-            Title = $"Buscar - {App.AppName} {App.AppVersion}";
+            //Title = $"Buscar - {App.AppName} {App.AppVersion}";
         }
 
         async private void ContentPage_Appearing(object sender, EventArgs e)
         {
+            LabelStatus.Text = App.StatusInfo;
+
             if (UsuarioSQL.UsuarioLogin is null || UsuarioSQL.UsuarioLogin.ID == 0 || UsuarioSQL.UsuarioLogin.Email == "prueba")
             {
                 await Navigation.PushAsync(new Login(Current));

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.Comentarios"
+             Appearing="ContentPage_Appearing"
+             Title="Enviar comentarios a elGuille">
+    <StackLayout>
+        <Label FontSize="Medium" Padding="{StaticResource PageMargin}">
+            <Label.Text>Escribe el comentario que quieras mandar sobre esta aplicación.
+Serán bienvenidas las sugerencias, mejoras o reportes de errores (bugs).
+Gracias.</Label.Text>
+        </Label>
+        <Editor x:Name="Comentario" Placeholder="Escribe aquí tu comentario" FontSize="Medium"
+                IsTextPredictionEnabled="True" 
+                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        <Button x:Name="btnEnviar" Text="Enviar desde una cuenta del dispositivo" 
+                HorizontalOptions="FillAndExpand"
+                Clicked="btnEnviar_Clicked" />
+        <Label x:Name="LabelInfo" Style="{StaticResource LabelInfo}" 
+               Text="Escribe tu comentario y pulsa en el botón ENVIAR. Se enviará usando una cuenta de correo configurada en el dispositivo. Gracias." 
+               HorizontalOptions="FillAndExpand" />
+        <StackLayout VerticalOptions="EndAndExpand">
+            <Button x:Name="btnInicio" Text="Volver" 
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="btnInicio_Clicked" />
+            <Button x:Name="btnPayPal" Text="Hacer un donativo con PayPal" 
+                    HeightRequest="35" BackgroundColor="Gold" TextColor="Black"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="btnPayPal_Clicked" />
+            <Label x:Name="LabelStatus" Text="" Style="{StaticResource LabelStatus}" VerticalOptions="End" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

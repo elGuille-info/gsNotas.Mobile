@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.OtrasOpciones" 
+             Title="Otras opciones"
+             Appearing="ContentPage_Appearing">
+    <ContentPage.Resources>
+        <Style TargetType="{x:Type ImageSource}">
+            <Setter Property="AbsoluteLayout.HeightRequest" Value="30" />
+        </Style>
+    </ContentPage.Resources>
+    <StackLayout>
+        <Label x:Name="LabelInfo" Text="" Style="{StaticResource LabelInfo}" />
+        <!-- por motivos de rendimiento y memoria se debe especificar RecycleElement al construir una nueva vista de lista -->
+        <ListView x:Name="ListMenu" CachingStrategy="RecycleElement" ItemSelected="ListMenu_ItemSelected" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="0" Spacing="0"
+                                     HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="Center">
+                            <Entry HeightRequest="10" Text="" IsReadOnly="True"
+                                   FontSize="4" VerticalOptions="Center" 
+                                   IsVisible="{Binding LineVisible}"
+                                   HorizontalOptions="FillAndExpand"
+                                   BackgroundColor="{Binding MenuBackgroundColor}" />
+                            <StackLayout Orientation="Horizontal"
+                                         IsVisible="{Binding IconVisible}">
+                                <Image Source="{Binding Icon}" 
+                                       HeightRequest="{Binding IconHeight}"/>
+                                <StackLayout IsVisible="{Binding TitleVisible}"
+                                             HorizontalOptions="StartAndExpand">
+                                    <Label Text="{Binding MenuTitle}" FontSize="Small"
+                                           TextColor="{StaticResource AppTextColor}" />
+                                    <Label Text="{Binding MenuDetail}" FontSize="Micro" 
+                                           TextColor="Firebrick" />
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button x:Name="btnInicio" Text="Volver"  
+                Padding="2"
+                HorizontalOptions="FillAndExpand"
+                Clicked="btnInicio_Clicked" />
+        <Button x:Name="btnPrivacidad" Text="Política de privacidad" 
+                    HeightRequest="35"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="btnPrivacidad_Clicked" />
+        <Label x:Name="LabelStatus" Text="" Style="{StaticResource LabelStatus}" />
+    </StackLayout>
+</ContentPage>

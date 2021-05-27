@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.UsuarioNuevo"
+             Appearing="ContentPage_Appearing"
+             Title="Nuevo Usuario">
+    <ContentPage.Content>
+        <StackLayout Margin="4">
+            <Label FontSize="Medium" VerticalOptions="StartAndExpand" Padding="10">
+                <Label.Text>Para registrarte, por favor indica tu usuario (email), nombre (y apellidos) y contraseña.
+
+Gracias.</Label.Text>
+            </Label>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+            <Label Text="Email:* " FontSize="Small" Grid.Row="0" />
+            <Entry x:Name="Email" Placeholder="Correo" 
+                   Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                   IsTextPredictionEnabled="True" />
+            <Label Text="Password:* " FontSize="Small" Grid.Row="1" />
+            <Entry x:Name="Password" Placeholder="Password" IsPassword="True" 
+                   Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" />
+            <Label Text="Nombre:* " FontSize="Small" Grid.Row="2" />
+            <Entry x:Name="Nombre" Placeholder="Nombre y apellidos" 
+                   Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" />
+            </Grid>
+            <Button x:Name="btnRegistrar" Text="Registrar" 
+                    Clicked="btnRegistrar_Clicked" />
+            <Button x:Name="btnCancelar" Text="Cancelar" 
+                    Clicked="btnCancelar_Clicked" />
+            <Label Text=" " FontSize="Medium" />
+            <!--<Button x:Name="btnPrivacidad" Text="Política de privacidad" 
+                    Grid.Row="1" HeightRequest="35"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="btnPrivacidad_Clicked" />-->
+            <Label x:Name="LabelInfo" Text="Te mandaré un código de validación para cuando entres en la aplicación."
+                   BackgroundColor="Firebrick" TextColor="White" />
+            <Button x:Name="btnPayPal" Text="Hacer un donativo con PayPal" 
+                    HeightRequest="35" BackgroundColor="Gold" TextColor="Black"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="btnPayPal_Clicked" />
+            <Label x:Name="LabelStatus" Text="" Style="{StaticResource LabelStatus}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

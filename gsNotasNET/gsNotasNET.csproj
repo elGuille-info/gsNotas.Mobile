@@ -9,26 +9,35 @@
 Se utiliza una base de datos para guardar las notas.
 Lamentablemente no se pueden copiar las notas a Google Drive.
 
-(para .NET Standard 2.0 revisión del 3-abr-2021)</Description>
+(para .NET Standard 2.0 revisión del 26-may-2021)</Description>
     <Copyright>(c) Guillermo Som (elGuille), 2020-2021</Copyright>
     <PackageProjectUrl>http://www.elguillemola.com/utilidades-net/utilidades-para-net-framework-4-8/gsnotasnetf/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/elGuille-info/gsNotasNETF</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>notas notes dot-net dotnet net-core netcore xamarin android c# c-sharp csharp</PackageTags>
-    <PackageReleaseNotes>v2.0.0.34 3-abr-2021 Más detalle con la información de si hay conexión a Internet.
+    <PackageReleaseNotes>v2.1.0.3 26-may-2021 Cambio en los colores por el tema claro/oscuro del dispositivo Android.
+v2.1.0.2 26-may-2021 Más cambios en la presentación para adaptarlo al Android.
+v2.1.0.2 25-may-2021 Añado la tabla NotasMax.
+v2.1.0.1 24-may-2021 Cambios en el color del fondo y texto.
+v2.1.0.0 24-may-2021 Opciones divididas en dos páginas. Preparada para incluir en Microsoft Store.
+v2.1.0.0 23-may-2021 Nueva presentación de la página inicial y colores.
+v2.0.0.35 22-may-2021 Permite usar la app sin conexión o solo con la base local y comprobado para usar con UWP.
+v2.0.0.34 3-abr-2021 Más detalle con la información de si hay conexión a Internet.
 v2.0.0.33 30-dic-2020 Nuevas características.</PackageReleaseNotes>
     <NeutralLanguage>es-ES</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
       <PackageVersion>2.0.0.33</PackageVersion>
-      <Version>2.0.0.34</Version>
-      <FileVersion>2.0.0.34</FileVersion>
+      <Version>2.1.0.0</Version>
+      <FileVersion>2.1.0.4</FileVersion>
     <!--<SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>E:\gsCodigo_00\elGuille\elGuille.snk</AssemblyOriginatorKeyFile>-->
   </PropertyGroup>
     
     <PropertyGroup>
         <LangVersion>latest</LangVersion>
-        <AssemblyVersion>2.0.0.34</AssemblyVersion>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
+        <Authors>elGuille</Authors>
+        <Product>gsNotas.Mobile</Product>
     </PropertyGroup>
     
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -55,13 +64,13 @@ v2.0.0.33 30-dic-2020 Nuevas características.</PackageReleaseNotes>
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Configuracion.xaml.cs">
+    <Compile Update="Varios\Configuracion.xaml.cs">
       <DependentUpon>Configuracion.xaml</DependentUpon>
     </Compile>
     <Compile Update="NotasMostrar.xaml.cs">
       <DependentUpon>NotasMostrar.xaml</DependentUpon>
     </Compile>
-    <Compile Update="SincronizarBases.xaml.cs">
+    <Compile Update="Varios\SincronizarBases.xaml.cs">
       <DependentUpon>SincronizarBases.xaml</DependentUpon>
     </Compile>
     <Compile Update="NotaEditar.xaml.cs">
@@ -70,10 +79,10 @@ v2.0.0.33 30-dic-2020 Nuevas características.</PackageReleaseNotes>
     <Compile Update="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Update="GruposMostrar.xaml.cs">
-      <DependentUpon>GruposMostrar.xaml</DependentUpon>
+    <Compile Update="GruposLista.xaml.cs">
+      <DependentUpon>GruposLista.xaml</DependentUpon>
     </Compile>
-    <Compile Update="UsuariosMostrar.xaml.cs">
+    <Compile Update="Usuarios\UsuariosMostrar.xaml.cs">
       <DependentUpon>UsuariosMostrar.xaml</DependentUpon>
     </Compile>
     <Compile Update="NoteEntryPage_ant.xaml.cs">
@@ -88,19 +97,22 @@ v2.0.0.33 30-dic-2020 Nuevas características.</PackageReleaseNotes>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="AcercaDegsNotasNET.xaml">
+    <EmbeddedResource Update="Varios\AcercaDegsNotasNET.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Comentarios.xaml">
+    <EmbeddedResource Update="Varios\Comentarios.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Configuracion.xaml">
+    <EmbeddedResource Update="Varios\Configuracion.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="GrupoVer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Login.xaml">
+    <EmbeddedResource Update="Varios\CopiarNotas.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Varios\Login.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="NotaEditar.xaml">
@@ -118,28 +130,31 @@ v2.0.0.33 30-dic-2020 Nuevas características.</PackageReleaseNotes>
     <EmbeddedResource Update="MainMenu.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="GruposMostrar.xaml">
+    <EmbeddedResource Update="GruposLista.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="NotasBuscar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="UsuarioNuevo.xaml">
+    <EmbeddedResource Update="OtrasOpciones.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="UsuarioPerfil.xaml">
+    <EmbeddedResource Update="Usuarios\UsuarioNuevo.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="UsuariosMostrar.xaml">
+    <EmbeddedResource Update="Usuarios\UsuarioPerfil.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Usuarios\UsuariosMostrar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="NotasMostrar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="UsuarioValidar.xaml">
+    <EmbeddedResource Update="Usuarios\UsuarioValidar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="UsuarioVer.xaml">
+    <EmbeddedResource Update="Usuarios\UsuarioVer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

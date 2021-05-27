@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.UsuariosMostrar" 
+             Appearing="ContentPage_Appearing"
+             Title="Usuarios">
+    <StackLayout>
+        <Label x:Name="LabelInfo" Text="" Grid.Row="0" Style="{StaticResource LabelInfoSmall}" />
+        <ScrollView Margin="{StaticResource PageMargin}">
+            <!-- por motivos de rendimiento y memoria se debe especificar RecycleElement al construir una nueva vista de lista -->
+            <ListView x:Name="listView" CachingStrategy="RecycleElement"
+                      ItemTapped="Handle_ItemTapped" ItemSelected="OnListViewItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="{Binding Email}" FontAttributes="Bold"/>
+                                <Label>
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0}, Alta: {1}, Último acceso: {2}, Validado: {3}">
+                                            <Binding Path="Nombre"/>
+                                            <Binding Path="Alta"/>
+                                            <Binding Path="UltimoAcceso"/>
+                                            <Binding Path="Validado"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+        <Label x:Name="LabelStatus" Text="" Style="{StaticResource LabelStatus}" />
+    </StackLayout>
+</ContentPage>

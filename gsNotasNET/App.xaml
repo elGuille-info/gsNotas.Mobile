@@ -3,55 +3,76 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="gsNotasNET.App">
     <Application.Resources>
-
         <!-- Thickness x:Key="PageMargin">20</ -->
         <Thickness x:Key="PageMargin">8</Thickness>
 
         <!-- Colors -->
+        <Color x:Key="ColorAzul1">#0073cf</Color>
+        <Color x:Key="ColorAzul2">#0063b1</Color>
+        <Color x:Key="ColorAzul3">#1976D2</Color>
+        <Color x:Key="ColorBlanco">White</Color>
+        <Color x:Key="ColorBlanco2">Azure</Color>
+        <Color x:Key="Accent">#96d1ff</Color>
+        <Color x:Key="ColorRojo">firebrick</Color>
+        <Color x:Key="ColorAmarillo">Yellow</Color>
+        
         <!-- Color x:Key="AppBackgroundColor">AliceBlue</ -->
         <!--<Color x:Key="AppBackgroundColor">White</Color>-->
-        <Color x:Key="AppBackgroundColor">#0073cf</Color>
-        <Color x:Key="AppTextColor">White</Color>
-        <!-- Color x:Key="NavigationBarColor">#1976D2</ -->
+        <!--<Color x:Key="AppBackgroundColor">#0073cf</Color>
+        <Color x:Key="AppTextColor">White</Color>-->
+        <Color x:Key="AppTextColor">#0073cf</Color>
+        <Color x:Key="AppBackgroundColor">White</Color>
         <Color x:Key="NavigationBarColor">#0063b1</Color>
         <Color x:Key="NavigationBarTextColor">Yellow</Color>
-        <Color x:Key="ButtonBackColor">AliceBlue</Color>
-        <Color x:Key="ButtonTextColor">#0063b1</Color>
+        <!--<Color x:Key="ButtonBackColor">AliceBlue</Color>
+        <Color x:Key="ButtonTextColor">#0063b1</Color>-->
 
-        <Style TargetType="{x:Type NavigationPage}">
-            <Setter Property="BarBackgroundColor"
-                    Value="{StaticResource NavigationBarColor}" />
-            <Setter Property="BarTextColor"
-                    Value="{StaticResource NavigationBarTextColor}" />
-        </Style>
-        <Style TargetType="{x:Type ContentPage}"
-               ApplyToDerivedTypes="True">
-            <Setter Property="BackgroundColor"
-                    Value="{StaticResource AppBackgroundColor}" />
-        </Style>
-        <Style TargetType="{x:Type ListView}">
-            <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
-        </Style>
-        <Style TargetType="TextCell" ApplyToDerivedTypes="True" CanCascade="True">
+        <Style TargetType="{x:Type Entry}" ApplyToDerivedTypes="True" CanCascade="True">
             <Setter Property="TextColor" Value="{StaticResource AppTextColor}" />
-            <Setter Property="DetailColor" Value="{StaticResource NavigationBarTextColor}"/>
         </Style>
-            <Style TargetType="Button" ApplyToDerivedTypes="True" CanCascade="True">
+        <Style TargetType="{x:Type Editor}" ApplyToDerivedTypes="True" CanCascade="True">
+            <Setter Property="TextColor" Value="{StaticResource AppTextColor}" />
+        </Style>
+        <Style TargetType="{x:Type Label}" ApplyToDerivedTypes="True" CanCascade="True">
+            <Setter Property="TextColor" Value="{StaticResource AppTextColor}" />
+        </Style>
+        <Style TargetType="Button" ApplyToDerivedTypes="True" CanCascade="True">
             <Setter Property="FontSize" Value="Small" />
-            <Setter Property="BackgroundColor" Value="{StaticResource ButtonBackColor}" />
-            <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource ColorAzul1}" />
+            <Setter Property="TextColor" Value="{StaticResource ColorBlanco}" />
             <Setter Property="CornerRadius" Value="5" />
         </Style>
-        <Style TargetType="Label" ApplyToDerivedTypes="True" CanCascade="True">
-            <Setter Property="FontSize" Value="Small" />
-            <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
-            <Setter Property="TextColor" Value="{StaticResource NavigationBarTextColor}" />
+        <Style TargetType="{x:Type NavigationPage}">
+            <Setter Property="BarBackgroundColor" Value="{StaticResource ColorAzul2}" />
+            <Setter Property="BarTextColor" Value="{StaticResource ColorAmarillo}" />
         </Style>
-        <Style TargetType="{x:Type Editor}">
-            <Setter Property="BackgroundColor"
-                    Value="{StaticResource AppBackgroundColor}" />
-            <Setter Property="TextColor"
-                    Value="{StaticResource AppTextColor}" />
+        <Style TargetType="{x:Type ContentPage}" ApplyToDerivedTypes="True">
+            <Setter Property="BackgroundColor" Value="{StaticResource ColorBlanco}" />
+        </Style>
+        <Style x:Key="LabelInfoSmall" TargetType="Label">
+            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource ColorAzul1}" />
+            <Setter Property="TextColor" Value="{StaticResource ColorAmarillo}" />
+            <Setter Property="Padding" Value="3,0"/>
+        </Style>
+        <Style x:Key="LabelInfo" TargetType="Label">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="BackgroundColor" Value="{StaticResource ColorAzul1}" />
+            <Setter Property="TextColor" Value="{StaticResource ColorAmarillo}" />
+            <Setter Property="Padding" Value="3,0"/>
+        </Style>
+        <Style x:Key="LabelStatus" TargetType="Label">
+            <Setter Property="FontSize" Value="Micro" />
+            <Setter Property="BackgroundColor" Value="{StaticResource ColorAzul1}" />
+            <Setter Property="TextColor" Value="{StaticResource ColorBlanco}" />
+            <Setter Property="Padding" Value="3,0"/>
+        </Style>
+        <Style x:Key="LabelSmall" TargetType="Label">
+            <Setter Property="FontSize" Value="Small" />
+            <!--<Setter Property="BackgroundColor" Value="Transparent" />-->
+            <Setter Property="TextColor" Value="{StaticResource ColorAzul1}" />
+            <Setter Property="Padding" Value="3,0"/>
         </Style>
     </Application.Resources>
 </Application>

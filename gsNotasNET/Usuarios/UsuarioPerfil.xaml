@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.UsuarioPerfil"
+             Title="Perfil del Usuario"
+             Appearing="ContentPage_Appearing"
+             BindingContextChanged="ContentPage_BindingContextChanged">
+    <StackLayout>
+        <Label x:Name="LabelInfo" Style="{StaticResource LabelInfoSmall}"/>
+        <ScrollView Margin="{StaticResource PageMargin}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35" /> <!-- Email -->
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="35" /> <!-- Nombre -->
+                    <RowDefinition Height="35" /> <!-- Password -->
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="65" /> <!-- ClaveSHA -->
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Text="Email: " Grid.Row="0" Grid.Column="0" FontSize="Small" />
+                <Editor x:Name="Email" Text="{Binding Email}" Placeholder="Escribe un email"
+                        FontSize="Small" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" />
+                <Label Text="Si cambias el email tienes que confirmarlo." 
+                        Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
+                <Label Text="Nombre: "  Grid.Row="2" Grid.Column="0" />
+                <Editor x:Name="Nombre" Placeholder="Nombre y Apellidos" Text="{Binding Nombre}" 
+                        Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" FontSize="Small" />
+                <Label Text="Nuevo Password: " Grid.Row="3" Grid.Column="0" />
+                <Editor x:Name="Password" Placeholder="Déjalo en blanco para usar el actual" 
+                        Text="" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" FontSize="Small"/>
+                <Label Text="Si cambias el password se generará una nueva clave SHA." 
+                        Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"/>
+                <Label Text="ClaveSHA: " Grid.Row="5" Grid.Column="0" />
+                <Editor x:Name="ClaveSHA" Text="{Binding ClaveSHA}" Placeholder="La clave SHA no es editable"
+                        Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" FontSize="Small" HeightRequest="65"/>
+                <Label Text="Último acceso: " Grid.Row="6" Grid.Column="0" />
+                <Label Text="{Binding UltimoAcceso}" Grid.Row="6" Grid.Column="1"/>
+                <Label Text="Alta: " Grid.Row="7" Grid.Column="0"/>
+                <Label Text="{Binding Alta}" Grid.Row="7" Grid.Column="1" />
+                <Label Text="Eliminado: " Grid.Row="8" Grid.Column="0"/>
+                <Label Text="{Binding Eliminado}" Grid.Row="8" Grid.Column="1" />
+                <Label Text="Validado: " Grid.Row="9" Grid.Column="0"/>
+                <Switch x:Name="chkValidado" IsToggled="{Binding Validado}" IsEnabled="False"
+                        Grid.Row="9" Grid.Column="1" />
+                <Label Text="Notas máximas: " Grid.Row="10" Grid.Column="0"/>
+                <Label x:Name="txtCuota" Text="" Grid.Row="10" Grid.Column="1" />
+                <Label Text="Donativos: " Grid.Row="11" Grid.Column="0"/>
+                <Label x:Name="txtPagos" Text="" Grid.Row="11" Grid.Column="1" />
+                <Label Text="Usar NotasMax:" Grid.Row="12" Grid.Column="0"/>
+                <Label x:Name="LabelUsarNotasMax" Text="" Grid.Row="12" Grid.Column="1" />
+            </Grid>
+        </ScrollView>
+        <Label x:Name="LabelAviso" HorizontalOptions="FillAndExpand" Style="{StaticResource LabelInfo}" FontSize="Micro">
+El número de notas máximas es solo para la base remota (SQL Server). Las notas locales NO tienen un máximo.
+Si necesitas más notas en la base remota, envíame un mensaje solicitándolas, y te ampliaré la cuota por un módico precio.
+La tabla NotasMax (Usar NotasMax) te permite crear notas de más de 2048 caracteres (en teoría 1GB por nota) accesible si en total has donado 25€ o más.</Label>
+        <Button x:Name="btnGuardar" Text="Guardar" HorizontalOptions="FillAndExpand"
+                Clicked="OnSaveButtonClicked" />
+        <StackLayout VerticalOptions="EndAndExpand">
+            <Button x:Name="btnInicio" Text="Volver"  
+                    Padding="2"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="btnInicio_Clicked" />
+            <Button x:Name="btnPayPal" Text="Hacer un donativo con PayPal" 
+                    HeightRequest="35" BackgroundColor="Gold" TextColor="Black"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="btnPayPal_Clicked" />
+            <Label x:Name="LabelStatus" Text="" Style="{StaticResource LabelStatus}"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

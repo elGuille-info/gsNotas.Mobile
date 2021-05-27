@@ -1,4 +1,10 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------------
+// Nota                                                             (21/Dic/20)
+// Clase para las notas locales.
+//
+// (c) Guillermo (elGuille) Som, 2020-2021
+//-----------------------------------------------------------------------------
+using System;
 
 using SQLite;
 
@@ -25,9 +31,8 @@ namespace gsNotasNET.Models
         }
 
         /// <summary>
-        /// Copiar una nota de tipo <see cref="Nota"/> a una del tipo <see cref="NotaSQL"/>.
+        /// Copiar esta nota de tipo <see cref="Nota"/> a una del tipo <see cref="NotaSQL"/>.
         /// </summary>
-        /// <param name="note">La nota de tipo <see cref="Nota"/>.</param>
         /// <returns>Una copia del tipo <see cref="NotaSQL"/>.</returns>
         public NotaSQL ComoNotaRemota()
         {
@@ -49,20 +54,5 @@ namespace gsNotasNET.Models
             };
             return nota;
         }
-
-        //public string Texto { get; set; }
-        //public DateTime Modificada { get; set; }
-        //public string Grupo { get; set; }
-        //public bool Archivada { get; set; } = false;
-        //public bool Eliminada { get; set; } = false;
-        //public bool Favorita { get; set; } = false;
-        //public bool Sincronizada { get; set; } = false;
-        //public bool Notificar { get; set; } = false;
-
-
-        //public string Detalle()
-        //{
-        //    return $"{Grupo} - {Date}";
-        //}
     }
 }

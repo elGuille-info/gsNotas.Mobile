@@ -3,33 +3,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="gsNotasNET.MainMenu" 
              Appearing="ContentPage_Appearing"
-             Title="Menú" 
-             BackgroundColor="{StaticResource NavigationBarColor}">
+             Title="Menú">
     <!-- Padding="0,40,0,0" Left, Top 40, Right, Botton -->
     <ContentPage.Resources>
         <Style TargetType="{x:Type ImageSource}">
-            <Setter Property="AbsoluteLayout.HeightRequest" Value="20" />
+            <Setter Property="AbsoluteLayout.HeightRequest" Value="30" />
         </Style>
     </ContentPage.Resources>
     <StackLayout>
-        <Label x:Name="LabelInfo" Text=""  Padding="3,0,3,0" FontSize="Medium" />
+        <Label x:Name="LabelInfo" Text="" Style="{StaticResource LabelInfo}" />
         <!-- por motivos de rendimiento y memoria se debe especificar RecycleElement al construir una nueva vista de lista -->
-        <ListView BackgroundColor="{StaticResource AppTextColor}"
-              x:Name="ListMenu"
-              CachingStrategy="RecycleElement"
-              ItemSelected="ListMenu_ItemSelected" >
+        <ListView x:Name="ListMenu" CachingStrategy="RecycleElement" ItemSelected="ListMenu_ItemSelected" >
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ImageCell TextColor="{StaticResource ButtonTextColor}" 
-                           DetailColor="Firebrick"
-                           Height="20"
+                    <!--<ImageCell TextColor="{StaticResource AppTextColor}" DetailColor="Firebrick"
+                           Height="30"
                            Text="{Binding MenuTitle}"
                            Detail="{Binding MenuDetail}"
                            ImageSource="{Binding Icon}">
-                    </ImageCell>
+                    </ImageCell>-->
+                    <ViewCell>
+                        <StackLayout Padding="0" Spacing="0"
+                                     HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="Center">
+                            <Entry HeightRequest="10" Text="" IsReadOnly="True"
+                                   FontSize="4" VerticalOptions="Center" 
+                                   IsVisible="{Binding LineVisible}"
+                                   HorizontalOptions="FillAndExpand"
+                                   BackgroundColor="{Binding MenuBackgroundColor}" />
+                            <StackLayout Orientation="Horizontal"
+                                         IsVisible="{Binding IconVisible}">
+                                <Image Source="{Binding Icon}" 
+                                       HeightRequest="{Binding IconHeight}"/>
+                                <StackLayout IsVisible="{Binding TitleVisible}"
+                                             HorizontalOptions="StartAndExpand">
+                                    <Label Text="{Binding MenuTitle}" FontSize="Small"
+                                           TextColor="{StaticResource AppTextColor}" />
+                                    <Label Text="{Binding MenuDetail}" FontSize="Micro" 
+                                           TextColor="Firebrick" />
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Label x:Name="LabelInternet" Text=""  Padding="3,0,3,0" FontSize="Small" />
+        <Label x:Name="LabelStatus" Text="" Style="{StaticResource LabelStatus}" />
     </StackLayout>
 </ContentPage>

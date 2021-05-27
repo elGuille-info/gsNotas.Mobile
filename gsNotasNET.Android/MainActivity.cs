@@ -14,6 +14,7 @@ namespace gsNotasNET.Droid
         {
             base.OnCreate(savedInstanceState);
 
+            App.AppName = "gsNotas.Android";
             App.ClientSecretJson = Assets.Open("client_secret_50463492690.json");
             App.CredencialesSQL = Assets.Open("encrypted-string.txt");
             App.CredencialesGuille = Assets.Open("encrypted-string-guille.txt");

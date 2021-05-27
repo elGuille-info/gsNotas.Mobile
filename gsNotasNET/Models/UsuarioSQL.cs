@@ -1,4 +1,10 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------------
+// UsuarioSQL                                                       (22/Dic/20)
+// Clase para los usuarios de las notas remotas.
+//
+// (c) Guillermo (elGuille) Som, 2020-2021
+//-----------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
@@ -22,9 +28,20 @@ namespace gsNotasNET.Models
         public bool Eliminado { get; set; } = false;
         public bool Validado { get; set; } = false;
         //public bool NotasCopiadas { get; set; } = false;
-        public string VersionPrograma { get; set; } = "gsNotasNET.Android v2.0.0.0";
+        public string VersionPrograma { get; set; } = "gsNotasNET.Android v2.1.0.0";
         public int Cuota { get; set; } = 100;
         public decimal Pagos { get; set; } = 0;
+        
+        private bool _UsarNotasMax = false;
+        public bool UsarNotasMax 
+        {
+            get { return _UsarNotasMax; }
+            set 
+            { 
+                //UsarNotasMaxConfig = value;
+                _UsarNotasMax = value;
+            } 
+        }
 
         //public bool NotasCopiadasAndroid { get; set; } = false;
         //public string CrLf { get; } = "\r\n";
@@ -50,6 +67,7 @@ namespace gsNotasNET.Models
             //NotasCopiadasAndroid = false;
             Cuota = 100;
             Pagos = 0;
+            UsarNotasMax = false;
         }
 
         /// <summary>
@@ -95,6 +113,7 @@ namespace gsNotasNET.Models
         /// <returns>El número de usuarios afectados (o cero si no se pudo actualizar).</returns>
         internal static int Update(UsuarioSQL usuario)
         {
+            usuario = ComprobarMaxTexto(usuario);
             var msg = Actualizar(usuario);
 
             if (msg.StartsWith("ERROR"))
@@ -110,6 +129,7 @@ namespace gsNotasNET.Models
         /// <returns>El número de usuarios afectados (o cero si no se pudo insertar).</returns>
         internal static int Insert(UsuarioSQL usuario)
         {
+            usuario = ComprobarMaxTexto(usuario);
             var msg = Crear(usuario);
 
             if (msg.StartsWith("ERROR"))
@@ -117,6 +137,30 @@ namespace gsNotasNET.Models
 
             return 1; // new Task<int>(() => 1);
         }
+
+        /// <summary>
+        /// Comprobar las longitudes máximas                        (25/May/21)
+        /// </summary>
+        internal static UsuarioSQL ComprobarMaxTexto(UsuarioSQL usuario)
+        {
+            usuario.Email = MaxTexto(usuario.Email, 50);
+            usuario.Nombre = MaxTexto(usuario.Nombre, 50);
+            usuario.VersionPrograma = MaxTexto(usuario.VersionPrograma, 35);
+            return usuario;
+        }
+        /// <summary>
+        /// Devuelve una cadena con el máximo de caracteres indicados.
+        /// </summary>
+        internal static string MaxTexto(string campo, int maximo)
+        {
+            if (string.IsNullOrWhiteSpace(campo))
+                campo = " ";
+            else
+                if (campo.Length > maximo)
+                    campo = campo.Substring(0, maximo);
+            return campo;
+        }
+
 
         /// <summary>
         /// Elimina el usuario con el ID indicado.
@@ -165,7 +209,7 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"UPDATE {TablaUsuarios} SET Email = @Email, Nombre = @Nombre, ClaveSHA = @ClaveSHA, Alta = @Alta, UltimoAcceso = @UltimoAcceso, Eliminado = @Eliminado, Validado = @Validado, VersionPrograma = @VersionPrograma, Cuota = @Cuota, Pagos = @Pagos WHERE (ID = @ID)";
+                    sCommand = $"UPDATE {TablaUsuarios} SET Email = @Email, Nombre = @Nombre, ClaveSHA = @ClaveSHA, Alta = @Alta, UltimoAcceso = @UltimoAcceso, Eliminado = @Eliminado, Validado = @Validado, VersionPrograma = @VersionPrograma, Cuota = @Cuota, Pagos = @Pagos, UsarNotasMax = @UsarNotasMax WHERE (ID = @ID)";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@ID", usuario.ID);
@@ -173,14 +217,13 @@ namespace gsNotasNET.Models
                     cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre.TrimEnd());
                     cmd.Parameters.AddWithValue("@ClaveSHA", usuario.ClaveSHA);
                     cmd.Parameters.AddWithValue("@Alta", usuario.Alta);
-                    //cmd.Parameters.AddWithValue("@Baja", usuario.Baja);
                     cmd.Parameters.AddWithValue("@UltimoAcceso", usuario.UltimoAcceso);
                     cmd.Parameters.AddWithValue("@Eliminado", usuario.Eliminado);
                     cmd.Parameters.AddWithValue("@Validado", usuario.Validado);
-                    //cmd.Parameters.AddWithValue("@NotasCopiadas", usuario.NotasCopiadas);
                     cmd.Parameters.AddWithValue("@VersionPrograma", usuario.VersionPrograma.TrimEnd());
                     cmd.Parameters.AddWithValue("@Cuota", usuario.Cuota);
                     cmd.Parameters.AddWithValue("@Pagos", usuario.Pagos);
+                    cmd.Parameters.AddWithValue("@UsarNotasMax", usuario.UsarNotasMax);
 
                     cmd.Transaction = tran;
                     cmd.ExecuteNonQuery();
@@ -236,21 +279,20 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"INSERT INTO {TablaUsuarios} (Email, Nombre, ClaveSHA, Alta, UltimoAcceso, Eliminado, Validado, VersionPrograma, Cuota, Pagos) VALUES(@Email, @Nombre, @ClaveSHA, @Alta, @UltimoAcceso, @Eliminado, @Validado, @VersionPrograma, @Cuota, @Pagos) SELECT @@Identity";
+                    sCommand = $"INSERT INTO {TablaUsuarios} (Email, Nombre, ClaveSHA, Alta, UltimoAcceso, Eliminado, Validado, VersionPrograma, Cuota, Pagos, UsarNotasMax) VALUES(@Email, @Nombre, @ClaveSHA, @Alta, @UltimoAcceso, @Eliminado, @Validado, @VersionPrograma, @Cuota, @Pagos, @UsarNotasMax) SELECT @@Identity";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@Email", usuario.Email.TrimEnd());
                     cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre.TrimEnd());
                     cmd.Parameters.AddWithValue("@ClaveSHA", usuario.ClaveSHA);
                     cmd.Parameters.AddWithValue("@Alta", usuario.Alta);
-                    //cmd.Parameters.AddWithValue("@Baja", usuario.Baja);
                     cmd.Parameters.AddWithValue("@UltimoAcceso", usuario.UltimoAcceso);
                     cmd.Parameters.AddWithValue("@Eliminado", usuario.Eliminado);
                     cmd.Parameters.AddWithValue("@Validado", usuario.Validado);
-                    //cmd.Parameters.AddWithValue("@NotasCopiadas", usuario.NotasCopiadas);
                     cmd.Parameters.AddWithValue("@VersionPrograma", usuario.VersionPrograma.TrimEnd());
                     cmd.Parameters.AddWithValue("@Cuota", usuario.Cuota);
                     cmd.Parameters.AddWithValue("@Pagos", usuario.Pagos);
+                    cmd.Parameters.AddWithValue("@UsarNotasMax", usuario.UsarNotasMax);
 
                     cmd.Transaction = tran;
 
@@ -445,6 +487,7 @@ namespace gsNotasNET.Models
         /// </summary>
         /// <param name="email">El email del usuario a obtener.</param>
         /// <returns>Un objeto del tipo <see cref="UsuarioSQL"/>. Si el usuario no existe, el ID será 0.</returns>
+        /// <remarks>Asigna UsuarioLogin.</remarks>
         public static UsuarioSQL Usuario(string email)
         {
             var usuario = new UsuarioSQL();
@@ -572,6 +615,9 @@ namespace gsNotasNET.Models
             decimal dec = 0;
             decimal.TryParse(reader["Pagos"].ToString(), out dec);
             usuario.Pagos = dec;
+            valorBool = false;
+            bool.TryParse(reader["UsarNotasMax"].ToString(), out valorBool);
+            usuario.UsarNotasMax = valorBool;
 
             return usuario;
         }

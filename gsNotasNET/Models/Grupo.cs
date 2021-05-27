@@ -1,4 +1,10 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------------
+// Grupo                                                            (23/Dic/20)
+// Clase para los grupos de las notas.
+//
+// (c) Guillermo (elGuille) Som, 2020-2021
+//-----------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;

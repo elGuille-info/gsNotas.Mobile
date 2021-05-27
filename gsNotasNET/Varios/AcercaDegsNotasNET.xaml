@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.AcercaDegsNotasNET"
+             Title="Acerca de..."
+             Appearing="ContentPage_Appearing">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label x:Name="LabelTitulo" Text="" Style="{StaticResource LabelInfo}"
+                   HorizontalTextAlignment="Center" Padding="2" />
+            <ScrollView Margin="4">
+                <Label FontSize="Small" VerticalOptions="FillAndExpand" Padding="6">
+                    <Label.Text>Esta es una utilidad para guardar notas en una base de datos remota de SQL Server y de forma local en este dispositivo.
+
+Para usar las notas en SQL Server (en la nube) debes registrarte.
+Una vez que te registres, tendrás que validar tu correo.
+
+Hay un máximo de notas en SQL Server (ver tu perfil para saber cuantas) si necesitas más, contacta conmigo y te ampliaré la cuota máxima por un módico precio.
+                    
+Existen 2 tablas para las notas según la capacidad del texto almacenado: Notas para textos con un máximo de 2,048 caracteres y NotasMax para textos con un máximo apróximado de 1GB caracteres.
+Esta última estará accesible si has donado 25€ o más.
+
+Podrás añadir notas indicando si quieres que se marquen como favoritas (aparecen primero en la lista de notas), para notificar, archivadas o eliminadas.
+
+Las notas para notificar se mostrarán cuando hagas login. En la configuración puedes indicar que no se muestren al hacer login.
+Las notas eliminadas en realidad no se eliminan y puedes recuperarlas cuando quieras.
+
+Puedes buscar en las notas: todas, las favoritas, las notificables, las archivadas o las eliminadas o cualquier mezcla de estos valores.
+Cuando se busca en la base local se busca el texto indicado en TODAS las notas.
+
+Espero que te sea de utilidad.
+Guillermo.
+P.S.
+Si quieres hacer un donativo pulsa en 'Hacer donativo con PayPal'.</Label.Text>
+                </Label>
+            </ScrollView>
+            <StackLayout VerticalOptions="EndAndExpand">
+                <Button x:Name="btnWeb" Text="gsNotas en elguillemola"
+                        Padding="2" HorizontalOptions="FillAndExpand" 
+                        Clicked="btnWeb_Clicked"/>
+                <Button x:Name="btnInicio" Text="Volver"
+                        Padding="2"
+                        HorizontalOptions="FillAndExpand"
+                        Clicked="btnInicio_Clicked" />
+                <Button x:Name="btnPayPal" Text="Hacer un donativo con PayPal" 
+                        HeightRequest="35" BackgroundColor="Gold" TextColor="Black"
+                        HorizontalOptions="FillAndExpand"
+                        Clicked="btnPayPal_Clicked" />
+                <Label x:Name="LabelStatus" Text="" Style="{StaticResource LabelStatus}" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

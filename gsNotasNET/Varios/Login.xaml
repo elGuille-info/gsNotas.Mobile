@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.Login"
+             Appearing="ContentPage_Appearing"
+             Title="Login">
+    <StackLayout Margin="4">
+        <ScrollView>
+            <StackLayout>
+                <Label FontSize="Medium" VerticalOptions="StartAndExpand" Padding="10">
+                    <Label.Text>Indica tu usuario y contraseña.
+
+Si es la primera vez que entras pulsa en el botón 'REGISTRAR NUEVO USUARIO'.
+
+O pulsa en el botón 'Acceder sin conexión' para usar las notas locales.
+
+Si no recuerdas tu contraseña, escríbeme un email a 'correos.elguille.info@gmail.com' solicitando la nueva contraseña o el cambio de la misma.
+Gracias.</Label.Text>
+                </Label>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                        <Switch x:Name="chkRecordarUsuario"/>
+                        <Label Text="Usuario:" VerticalTextAlignment="Center" />
+                    </StackLayout>
+                    <Entry x:Name="email" Placeholder="Correo" IsTextPredictionEnabled="False" 
+                           Grid.Row="0" Grid.Column="1" />
+                    <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                        <Switch x:Name="chkRecordarPassword"/>
+                        <Label Text="Password:" VerticalTextAlignment="Center" />
+                    </StackLayout>
+                    <Entry x:Name="password" Placeholder="Password" IsPassword="True" 
+                           Grid.Row="1" Grid.Column="1" />
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+        <Button x:Name="btnAcceder" Text="Acceder" 
+                    Clicked="btnAcceder_Clicked" />
+        <Label x:Name="LabelInfo" Style="{StaticResource LabelInfo}" 
+                   Text=" Para probar, usa el usuario 'prueba' y el password '1234' o usa 'Acceder sin conexión'"
+                   VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" />
+        <Button x:Name="btnAccederSinConexion" Text="Acceder sin conexión" 
+                    TextColor="{StaticResource NavigationBarTextColor}" 
+                    BackgroundColor="{StaticResource ColorRojo}"
+                    Clicked="btnAccederSinConexion_Clicked" />
+        <Button x:Name="btnNuevoUsuario" Text="Registrar nuevo usuario" 
+                    Clicked="btnNuevoUsuario_Clicked" />
+        <Label x:Name="LabelStatus" Text="" Style="{StaticResource LabelStatus}" />
+    </StackLayout>
+</ContentPage>

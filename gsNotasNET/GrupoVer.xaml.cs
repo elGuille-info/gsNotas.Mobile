@@ -17,7 +17,12 @@ namespace gsNotasNET
         public GrupoVer()
         {
             InitializeComponent();
-            Title = $"{App.AppName} {App.AppVersion}";
+            //Title = $"{App.AppName} {App.AppVersion}";
+        }
+
+        private void ContentPage_Appearing(object sender, EventArgs e)
+        {
+            LabelStatus.Text = App.StatusInfo;
         }
 
         /// <summary>
@@ -34,10 +39,10 @@ namespace gsNotasNET
             listView.ItemsSource = Grupo.NotasDelGrupo(grupo.Nombre);
         }
 
-        private void btnPrivacidad_Clicked(object sender, EventArgs e)
-        {
-            _ = App.MostrarPoliticaPrivacidad();
-        }
+        //private void btnPrivacidad_Clicked(object sender, EventArgs e)
+        //{
+        //    _ = App.MostrarPoliticaPrivacidad();
+        //}
 
         async private void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
         {

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.CopiarNotas"
+             Appearing="ContentPage_Appearing"
+             Title="Copiar Notas">
+    <StackLayout>
+        <Label x:Name="LabelInfo" Text="Copiar las notas de la tabla normal a la sin límite." 
+               Style="{StaticResource LabelInfoSmall}" VerticalOptions="Start" />
+        <StackLayout Padding="8">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Notas en la tabla con límite 2048 caracteres:" Style="{StaticResource LabelSmall}" />
+                <Label x:Name="LabelNotas2048" Style="{StaticResource LabelSmall}" FontAttributes="Bold" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Notas en la tabla sin límite de caracteres:" Style="{StaticResource LabelSmall}" />
+                <Label x:Name="LabelNotasMax" Style="{StaticResource LabelSmall}" FontAttributes="Bold" />
+            </StackLayout>
+            <Label/>
+            <Label Style="{StaticResource LabelInfo}" >Al copiar las notas se marcarán como no sincronizadas y no se borrarán las que ya hubiese 
+(puede ser que las notas locales no permitan la misma cantidad de texto que las notas remotas).</Label>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Copiar las marcadas como: " Style="{StaticResource LabelSmall}"/>
+                <Label Text="Eliminadas" Style="{StaticResource LabelSmall}"/>
+                <Switch x:Name="chkEliminadas" IsToggled="False"/>
+                <Label Text="  "/>
+                <Label Text="Archivadas" Style="{StaticResource LabelSmall}"/>
+                <Switch x:Name="chkArchivadas" IsToggled="True"/>
+            </StackLayout>
+            <Button x:Name="btnCopiarNotas" Text="Copiar las notas de Notas (2048) a NotasMax" 
+                    Clicked="btnCopiarNotas_Clicked"/>
+            <Label/>
+            <Button x:Name="btnCopiarNotasMax2Notas" Text="Copiar las notas de NotasMax a Notas (2048)" 
+                    Clicked="btnCopiarNotasMax2Notas_Clicked"/>
+            <Label x:Name="LabelError" Text="" BackgroundColor="Red" TextColor="Yellow" IsVisible="False" />
+        </StackLayout>
+        <StackLayout VerticalOptions="EndAndExpand">
+            <Button x:Name="btnInicio" Text="Volver"  
+                    Padding="2"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="btnInicio_Clicked" />
+            <Label x:Name="LabelStatus" Text="" Style="{StaticResource LabelStatus}" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

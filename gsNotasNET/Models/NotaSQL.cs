@@ -1,4 +1,10 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------------
+// NotaSQL                                                          (22/Dic/20)
+// Clase para las notas remotas.
+//
+// (c) Guillermo (elGuille) Som, 2020-2021
+//-----------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
@@ -7,6 +13,8 @@ using System.Threading.Tasks;
 using System.Data;
 using gsNotasNET.Data;
 using System.Diagnostics;
+
+using static gsNotasNET.APIs.Extensiones;
 
 namespace gsNotasNET.Models
 {
@@ -57,9 +65,8 @@ namespace gsNotasNET.Models
         }
 
         /// <summary>
-        /// Copiar una nota de tipo <see cref="NotaSQL"/> a una del tipo <see cref="Nota"/>.
+        /// Copiar esta nota de tipo <see cref="NotaSQL"/> a una del tipo <see cref="Nota"/>.
         /// </summary>
-        /// <param name="note">La nota de tipo <see cref="NotaSQL"/>.</param>
         /// <returns>Una copia del tipo <see cref="Nota"/>.</returns>
         public Nota ComoNotaLocal()
         {
@@ -139,6 +146,7 @@ namespace gsNotasNET.Models
             if (nota is null || nota.ID == 0)
                 return 0; // new Task<int>(() => 0);
 
+            nota = ComprobarMaxTexto(nota);
             var msg = Actualizar(nota);
 
             if (msg.StartsWith("ERROR"))
@@ -157,12 +165,35 @@ namespace gsNotasNET.Models
             if (nota is null)
                 return 0; // new Task<int>(() => 0);
 
+            nota = ComprobarMaxTexto(nota);
             var msg = Crear(nota);
 
             if (msg.StartsWith("ERROR"))
                 return 0; // new Task<int>(() => 0);
 
             return 1; // new Task<int>(() => 1);
+        }
+        /// <summary>
+        /// Comprobar las longitudes máximas                        (25/May/21)
+        /// </summary>
+        internal static NotaSQL ComprobarMaxTexto(NotaSQL nota)
+        {
+            if (UsarNotasMaxConfig == false)
+                nota.Texto = MaxTexto(nota.Texto, 2048);
+            nota.Grupo = MaxTexto(nota.Grupo, 255);
+            return nota;
+        }
+        /// <summary>
+        /// Devuelve una cadena con el máximo de caracteres indicados.
+        /// </summary>
+        internal static string MaxTexto(string campo, int maximo )
+        {
+            if (string.IsNullOrWhiteSpace(campo))
+                campo = " ";
+            else
+                if (campo.Length > maximo)
+                    campo = campo.Substring(0, maximo);
+            return campo;
         }
 
         /// <summary>
@@ -188,7 +219,20 @@ namespace gsNotasNET.Models
             return 1; // new Task<int>(() => 1);
         }
 
+        private static string ActualizarNota2048(NotaSQL nota)
+        {
+            return Actualizar(TablaNotas2048, nota);
+        }
+        private static string ActualizarNotaMax(NotaSQL nota)
+        {
+            return Actualizar(TablaNotasMax, nota);
+        }
+
         private static string Actualizar(NotaSQL nota)
+        {
+            return Actualizar(TablaNotas, nota);
+        }
+        private static string Actualizar(string tabla, NotaSQL nota)
         {
             // Actualiza los datos indicados
             // El parámetro, que es una cadena de selección, indicará el criterio de actualización
@@ -208,7 +252,7 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"UPDATE {TablaNotas} SET idUsuario = @idUsuario, Grupo = @Grupo, Texto = @Texto, Modificada = @Modificada, Archivada = @Archivada, Eliminada = @Eliminada, Favorita = @Favorita, Sincronizada = @Sincronizada, Notificar = @Notificar, idNota = @idNota  WHERE (ID = @ID)";
+                    sCommand = $"UPDATE {tabla} SET idUsuario = @idUsuario, Grupo = @Grupo, Texto = @Texto, Modificada = @Modificada, Archivada = @Archivada, Eliminada = @Eliminada, Favorita = @Favorita, Sincronizada = @Sincronizada, Notificar = @Notificar, idNota = @idNota  WHERE (ID = @ID)";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@ID", nota.ID);
@@ -254,11 +298,25 @@ namespace gsNotasNET.Models
             return msg;
         }
 
+        private static string CrearNota2048(NotaSQL nota)
+        {
+            return Crear(TablaNotas2048, nota);
+        }
+        private static string CrearNotaMax(NotaSQL nota)
+        {
+            return Crear(TablaNotasMax, nota);
+        }
+
+        private static string Crear(NotaSQL nota)
+        {
+            return Crear(TablaNotas, nota);
+        }
+
         /// <sumary>
         /// Crear un nuevo registro
         /// En caso de error, devolverá la cadena de error empezando por ERROR:.
         /// </sumary>
-        private static string Crear(NotaSQL nota)
+        private static string Crear(string tabla, NotaSQL nota)
         {
             string msg;
 
@@ -276,7 +334,7 @@ namespace gsNotasNET.Models
                     cmd.Connection = con;
 
                     string sCommand;
-                    sCommand = $"INSERT INTO {TablaNotas} (idUsuario, Grupo, Texto, Modificada, Archivada, Eliminada, Favorita, Sincronizada, Notificar, idNota) VALUES(@idUsuario, @Grupo, @Texto, @Modificada, @Archivada, @Eliminada, @Favorita, @Sincronizada, @Notificar, @idNota) SELECT @@Identity";
+                    sCommand = $"INSERT INTO {tabla} (idUsuario, Grupo, Texto, Modificada, Archivada, Eliminada, Favorita, Sincronizada, Notificar, idNota) VALUES(@idUsuario, @Grupo, @Texto, @Modificada, @Archivada, @Eliminada, @Favorita, @Sincronizada, @Notificar, @idNota) SELECT @@Identity";
                     cmd.CommandText = sCommand;
 
                     cmd.Parameters.AddWithValue("@idUsuario", nota.idUsuario);
@@ -390,6 +448,45 @@ namespace gsNotasNET.Models
                 }
             }
             return grupos;
+        }
+
+        /// <summary>
+        /// Cuenta el total de registros de la tabla y del usuario indicados.
+        /// </summary>
+        public static int CountNotas(string tabla, int idUsuario)
+        {
+            int ret = 0;
+
+            var sel = $"SELECT Count(*) FROM {tabla} " +
+                      $"WHERE idUsuario = {idUsuario}";
+            var con = new SqlConnection(CadenaConexion);
+            try
+            {
+                con.Open();
+                var cmd = new SqlCommand(sel, con);
+
+                var t = (int)cmd.ExecuteScalar();
+                ret = t;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (!(con is null))
+                    con.Close();
+            }
+
+            return ret;
+        }
+        public static int CountNotas2048(int idUsuario)
+        {
+            return CountNotas(TablaNotas2048, idUsuario);
+        }
+        public static int CountNotasMax(int idUsuario)
+        {
+            return CountNotas(TablaNotasMax, idUsuario);
         }
 
         /// <summary>
@@ -636,7 +733,7 @@ namespace gsNotasNET.Models
         /// <summary>
         /// Devuelve las notas no sincronizadas del usuario indicado.
         /// </summary>
-        /// <param name="idUsuario">El ID delk usuario.</param>
+        /// <param name="idUsuario">El ID del usuario.</param>
         /// <returns>Una colección del tipo <see cref="NotaSQL"/>.</returns>
         public static List<NotaSQL> NotasNoSincronizadas(int idUsuario)
         {
@@ -644,6 +741,44 @@ namespace gsNotasNET.Models
 
             var sel = $"SELECT * FROM {TablaNotas} ";
             sel += $"WHERE idUsuario = {idUsuario} AND Sincronizada = 0 ";
+            sel += "ORDER BY Favorita DESC, Grupo ASC, Modificada DESC, ID";
+
+            var con = new SqlConnection(CadenaConexion);
+            try
+            {
+                con.Open();
+                var cmd = new SqlCommand(sel, con);
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    colNotas.Add(AsignarNota(reader));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (!(con is null))
+                    con.Close();
+            }
+
+            return colNotas;
+        }
+
+        /// <summary>
+        /// Devuelve las notas sincronizadas del usuario indicado.
+        /// </summary>
+        /// <param name="idUsuario">El ID del usuario.</param>
+        /// <returns>Una colección del tipo <see cref="NotaSQL"/>.</returns>
+        public static List<NotaSQL> NotasSincronizadas(int idUsuario)
+        {
+            var colNotas = new List<NotaSQL>();
+
+            var sel = $"SELECT * FROM {TablaNotas} ";
+            sel += $"WHERE idUsuario = {idUsuario} AND Sincronizada = 1 ";
             sel += "ORDER BY Favorita DESC, Grupo ASC, Modificada DESC, ID";
 
             var con = new SqlConnection(CadenaConexion);
@@ -800,6 +935,51 @@ namespace gsNotasNET.Models
         {
             return Buscar(UsuarioSQL.UsuarioLogin.ID, where);
         }
+        /// <summary>
+        /// Buscar en la tabla activa de notas.
+        /// </summary>
+        public static List<NotaSQL> Buscar(int idUsuario, string where)
+        {
+            return Buscar(TablaNotas, idUsuario, where);
+        }
+        /// <summary>
+        /// Buscar en la tabla Notas.
+        /// </summary>
+        public static string CopiarNotas20482NotasMax(int idUsuario, string where)
+        {
+            int t = 0;
+            var col= Buscar(TablaNotas2048, idUsuario, where);
+            for(var i = 0; i < col.Count; i++)
+            {
+                col[i].idNota = 0;
+                var msg = CrearNotaMax(col[i]);
+                if(msg.StartsWith("ERROR"))
+                {
+                    return msg;
+                }
+                t++;
+            }
+            return $"{t.Plural("Copiada")} {t} {t.Plural("nota")} de Notas a NotasMax.";
+        }
+        /// <summary>
+        /// Buscar en la tabla NotasMax.
+        /// </summary>
+        public static string CopiarNotasMax2Notas2048(int idUsuario, string where)
+        {
+            int t = 0;
+            var col = Buscar(TablaNotasMax, idUsuario, where);
+            for (var i = 0; i < col.Count; i++)
+            {
+                col[i].idNota = 0;
+                var msg = CrearNota2048(col[i]);
+                if (msg.StartsWith("ERROR"))
+                {
+                    return msg;
+                }
+                t++;
+            }
+            return $"{t.Plural("Copiada")} {t} {t.Plural("nota")} de NotasMax a Notas.";
+        }
 
         /// <summary>
         /// Busca en las notas del usuario indicado lo indicado en where
@@ -811,11 +991,11 @@ namespace gsNotasNET.Models
         /// En <see cref="where"/> se indicará lo que se quiere comprobar:
         /// Notificar = 1 AND Eliminada = 0
         /// </remarks>
-        public static List<NotaSQL> Buscar(int idUsuario, string where)
+        public static List<NotaSQL> Buscar(string tabla, int idUsuario, string where)
         {
             var colNotas = new List<NotaSQL>();
 
-            var sel = $"SELECT * FROM {TablaNotas} ";
+            var sel = $"SELECT * FROM {tabla} ";
             sel += $"WHERE idUsuario = {idUsuario} AND ({where}) ";
             sel += "ORDER BY Favorita DESC, Grupo ASC, Modificada DESC, ID";
 

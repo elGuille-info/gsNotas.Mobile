@@ -3,14 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="gsNotasNET.NotaEditar"
              BindingContextChanged="ContentPage_BindingContextChanged"
+             Appearing="ContentPage_Appearing"
              Title="Escribir nueva Nota">
     <!-- No poner scrollview que así va bien -->
-    <StackLayout Margin="{StaticResource PageMargin}">
-        <Grid>
+    <StackLayout>
+        <Grid Margin="{StaticResource PageMargin}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="35" />
                 <RowDefinition Height="35" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -19,52 +21,33 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <StackLayout Grid.Column="0" Orientation="Vertical">
-                <Label Text="Favorita: " 
-                       TextColor="{StaticResource AppTextColor}"/>
-                <Switch x:Name="chkFavorita" 
-                        BackgroundColor="{StaticResource NavigationBarColor}" 
-                        IsToggled="{Binding Favorita}"  />
+                <Label Text="Favorita: " />
+                <Switch x:Name="chkFavorita" IsToggled="{Binding Favorita}"  />
             </StackLayout>
             <StackLayout Grid.Column="1" Orientation="Vertical">
-                <Label Text="Notificar: "
-                       TextColor="{StaticResource AppTextColor}"/>
-                <Switch x:Name="chkNotificar" 
-                        BackgroundColor="{StaticResource NavigationBarColor}" 
-                        IsToggled="{Binding Notificar}"  />
+                <Label Text="Notificar: " />
+                <Switch x:Name="chkNotificar" IsToggled="{Binding Notificar}"  />
             </StackLayout>
             <StackLayout Grid.Column="2" Orientation="Vertical">
-                <Label Text="Archivada: "
-                       TextColor="{StaticResource AppTextColor}"/>
-                <Switch x:Name="chkArchivada" 
-                        BackgroundColor="{StaticResource NavigationBarColor}" 
-                        IsToggled="{Binding Archivada}"  />
+                <Label Text="Archivada: " />
+                <Switch x:Name="chkArchivada" IsToggled="{Binding Archivada}"  />
             </StackLayout>
             <StackLayout Grid.Column="3" Orientation="Vertical">
-                <Label Text="Eliminada: "
-                       TextColor="{StaticResource AppTextColor}"/>
-                <Switch x:Name="chkEliminada" 
-                        BackgroundColor="{StaticResource NavigationBarColor}" 
-                        IsToggled="{Binding Eliminada}"  />
+                <Label Text="Eliminada: " />
+                <Switch x:Name="chkEliminada" IsToggled="{Binding Eliminada}"  />
             </StackLayout>
             <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" 
                     Text="Guardar" Clicked="OnSaveButtonClicked" />
-            <!-- Text="{Binding Grupo}"  -->
             <Editor x:Name="txtGrupo" Placeholder="Grupo" 
                     Grid.Row="2" Grid.ColumnSpan="4"
                     FontSize="Small" HeightRequest="35" />
+            <Editor x:Name="txtTexto" Grid.Row="3" Grid.ColumnSpan="4"
+                    Placeholder="Escribe la nota (máximo 2048 caracteres)"
+                    Text="{Binding Texto}"
+                    HeightRequest="550" />
         </Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="35" />
-            </Grid.RowDefinitions>
-            <Editor Placeholder="Escribe la nota"
-                Text="{Binding Texto}"
-                HeightRequest="550" />
-            <Button x:Name="btnPrivacidad" Text="Política de privacidad" 
-                    Grid.Row="1" HeightRequest="35"
-                    HorizontalOptions="FillAndExpand"
-                    Clicked="btnPrivacidad_Clicked" />
-        </Grid>
+        <StackLayout VerticalOptions="EndAndExpand">
+            <Label x:Name="LabelStatus" Text="" Style="{StaticResource LabelStatus}" />
+        </StackLayout>
     </StackLayout>
 </ContentPage>

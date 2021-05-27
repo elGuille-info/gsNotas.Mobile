@@ -4,14 +4,12 @@
              x:Class="gsNotasNET.NotasBuscar"
              Appearing="ContentPage_Appearing"
              Title="Buscar en las notas">
-    <StackLayout Margin="{StaticResource PageMargin}">
-        <Grid>
+    <StackLayout>
+        <Grid Margin="{StaticResource PageMargin}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="70" />
                 <RowDefinition Height="70" />
                 <RowDefinition Height="70" />
-                <RowDefinition Height="35" />
-                <RowDefinition Height="80" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -22,12 +20,12 @@
             <StackLayout Grid.Row="0" Grid.ColumnSpan="4" Orientation="Vertical">
                 <Label Text="Buscar en Texto:" FontSize="Medium" />
                 <Editor x:Name="txtBuscar" Placeholder="Texto a buscar en 'Texto'" 
-                    FontSize="Medium" HeightRequest="45" />
+                        FontSize="Medium" HeightRequest="45" />
             </StackLayout>
             <StackLayout Grid.Row="1" Grid.ColumnSpan="4" Orientation="Vertical">
                 <Label Text="Buscar en Grupo:" FontSize="Medium" />
                 <Editor x:Name="txtBuscarGrupo" Placeholder="Texto a buscar en 'Grupo'" 
-                    FontSize="Medium" HeightRequest="45" />
+                        FontSize="Medium" HeightRequest="45" />
             </StackLayout>
             <StackLayout Grid.Row="2" Grid.Column="0" Orientation="Vertical">
                 <Label Text="Favoritas: " />
@@ -49,14 +47,12 @@
                 <Switch x:Name="chkEliminada" 
                         IsToggled="{Binding Eliminada}"  />
             </StackLayout>
-            <Button x:Name="btnBuscar" Text="Buscar" 
-                    Grid.Row="3" Grid.ColumnSpan="4"
-                    Clicked="btnBuscar_Clicked" />
-            <Label x:Name="LabelAviso" 
-                   Text="Indica el texto a buscar en el 'Texto' de la nota y/o en 'Grupo' y pulsa BUSCAR. En la base local solo se busca el texto y el grupo. Si marcas Favorita, Notificar, Archivada o Eliminada se tendrán en cuenta ese tipo de notas, si no, se incluirán todas las favoritas, para notificar, las archivadas y las eliminadas."
-                   Grid.Row="4" Grid.ColumnSpan="4"
-                   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
         </Grid>
+        <Button x:Name="btnBuscar" Text="Buscar" 
+                Clicked="btnBuscar_Clicked" />
+        <Label x:Name="LabelAviso" Style="{StaticResource LabelInfo}" FontSize="Small"
+               Text="Indica el texto a buscar en el 'Texto' de la nota y/o en 'Grupo' y pulsa BUSCAR. En la base local solo se busca el texto y el grupo. Si marcas Favorita, Notificar, Archivada o Eliminada se tendrán en cuenta ese tipo de notas, si no, se incluirán todas las favoritas, para notificar, las archivadas y las eliminadas."
+               HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
         <Grid Margin="{StaticResource PageMargin}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35" />
@@ -68,14 +64,15 @@
             <Label x:Name="LabelInfo" Text=""/>
             <!-- por motivos de rendimiento y memoria se debe especificar RecycleElement al construir una nueva vista de lista -->
             <ListView x:Name="listView" Grid.Row="1" ItemTapped="Handle_ItemTapped"
-                  CachingStrategy="RecycleElement"
-                  ItemSelected="OnListViewItemSelected">
+                      CachingStrategy="RecycleElement"
+                      ItemSelected="OnListViewItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout>
-                                <Label Text="{Binding TituloNota}" FontAttributes="Bold" />
-                                <Label>
+                                <Label Text="{Binding TituloNota}" FontAttributes="Bold" 
+                                       TextColor="{StaticResource AppTextColor}"/>
+                                <Label TextColor="Firebrick">
                                     <Label.Text>
                                         <MultiBinding StringFormat="{}{0}, {1:dd/MM/yyyy HH:mm}, F.{2}, N.{5}, A.{3}, E.{4}">
                                             <Binding Path="Grupo"/>
@@ -93,5 +90,6 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
+        <Label x:Name="LabelStatus" Text="" Style="{StaticResource LabelStatus}" />
     </StackLayout>
 </ContentPage>

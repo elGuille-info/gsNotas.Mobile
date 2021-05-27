@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Appearing="ContentPage_Appearing"
+             Title="Lista de Grupos"
+             x:Class="gsNotasNET.GruposLista">
+    <StackLayout>
+        <Label x:Name="LabelInfo" Text="" Style="{StaticResource LabelInfoSmall}"/>
+        <ScrollView Margin="{StaticResource PageMargin}">
+            <!-- por motivos de rendimiento y memoria se debe especificar RecycleElement al construir una nueva vista de lista -->
+            <ListView x:Name="listView" Grid.Row="1" 
+                      CachingStrategy="RecycleElement"
+                      ItemSelected="OnListViewItemSelected" ItemTapped="Handle_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="2">
+                                <Label Text="{Binding Nombre}" FontAttributes="Bold" 
+                                       TextColor="{StaticResource AppTextColor}" />
+                                <Label TextColor="Firebrick">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{1} notas, {4} fav, {2} arch, {3} elim, {0}">
+                                            <Binding Path="Usuario"/>
+                                            <Binding Path="Notas"/>
+                                            <Binding Path="NotasArchivadas"/>
+                                            <Binding Path="NotasEliminadas"/>
+                                            <Binding Path="NotasFavoritas"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+        <Label x:Name="LabelStatus" Grid.Row="2" Text="" Style="{StaticResource LabelStatus}" />
+    </StackLayout>
+</ContentPage>

@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitleAttribute("gsNotasNET.UWP")]
-[assembly: AssemblyDescription("Utilidad para tomar notas y guardarlas en el dispositivo. (revisión del 3-abr-2021)")]
+[assembly: AssemblyDescription("Utilidad para tomar notas y guardarlas en el dispositivo o en base remota. (revisión del 24-may-2021)")]
 [assembly: AssemblyCompanyAttribute("elGuille")]
 [assembly: AssemblyProductAttribute("gsNotasNET.UWP")]
 [assembly: AssemblyCopyright("Copyright © Guillermo Som (elGuille), 2020-2021")]
@@ -23,7 +23,7 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersionAttribute("2.0.0.34")]
-[assembly: AssemblyFileVersionAttribute("2.0.0.34")]
+[assembly: AssemblyVersion("2.1.0.0")]
+[assembly: AssemblyFileVersion("2.1.0.0")]
 [assembly: ComVisible(false)]
 [assembly: NeutralResourcesLanguageAttribute("es-ES")]

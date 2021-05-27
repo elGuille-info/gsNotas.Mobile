@@ -24,7 +24,26 @@ namespace gsNotasNET.UWP
             var gsApp = new gsNotasNET.App();
             
             // Ponerlo después de crear la instancia
-            gsNotasNET.App.AppName = "gsNotasNET.UWP";
+            gsNotasNET.App.AppName = "gsNotas.UWP";
+
+            // Leer los valores encriptados                         (22/May/21)
+            StreamReader str;
+            using (str = new StreamReader("encrypted-string-client_secret_50463492690.json.txt"))
+            {
+                gsNotasNET.App.ClientSecretJson = str.BaseStream;
+            }
+            using (str = new StreamReader("encrypted-string.txt"))
+            {
+                gsNotasNET.App.CredencialesSQL = str.BaseStream;
+            }
+            using (str = new StreamReader("encrypted-string-guille.txt"))
+            {
+                gsNotasNET.App.CredencialesGuille = str.BaseStream;
+            }
+            using (str = new StreamReader("encrypted-string-correos-elguille.txt"))
+            {
+                gsNotasNET.App.CredencialesCorreosGuille = str.BaseStream;
+            }
 
             LoadApplication(gsApp);
         }

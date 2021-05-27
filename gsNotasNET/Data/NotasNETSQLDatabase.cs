@@ -1,15 +1,19 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------------
+// NotasNETSQLDatabase                                              (22/Dic/20)
+// Para las notas remotas guardadas en una base de SQL Server.
+//
+// (c) Guillermo (elGuille) Som, 2020-2021
+//-----------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Text;
-
-using System.Threading.Tasks;
-//using SQLite;
-using gsNotasNET.Models;
 using System.Linq;
-using System.Data.SqlClient;
-using System.Security.Cryptography;
+using System.Threading.Tasks;
+using gsNotasNET.Models;
 using System.Diagnostics;
 using System.IO;
+using System.Data.SqlClient;
+using System.Security.Cryptography;
 
 namespace gsNotasNET.Data
 {
@@ -25,12 +29,44 @@ namespace gsNotasNET.Data
         /// <summary>
         /// Nombre de la tabla de Notas.
         /// </summary>
-        public static string TablaNotas { get { return "GuilleDB.Notas"; } }
-        
-        ///// <summary>
-        ///// Nombre de la tabla de Programas.
-        ///// </summary>
-        //public static string TablaProgramas { get { return "GuilleDB.Programas"; } }
+        /// <remarks>Si el usuario ha pagado 25 o más, se usará NotasMax.</remarks>
+        public static string TablaNotas 
+        { 
+            get 
+            {
+                if (UsarNotasMaxConfig)
+                    return "GuilleDB.NotasMax";
+                else
+                    return "GuilleDB.Notas";
+            } 
+        }
+
+        /// <summary>
+        /// Nombre de la tabla de Notas sin límite en el texto.     (25/May/21)
+        /// </summary>
+        /// <remarks>Solo para usuarios con Pagos de 25 o más.</remarks>
+        protected static string TablaNotasMax { get { return "GuilleDB.NotasMax"; } }
+        /// <summary>
+        /// Las notas normales.
+        /// </summary>
+        protected static string TablaNotas2048 { get { return "GuilleDB.Notas"; } }
+
+        protected static bool? _UsarNotasMaxConfig = null;
+        /// <summary>
+        /// Si se debe usar NotasMax en vez de Notas.               (25/May/21)
+        /// </summary>
+        /// <remarks>El usuario tiene una propiedad UsarNotasMax que prevalecerá sobre esta.</remarks>
+        public static bool UsarNotasMaxConfig 
+        { 
+            get 
+            {
+                return UsuarioSQL.UsuarioLogin.UsarNotasMax;
+                //if (_UsarNotasMaxConfig == null)
+                //    _UsarNotasMaxConfig = UsuarioSQL.UsuarioLogin.Pagos >= 25;
+                //return _UsarNotasMaxConfig.Value;
+            }
+            //set { _UsarNotasMaxConfig = value; }
+        }
 
         private static string _CadenaConexion;
 
@@ -40,10 +76,7 @@ namespace gsNotasNET.Data
         /// </summary>
         public static string CadenaConexion
         {
-            get
-            {
-                return _CadenaConexion;
-            }
+            get{ return _CadenaConexion; }
             set
             {
                 var csb = new SqlConnectionStringBuilder();
@@ -55,6 +88,7 @@ namespace gsNotasNET.Data
                     s = passwStream.ReadLine();
                     csb.Password = s;
                 }
+                csb.ConnectTimeout = 120;
                 csb.DataSource = "pmssql100.dns-servicio.com";
                 csb.InitialCatalog = "8174979_NotasNET";
                 csb.IntegratedSecurity = false;
@@ -73,12 +107,6 @@ namespace gsNotasNET.Data
         {
             // Código válido en esta hora
             DateTime fecha;
-
-            //// Si el minuto actual es 59, añadirle uno
-            //if(DateTime.UtcNow.Minute == 59)
-            //    fecha = DateTime.UtcNow.AddMinutes(1);
-            //else 
-            //    fecha = DateTime.UtcNow;
 
             fecha = DateTime.UtcNow;
             string h = GenerarClaveSHA1(fecha.ToString("yyyyMMddHH"), email);

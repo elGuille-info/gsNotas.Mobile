@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="25c00019-7faf-43a4-886e-b0c8dbfdf1c6"
-    Publisher="CN=8f429a2e-0e3c-40da-83ac-2407c13c85ef"
-    Version="2.0.34.0" />
+    Name="30481elGuille.info.gsNotas.UWP"
+    Publisher="CN=F38F01A4-356D-413A-9B95-191B2D6030BD"
+    Version="2.1.4.0" />
 
-  <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-485c-81be-68815c480690" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="c364c648-ee21-4b1a-bb82-e89f64ab153e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>gsNotasNET.UWP</DisplayName>
-    <PublisherDisplayName>8f429a2e-0e3c-40da-83ac-2407c13c85ef</PublisherDisplayName>
+    <DisplayName>gsNotas.UWP</DisplayName>
+    <PublisherDisplayName>elguille.info</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -32,10 +32,10 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="gsNotasNET.UWP.App">
       <uap:VisualElements
-        DisplayName="gsNotasNET.UWP"
+        DisplayName="gsNotas.UWP"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="Utilidad para tomar notas y guardarlas en el dispositivo. (revisión del 30-dic-2020"
+        Description="Utilidad para tomar notas y guardarlas en el dispositivo o una base de datos externa. (revisión del 26-may-2021)"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
           <uap:ShowNameOnTiles>
@@ -50,6 +50,7 @@
           <uap:Rotation Preference="portrait"/>
           <uap:Rotation Preference="landscapeFlipped"/>
           <uap:Rotation Preference="portraitFlipped"/></uap:InitialRotationPreference>
+        <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badgeAndTileText"/>
       </uap:VisualElements>
     </Application>
   </Applications>

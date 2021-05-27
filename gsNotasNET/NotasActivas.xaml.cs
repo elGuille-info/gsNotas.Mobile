@@ -31,6 +31,8 @@ namespace gsNotasNET
 
         async private void ContentPage_Appearing(object sender, EventArgs e)
         {
+            LabelStatus.Text = App.StatusInfo;
+
             if (UsuarioSQL.UsuarioLogin is null || UsuarioSQL.UsuarioLogin.ID == 0 || UsuarioSQL.UsuarioLogin.Email == "prueba")
             {
                 await Navigation.PushAsync(new Login(Current));
@@ -83,24 +85,50 @@ namespace gsNotasNET
                 nGrupos = NotaSQL.Grupos(UsuarioSQL.UsuarioLogin.ID).Count();
             }
 
-            var sGrupo = "";
-            if (nGrupos == 0)
-                sGrupo = "sin grupos";
-            else if (nGrupos == 1)
-                sGrupo = "en 1 grupo";
+            string sGrupo;
+
+            //if (total == 0)
+            //    s = "ninguna nota";
+            //else if (total == 1)
+            //    s = "1 nota";
+            //else
+            //    s = $"{total} notas";
+
+            //if (nGrupos == 0)
+            //    sGrupo = "sin grupos";
+            //else if (nGrupos == 1)
+            //    sGrupo = "en 1 grupo";
+            //else
+            //    sGrupo = $"en {nGrupos} grupos";
+
+            //s = $"{UsuarioSQL.UsuarioLogin.Email} - con {s} {sGrupo}.";
+
+            if (total == 0 && nGrupos == 0)
+            {
+                s = "sin notas ni grupos";
+                sGrupo = "";
+            }
             else
-                sGrupo = $"en {nGrupos} grupos";
+            {
+                s = "con ";
 
-            if (total == 0)
-                s = "ninguna nota";
-            else if (total == 1)
-                s = "1 nota";
-            else
-                s = $"{total} notas";
+                if (total == 0)
+                    s = "sin notas";
+                else if (total == 1)
+                    s += "1 nota";
+                else
+                    s += $"{total} notas";
 
-            s = $"{UsuarioSQL.UsuarioLogin.Email} - con {s} {sGrupo}.";
+                if (nGrupos == 0)
+                    sGrupo = " y sin grupos";
+                else if (nGrupos == 1)
+                    sGrupo = " en 1 grupo";
+                else
+                    sGrupo = $" en {nGrupos} grupos";
+            }
+            s = $"{UsuarioSQL.UsuarioLogin.Email} - {s}{sGrupo}.";
 
-            Current.Title = $"{App.AppName} {App.AppVersion}";
+            //Current.Title = $"{App.AppName} {App.AppVersion}";
             Current.LabelInfo.Text = s;
         }
 
@@ -177,10 +205,10 @@ namespace gsNotasNET
 
         #endregion
 
-        private void btnPrivacidad_Clicked(object sender, EventArgs e)
-        {
-            _ = App.MostrarPoliticaPrivacidad();
-        }
+        //private void btnPrivacidad_Clicked(object sender, EventArgs e)
+        //{
+        //    _ = App.MostrarPoliticaPrivacidad();
+        //}
 
         void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
         {
@@ -190,5 +218,13 @@ namespace gsNotasNET
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
         }
+
+        //private void Button_Focused(object sender, FocusEventArgs e)
+        //{
+        //    if(e.IsFocused)
+        //    {
+        //        System.Diagnostics.Debug.WriteLine(e.IsFocused);
+        //    }
+        //}
     }
 }

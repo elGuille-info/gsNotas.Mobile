@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="gsNotasNET.Configuracion"
+             Appearing="ContentPage_Appearing"
+             Title="Configuración">
+    <StackLayout>
+        <Label x:Name="LabelInfo" Padding="4" Style="{StaticResource LabelInfoSmall}"
+               Text="Indica los valores de la configuración de la aplicación."/>
+        <ScrollView>
+            <Grid Margin="{StaticResource PageMargin}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="LabelUsuario" Text="" FontSize="Medium"
+                        Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Label Text="Recordar usuario: " FontSize="Medium" 
+                        Grid.Row="1" Grid.Column="0" />
+                <Switch x:Name="chkRecordarUsuario" IsToggled="False" 
+                        Grid.Row="1" Grid.Column="1" />
+                <Label Text="Recordar password: " FontSize="Medium" 
+                        Grid.Row="2" Grid.Column="0" />
+                <Switch x:Name="chkRecordarPassword" IsToggled="False" 
+                        Grid.Row="2" Grid.Column="1" />
+                <Label Text="Iniciar con el último usuario: " FontSize="Medium" 
+                        Grid.Row="3" Grid.Column="0" />
+                <Switch x:Name="chkIniciarConUsuario" IsToggled="False" 
+                        Grid.Row="3" Grid.Column="1" />
+                <Label Grid.Row="4" Grid.ColumnSpan="2" FontSize="Micro" 
+                       Text="Esto ralentiza un poco el inicio de la aplicación."/>
+                <Label Text="Mantener las notas sincronizadas:" FontSize="Medium" 
+                        Grid.Row="5" Grid.Column="0" />
+                <Switch x:Name="chkSincronizarAuto" IsToggled="False" IsEnabled="False"
+                        Grid.Row="5" Grid.Column="1" />
+                <Label Text="Mostrar las notas a Notificar:" FontSize="Medium" 
+                        Grid.Row="6" Grid.Column="0" />
+                <Switch x:Name="chkNotificar" IsToggled="False" 
+                        Grid.Row="6" Grid.Column="1" />
+                <Label Text="Usar las notas locales:" FontSize="Medium" 
+                        Grid.Row="7" Grid.Column="0" />
+                <Switch x:Name="chkUsarLocal" IsToggled="False" 
+                        Grid.Row="7" Grid.Column="1" />
+                <Label Text="Usar NotasMax:" FontSize="Medium" 
+                        Grid.Row="8" Grid.Column="0" />
+                <Switch x:Name="chkUsarNotasMax" IsToggled="False" 
+                        Grid.Row="8" Grid.Column="1" />
+                <Label Grid.Row="9" Grid.ColumnSpan="2" FontSize="Micro" 
+                       Text="Te permite notas de más de 2048 caracteres (accesible si has donado 25€ o más)"/>
+            </Grid>
+        </ScrollView>
+        <Button x:Name="btnAplicar" Text="Guardar"  
+                Padding="2"
+                HorizontalOptions="FillAndExpand"
+                Clicked="btnAplicar_Clicked" />
+        <StackLayout VerticalOptions="EndAndExpand">
+            <Button x:Name="btnInicio" Text="Volver"  
+                    Padding="2"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="btnInicio_Clicked" />
+            <Button x:Name="btnPayPal" Text="Hacer un donativo con PayPal" 
+                    HeightRequest="35" BackgroundColor="Gold" TextColor="Black"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="btnPayPal_Clicked" />
+            <Label x:Name="LabelStatus" Text="" Style="{StaticResource LabelStatus}"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

@@ -18,6 +18,15 @@ namespace gsNotasNET
             InitializeComponent();
         }
 
+        private void ContentPage_Appearing(object sender, EventArgs e)
+        {
+            LabelStatus.Text = App.StatusInfo;
+            if (UsuarioSQL.UsuarioLogin.Pagos < 25)
+                txtTexto.Placeholder = "Escribe la nota (máximo 2048 caracteres)";
+            else
+                txtTexto.Placeholder = "Escribe la nota (sin límite de caracteres)";
+        }
+
         async void OnSaveButtonClicked(object sender, EventArgs e)
         {
             var nota = (NotaSQL)BindingContext;
@@ -178,9 +187,9 @@ namespace gsNotasNET
                 txtGrupo.Text = nota.Grupo;
         }
 
-        private void btnPrivacidad_Clicked(object sender, EventArgs e)
-        {
-            _ = App.MostrarPoliticaPrivacidad();
-        }
+        //private void btnPrivacidad_Clicked(object sender, EventArgs e)
+        //{
+        //    _ = App.MostrarPoliticaPrivacidad();
+        //}
     }
 }

@@ -1,9 +1,17 @@
-﻿using System.Collections.Generic;
+﻿//-----------------------------------------------------------------------------
+// NotasDatabase                                                    (21/Dic/20)
+// Para las notas locales guardadas con SQLLite.
+//
+// (c) Guillermo (elGuille) Som, 2020-2021
+//-----------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
+
 using SQLite;
 using gsNotasNET.Models;
-using System.Linq;
-using System;
+
 
 namespace gsNotasNET.Data
 {
@@ -82,6 +90,17 @@ namespace gsNotasNET.Data
         {
             return Notas(_database.Table<Nota>()
                                 .Where(n => n.Sincronizada == false)
+                                .ToListAsync());
+        }
+
+        /// <summary>
+        /// Devuelve las notas sincronizadas.
+        /// </summary>
+        /// <returns>Una colección con las notas no sincronizadas.</returns>
+        public List<NotaSQL> NotasSincronizadas()
+        {
+            return Notas(_database.Table<Nota>()
+                                .Where(n => n.Sincronizada == true)
                                 .ToListAsync());
         }
 
