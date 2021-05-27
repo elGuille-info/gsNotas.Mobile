@@ -9,7 +9,8 @@ Esta nueva versión (actualmente la v2.1.0.4) ya es funcional con bases de datos
 Aún no está lista la de iOS (aunque el esquema del proyecto esté en este repositorio).<br>
 <br>
 Para más detalles, mejor que leas lo que he puesto en mi blog: <a href="https://www.elguillemola.com/gsnotas-mobile-v2-1-0-4/" target="_blank">gsNotas.Mobile v2.1.0.4</a>.
-
+<br>
+Si quieres, [descarga la release v2.1.0.4 con el paquete de instalación para Android](https://github.com/elGuille-info/gsNotas.Mobile/releases/tag/v2.1.0.4).
 <br>
 <br>
 
