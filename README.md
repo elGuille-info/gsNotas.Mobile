@@ -1,11 +1,11 @@
 # gsNotasNET.Mobile
- Aplicación para tomar notas y usar en dispositivos Android y Windows Universal Platform (UWP).
+ Aplicación para tomar notas y usar en dispositivos Android, Windows Universal Platform (UWP) e iOS (iPhone).
 
 <br>
 
 # Versión 2.1.0.*
 <br>
-Esta nueva versión (actualmente la v2.1.0.4) ya es funcional con bases de datos de SQL Server y SQLite tanto en dispositivos de Android como de UWP.<br>
+Esta nueva versión (actualmente la v2.1.0.5) ya es funcional con bases de datos de SQL Server y SQLite tanto en dispositivos de Android como de UWP.<br>
 <br>
 
 **Nota del 27-may-2021 13:22**<br>
@@ -26,7 +26,7 @@ Si quieres, [descarga la release v2.1.0.4 con el paquete de instalación para An
 <br>
 <br>
 
-# Las cosas de la versión 2.0.*
+# Las cosas de la versión 2.0.0.*
 Las puedes ver en [este enlace](https://github.com/elGuille-info/gsNotas.Mobile/blob/master/Las-cosas-de-la-version-2-0.md).
 
 <br>
