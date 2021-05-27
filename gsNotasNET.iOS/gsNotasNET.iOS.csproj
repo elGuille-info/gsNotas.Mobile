@@ -2,6 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <ProvisioningType>automatic</ProvisioningType>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -10,9 +11,9 @@
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{440aa056-593a-4519-8708-27081dee632f}</TemplateGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>gsNotasNET.iOS</RootNamespace>
+    <RootNamespace>gsNotas.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>gsNotasNET.iOS</AssemblyName>
+    <AssemblyName>gsNotas.iOS</AssemblyName>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
@@ -31,6 +32,8 @@
     <MtouchDebug>true</MtouchDebug>
     <IOSDebugOverWiFi>false</IOSDebugOverWiFi>
     <PlatformTarget>x64</PlatformTarget>
+    <CodesignKey>Apple Development: Guillermo Som (AMC4NUBHCM)</CodesignKey>
+    <CodesignProvision>VS: WildCard Development</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -51,8 +54,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>Apple Development: Guillermo Som (AMC4NUBHCM)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
+    <CodesignProvision>VS: WildCard Development</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -70,8 +74,35 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <BundleResource Include="Resources\XAppInfo.png" />
+    <BundleResource Include="Resources\XArchivadas.png" />
+    <BundleResource Include="Resources\XBuscar.png" />
+    <BundleResource Include="Resources\XConfigApp.png" />
+    <BundleResource Include="Resources\XConfiguracion.png" />
+    <BundleResource Include="Resources\XConfigurar_usuario.png" />
+    <BundleResource Include="Resources\XConfigurar_usuario_clip.png" />
+    <BundleResource Include="Resources\XCopiarNotas.png" />
+    <BundleResource Include="Resources\XEnviarComentarios.png" />
+    <BundleResource Include="Resources\XEscribir_nota.png" />
+    <BundleResource Include="Resources\XFavoritas.png" />
+    <BundleResource Include="Resources\XGrupos.png" />
+    <BundleResource Include="Resources\XLocal.png" />
+    <BundleResource Include="Resources\XLogin.png" />
+    <BundleResource Include="Resources\XNota_Azul.png" />
+    <BundleResource Include="Resources\XNotaOK.png" />
+    <BundleResource Include="Resources\XNotas.png" />
+    <BundleResource Include="Resources\XNotasEliminadas.png" />
+    <BundleResource Include="Resources\XNotificar.png" />
+    <BundleResource Include="Resources\XSincronizar.png" />
+    <BundleResource Include="Resources\XUsuario.png" />
+    <BundleResource Include="Resources\XUsuarios.png" />
+    <BundleResource Include="Resources\XUsuarioValidar.png" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="encrypted-string-client_secret_50463492690.json.txt" />
+    <Content Include="encrypted-string-correos-elguille.txt" />
+    <Content Include="encrypted-string-guille.txt" />
+    <Content Include="encrypted-string.txt" />
     <Content Include="Entitlements.plist" />
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
   </ItemGroup>
@@ -134,9 +165,7 @@
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\gsNotasNET\gsNotasNET.csproj">
       <Project>{c043cfa9-8bd2-4bb9-8757-855d17c715b7}</Project>

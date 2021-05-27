@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("gsNotasNET.iOS")]
-[assembly: AssemblyDescription("Utilidad para tomar notas y guardarlas en el dispositivo. (revisión del 30-dic-2020)")]
+[assembly: AssemblyTitle("gsNotas.iOS")]
+[assembly: AssemblyDescription("Utilidad para tomar notas y guardarlas en una base remota o en el dispositivo. (revisión del 27-may-2021)")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("elGuille")]
-[assembly: AssemblyProduct("gsNotasNET.iOS")]
-[assembly: AssemblyCopyright("Copyright © Guillermo Som (elGuille), 2020")]
+[assembly: AssemblyProduct("gsNotas.iOS")]
+[assembly: AssemblyCopyright("Copyright © Guillermo Som (elGuille), 2020-2021")]
 [assembly: AssemblyTrademark("Creado con Xamarin.Forms y .NET Standard 2.0")]
 [assembly: AssemblyCulture("")]
 
@@ -32,8 +32,8 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.0.33")]
-[assembly: AssemblyFileVersion("2.0.0.33")]
+[assembly: AssemblyVersion("2.1.0.4")]
+[assembly: AssemblyFileVersion("2.1.0.4")]
 
 // Add some common permissions, these can be removed if not needed
 //[assembly: UsesPermission(Android.Manifest.Permission.Internet)]

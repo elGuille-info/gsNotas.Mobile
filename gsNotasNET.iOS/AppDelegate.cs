@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 using Foundation;
@@ -29,7 +30,27 @@ namespace gsNotasNET.iOS
             var gsApp = new App();
 
             // Ponerlo después del new App()
-            App.AppName = "gsNotasNET.iOS";
+            App.AppName = "gsNotas.iOS";
+
+            // Leer los valores encriptados                         (27/May/21)
+            StreamReader str;
+            using (str = new StreamReader("encrypted-string-client_secret_50463492690.json.txt"))
+            {
+                gsNotasNET.App.ClientSecretJson = str.BaseStream;
+            }
+            using (str = new StreamReader("encrypted-string.txt"))
+            {
+                gsNotasNET.App.CredencialesSQL = str.BaseStream;
+            }
+            using (str = new StreamReader("encrypted-string-guille.txt"))
+            {
+                gsNotasNET.App.CredencialesGuille = str.BaseStream;
+            }
+            using (str = new StreamReader("encrypted-string-correos-elguille.txt"))
+            {
+                gsNotasNET.App.CredencialesCorreosGuille = str.BaseStream;
+            }
+
 
             //LoadApplication(new App());
             LoadApplication(gsApp);
