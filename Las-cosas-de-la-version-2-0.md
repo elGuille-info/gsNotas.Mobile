@@ -63,8 +63,11 @@ De todas formas, antes de eliminarlas, comprobaré que no haya notas distintas a
 Las puedes ver (con algunas capturas) en [este enlace](https://github.com/elGuille-info/gsNotasNET.Android/blob/master/Las-cosas-de-la-version-1.md).
 
 <br>
+<br>
 
 # Cosas indicadas antes de la versión 2.1.* en el Readme.md 
+<br>
+<br>
 
 > **NOTA sobre los proyectos para iOS y UWP**
 >
