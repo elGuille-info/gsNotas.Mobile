@@ -34,6 +34,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <CodesignKey>Apple Development: Guillermo Som (AMC4NUBHCM)</CodesignKey>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <MtouchI18n>west</MtouchI18n>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -43,6 +44,7 @@
     <WarningLevel>4</WarningLevel>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
+    <MtouchI18n>west</MtouchI18n>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -21,9 +21,9 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2.1..5";
+        public static string AppVersion { get; } = "v2.1..6";
 
-        public static string AppVersionFull { get; } = "2.1.0.5";
+        public static string AppVersionFull { get; } = "2.1.0.6";
 
         /// <summary>
         /// El nombre de la aplicación.
@@ -673,7 +673,8 @@ namespace gsNotasNET
         /// <returns></returns>
         public static async Task MostrarPoliticaPrivacidad()
         {
-            var uri = new Uri("https://www.elguillemola.com/politica-de-privacidad/");
+            //var uri = new Uri("https://www.elguillemola.com/politica-de-privacidad/");
+            var uri = new Uri("https://elguille.info/politica-privacidad.aspx");
             await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
         }
 

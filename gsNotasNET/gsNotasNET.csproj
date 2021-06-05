@@ -9,7 +9,7 @@
 Se utiliza una base de datos para guardar las notas.
 Lamentablemente no se pueden copiar las notas a Google Drive.
 
-(para .NET Standard 2.0 revisión del 26-may-2021)</Description>
+(para .NET Standard 2.0 revisión del 30-may-2021)</Description>
     <Copyright>(c) Guillermo Som (elGuille), 2020-2021</Copyright>
     <PackageProjectUrl>http://www.elguillemola.com/utilidades-net/utilidades-para-net-framework-4-8/gsnotasnetf/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/elGuille-info/gsNotasNETF</RepositoryUrl>
@@ -30,7 +30,7 @@ v2.0.0.33 30-dic-2020 Nuevas características.</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
       <PackageVersion>2.0.0.33</PackageVersion>
       <Version>2.1.0.0</Version>
-      <FileVersion>2.1.0.5</FileVersion>
+      <FileVersion>2.1.0.6</FileVersion>
     <!--<SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>E:\gsCodigo_00\elGuille\elGuille.snk</AssemblyOriginatorKeyFile>-->
   </PropertyGroup>

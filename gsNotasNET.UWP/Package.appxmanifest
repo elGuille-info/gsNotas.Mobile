@@ -9,7 +9,7 @@
   <Identity
     Name="30481elGuille.info.gsNotas.UWP"
     Publisher="CN=F38F01A4-356D-413A-9B95-191B2D6030BD"
-    Version="2.1.4.0" />
+    Version="2.1.5.0" />
 
   <mp:PhoneIdentity PhoneProductId="c364c648-ee21-4b1a-bb82-e89f64ab153e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
