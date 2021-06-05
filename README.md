@@ -26,12 +26,12 @@ Si quieres, [descarga la release v2.1.0.5 con el paquete de instalación para An
 <br>
 
 # Las cosas de la versión 2.0.0.*
-Las puedes ver en [este enlace](https://github.com/elGuille-info/gsNotas.Mobile/blob/master/Las-cosas-de-la-version-2-0.md).
+Las puedes ver en [este enlace](https://github.com/elGuille-info/gsNotas.Mobile/blob/master/novedades/Las-cosas-de-la-version-2-0.md).
 
 <br>
 <br>
 
 # Las cosas de la versión 1.0.0.*
 
-Las puedes ver (con algunas capturas) en [este enlace](https://github.com/elGuille-info/gsNotasNET.Mobile/blob/master/Las-cosas-de-la-version-1.md).
+Las puedes ver (con algunas capturas) en [este enlace](https://github.com/elGuille-info/gsNotas.Mobile/blob/master/novedades/Las-cosas-de-la-version-1.md).
 
