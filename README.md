@@ -5,7 +5,20 @@
 
 # Versión 2.1.0.*
 <br>
-Esta nueva versión (actualmente la v2.1.0.5) ya es funcional con bases de datos de SQL Server y SQLite tanto en dispositivos de Android como de UWP.<br>
+Esta nueva versión (actualmente la v2.1.0.6) ya es funcional con bases de datos de SQL Server y SQLite tanto en dispositivos de Android como de UWP.<br>
+<br>
+
+## La versión 2.1.0.6 está disponible en Microsoft Store
+
+Hoy 7 de junio de 2021 ya está disponible.
+
+Este es el enlace: https://www.microsoft.com/store/apps/9ND34WR0XN0C
+
+Y esta una captura:
+
+![gsNotas UWP](https://user-images.githubusercontent.com/71171321/121042007-90f54a80-c7b3-11eb-81d3-a21703aa09ac.jpeg)
+
+
 <br>
 
 **Nota del 27-may-2021 13:22**<br>
