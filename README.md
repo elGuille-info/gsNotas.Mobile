@@ -3,6 +3,11 @@
 
 <br>
 
+## Versión 2.3.0
+Compilación del 15 de octubre de 2022.
+
+<br>
+
 # Versión 2.1.0.*
 <br>
 Esta nueva versión (actualmente la v2.1.0.6) ya es funcional con bases de datos de SQL Server y SQLite tanto en dispositivos de Android como de UWP.<br>
