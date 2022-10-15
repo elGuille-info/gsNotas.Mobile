@@ -9,7 +9,7 @@
   <Identity
     Name="30481elGuille.info.gsNotas.UWP"
     Publisher="CN=F38F01A4-356D-413A-9B95-191B2D6030BD"
-    Version="2.1.5.0" />
+    Version="2.3.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="c364c648-ee21-4b1a-bb82-e89f64ab153e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -35,7 +35,7 @@
         DisplayName="gsNotas.UWP"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="Utilidad para tomar notas y guardarlas en el dispositivo o una base de datos externa. (revisión del 26-may-2021)"
+        Description="Utilidad para tomar notas y guardarlas en el dispositivo o una base de datos externa. (revisión del 15-octubre-2022)"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
           <uap:ShowNameOnTiles>

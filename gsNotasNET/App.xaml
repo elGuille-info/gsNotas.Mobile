@@ -44,7 +44,8 @@
             <Setter Property="FontSize" Value="Small" />
             <Setter Property="BackgroundColor" Value="{StaticResource ColorAzul1}" />
             <Setter Property="TextColor" Value="{StaticResource ColorBlanco}" />
-            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="HeightRequest" Value="45"/>
         </Style>
         <Style TargetType="{x:Type NavigationPage}">
             <Setter Property="BarBackgroundColor" Value="{StaticResource ColorAzul2}" />

@@ -1,3 +1,7 @@
+//
+// v2.3.0.1     15-oct-22   Cambio nuevamente a System.Data.SqlClient Version 4.8.3
+//
+
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -21,9 +25,12 @@ namespace gsNotasNET
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2.1..6";
+        public static string AppVersion { get; } = "v2.3.0";
 
-        public static string AppVersionFull { get; } = "2.1.0.6";
+        /// <summary>
+        /// La versión completa (con el build)
+        /// </summary>
+        public static string AppVersionFull { get; } = "2.3.0.1";
 
         /// <summary>
         /// El nombre de la aplicación.
@@ -77,6 +84,19 @@ namespace gsNotasNET
 
             MainPage = new NavigationPage(new MainMenu());
         }
+
+        /// <summary>
+        /// El retorno de carro según sea UWP/Windows u otro sistema.
+        /// </summary>
+        /// <remarks>Añadi a gsNotas.Mobile v2.2.0.0 (15/Oct/21)</remarks>
+        public static string CrLf => DeviceInfo.Platform == DevicePlatform.UWP ? "\r" : "\r\n";
+
+        ///// <summary>
+        ///// Usar el mismo valor de <see cref="CrLf"/>. Antes devolvía siempre "\n\r".
+        ///// </summary>
+        ///// <remarks>En Windows es suficiente \n, en iOs y Android debe ser \n\r.</remarks>
+        //public static string crlf { get { return CrLf; } }
+        //public static string crlf { get { return "\n\r"; } }
 
         /// <summary>
         /// El path local de la aplicación.
@@ -480,7 +500,7 @@ namespace gsNotasNET
 
             var sb = new StringBuilder();
             sb.AppendLine($"El código de validación para {App.AppName} es:");
-            sb.AppendLine($"{App.crlf}{App.crlf}{hash}{App.crlf}{App.crlf}");
+            sb.AppendLine($"{App.CrLf}{App.CrLf}{hash}{App.CrLf}{App.CrLf}");
             sb.AppendLine($"Indicalo en la aplicación '{App.AppName} {App.AppVersion}'.");
             sb.AppendLine();
             sb.AppendLine("Gracias.");
@@ -585,8 +605,6 @@ namespace gsNotasNET
                 Debug.WriteLine(ex.Message);
             }
         }
-
-        public static string crlf { get { return "\n\r"; } }
 
         /// <summary>
         /// Los datos de las credenciales obtenidas del directorio Assets

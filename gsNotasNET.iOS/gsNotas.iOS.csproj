@@ -32,8 +32,8 @@
     <MtouchDebug>true</MtouchDebug>
     <IOSDebugOverWiFi>false</IOSDebugOverWiFi>
     <PlatformTarget>x64</PlatformTarget>
-    <CodesignKey>Apple Development: Guillermo Som (AMC4NUBHCM)</CodesignKey>
-    <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <!--<CodesignKey>Apple Development: Created via API (4SX49RMF23)</CodesignKey>
+    <CodesignProvision>VS: WildCard Development</CodesignProvision>-->
     <MtouchI18n>west</MtouchI18n>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
@@ -56,10 +56,12 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignKey>Apple Development: Guillermo Som (AMC4NUBHCM)</CodesignKey>
+    <!--<CodesignKey>Apple Development: Guillermo Som (AMC4NUBHCM)</CodesignKey>-->
     <MtouchDebug>true</MtouchDebug>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <MtouchI18n>west</MtouchI18n>
+    <MtouchLink>None</MtouchLink>
+    <MtouchInterpreter>-all</MtouchInterpreter>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -69,7 +71,7 @@
     <WarningLevel>4</WarningLevel>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>Apple Development: Guillermo Som (AMC4NUBHCM)</CodesignKey>
+    <!--<CodesignKey>Apple Development: Guillermo Som (AMC4NUBHCM)</CodesignKey>-->
     <MtouchI18n>west</MtouchI18n>
     <MtouchLink>None</MtouchLink>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
@@ -202,9 +204,9 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1-preview1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
     <PackageReference Include="Xamarin.Forms">
-      <Version>5.0.0.1829-pre6</Version>
+      <Version>5.0.0.2515</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

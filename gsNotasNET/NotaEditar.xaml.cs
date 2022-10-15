@@ -29,13 +29,16 @@ namespace gsNotasNET
 
         async void OnSaveButtonClicked(object sender, EventArgs e)
         {
-            var nota = (NotaSQL)BindingContext;
+            NotaSQL nota = (NotaSQL)BindingContext;
             // no guardar notas en blanco
             if (string.IsNullOrEmpty(nota.Texto))
             {
                 await Navigation.PopAsync();
                 return;
             }
+
+            // Para guardar, que siempre tenga crLf.
+            ReemplazarCrLf(ref nota, ponerCrLf: true);
 
             nota.Modificada = DateTime.UtcNow;
             nota.Archivada = chkArchivada.IsToggled;
@@ -154,6 +157,52 @@ namespace gsNotasNET
         }
 
         /// <summary>
+        /// Reemplazar los cambios de línea según la plataforma.
+        /// </summary>
+        /// <param name="nota"></param>
+        private void ReemplazarCrLf(ref NotaSQL nota, bool ponerCrLf = false)
+        {
+            if (nota == null) return;
+
+            if (nota.Texto.Any())
+            {
+                int cr = nota.Texto.IndexOf("\r");
+                int lf = nota.Texto.IndexOf("\n");
+
+                // Comprobar el tipo de retorno de carro. v2.2.0.0 (15/Oct/21)
+                if (DeviceInfo.Platform == DevicePlatform.UWP)
+                {
+                    // Comprobar si estaba en el formato de este dispositivo
+                    if (cr > -1 && lf > -1)
+                    {
+                        nota.Texto = nota.Texto.Replace("\n\r", "\r");
+                        nota.Texto = nota.Texto.Replace("\r\n", "\r");
+                        nota.Texto = nota.Texto.Replace("\n", "\r");
+                        if(ponerCrLf)
+                        {
+                            // Guardar siempre con \n\r
+                            nota.Texto = nota.Texto.Replace("\r", "\n\r");
+                        }
+                    }
+                }
+                else
+                {
+                    if (cr == -1 || lf == -1)
+                    {
+                        if (cr > -1)
+                        {
+                            nota.Texto = nota.Texto.Replace("\r", "\n\r");
+                        }
+                        else if (lf > -1)
+                        {
+                            nota.Texto = nota.Texto.Replace("\n", "\n\r");
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Se produce cuando cambia el binding-context y por tanto la nota está asignada
         /// </summary>
         private void ContentPage_BindingContextChanged(object sender, EventArgs e)
@@ -164,6 +213,9 @@ namespace gsNotasNET
 
             if (nota.Texto.Any())
             {
+                // No ponerlo al mostrar.
+                ReemplazarCrLf(ref nota, ponerCrLf: false);
+
                 char[] returns = { '\r', '\n' };
                 if (nota.Texto.IndexOfAny(returns) > -1)
                 {

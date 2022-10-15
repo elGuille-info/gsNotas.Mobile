@@ -160,7 +160,9 @@ namespace gsNotasNET
                 }
                 catch (Exception ex)
                 {
-                    //Debug.WriteLine(ex.Message);
+#if DEBUG
+                    Debug.WriteLine(ex.Message);
+#endif
                     _pagina = null;
                     VolverAMain();
                 }

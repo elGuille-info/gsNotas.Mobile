@@ -5,39 +5,44 @@
 
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
-    <Description>Utilidad para tomar notas, versión para Android.
+    <Description>Utilidad para tomar notas, versión para Android, iOS y UWP.
 Se utiliza una base de datos para guardar las notas.
 Lamentablemente no se pueden copiar las notas a Google Drive.
 
-(para .NET Standard 2.0 revisión del 30-may-2021)</Description>
-    <Copyright>(c) Guillermo Som (elGuille), 2020-2021</Copyright>
+(para .NET Standard 2.0 revisión del 15-octubre-2022)</Description>
+    <Copyright>(c) Guillermo Som (elGuille), 2020-2022</Copyright>
     <PackageProjectUrl>http://www.elguillemola.com/utilidades-net/utilidades-para-net-framework-4-8/gsnotasnetf/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/elGuille-info/gsNotasNETF</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>notas notes dot-net dotnet net-core netcore xamarin android c# c-sharp csharp</PackageTags>
-    <PackageReleaseNotes>v2.1.0.5 27-may-2021 Cambio algunos colores para probar el tema oscuro. Ya compila para iOS.
-v2.1.0.4 26-may-2021 Compilo las versiones de Android y UWP.
-v2.1.0.3 26-may-2021 Cambio en los colores por el tema claro/oscuro del dispositivo Android.
-v2.1.0.2 26-may-2021 Más cambios en la presentación para adaptarlo al Android.
-v2.1.0.2 25-may-2021 Añado la tabla NotasMax.
-v2.1.0.1 24-may-2021 Cambios en el color del fondo y texto.
-v2.1.0.0 24-may-2021 Opciones divididas en dos páginas. Preparada para incluir en Microsoft Store.
-v2.1.0.0 23-may-2021 Nueva presentación de la página inicial y colores.
-v2.0.0.35 22-may-2021 Permite usar la app sin conexión o solo con la base local y comprobado para usar con UWP.
-v2.0.0.34 3-abr-2021 Más detalle con la información de si hay conexión a Internet.
-v2.0.0.33 30-dic-2020 Nuevas características.</PackageReleaseNotes>
+    <PackageReleaseNotes>
+        v2.3.0.1 15-oct-2022. Cambio nuevamente a System.Data.SqlClient Version 4.8.3
+        v2.3.0.0 15-oct-2022. Actualizo los paquetes de NuGet.
+        v2.2.0.0 15-oct-2021. Intento que el retorno de línea sea compatible con las versiones.
+        v2.1.0.6 30-may-2021.
+        v2.1.0.5 27-may-2021 Cambio algunos colores para probar el tema oscuro. Ya compila para iOS.
+        v2.1.0.4 26-may-2021 Compilo las versiones de Android y UWP.
+        v2.1.0.3 26-may-2021 Cambio en los colores por el tema claro/oscuro del dispositivo Android.
+        v2.1.0.2 26-may-2021 Más cambios en la presentación para adaptarlo al Android.
+        v2.1.0.2 25-may-2021 Añado la tabla NotasMax.
+        v2.1.0.1 24-may-2021 Cambios en el color del fondo y texto.
+        v2.1.0.0 24-may-2021 Opciones divididas en dos páginas. Preparada para incluir en Microsoft Store.
+        v2.1.0.0 23-may-2021 Nueva presentación de la página inicial y colores.
+        v2.0.0.35 22-may-2021 Permite usar la app sin conexión o solo con la base local y comprobado para usar con UWP.
+        v2.0.0.34 3-abr-2021 Más detalle con la información de si hay conexión a Internet.
+        21. Nueva compilación y actualización de los paquetes de NuGet.v2.0.0.33 30-dic-2020 Nuevas características.</PackageReleaseNotes>
     <NeutralLanguage>es-ES</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-      <PackageVersion>2.0.0.33</PackageVersion>
-      <Version>2.1.0.0</Version>
-      <FileVersion>2.1.0.6</FileVersion>
+      <PackageVersion>2.3.0.1</PackageVersion>
+      <Version>2.3.0</Version>
+      <FileVersion>2.3.0.1</FileVersion>
     <!--<SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>E:\gsCodigo_00\elGuille\elGuille.snk</AssemblyOriginatorKeyFile>-->
   </PropertyGroup>
     
     <PropertyGroup>
         <LangVersion>latest</LangVersion>
-        <AssemblyVersion>2.1.0.0</AssemblyVersion>
+        <AssemblyVersion>2.3.0.0</AssemblyVersion>
         <Authors>elGuille</Authors>
         <Product>gsNotas.Mobile</Product>
     </PropertyGroup>
@@ -53,16 +58,16 @@ v2.0.0.33 30-dic-2020 Nuevas características.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Apis" Version="1.49.0" />
-    <PackageReference Include="Google.Apis.Auth" Version="1.49.0" />
-    <PackageReference Include="Google.Apis.Core" Version="1.49.0" />
-    <PackageReference Include="Google.Apis.Docs.v1" Version="1.49.0.2170" />
-    <PackageReference Include="Google.Apis.Drive.v3" Version="1.49.0.2166" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="sqlite-net-pcl" Version="1.8.0-beta" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1-preview1" />
+    <PackageReference Include="Google.Apis" Version="1.57.0" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.57.0" />
+    <PackageReference Include="Google.Apis.Core" Version="1.57.0" />
+    <PackageReference Include="Google.Apis.Docs.v1" Version="1.57.0.2716" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.57.0.2789" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2515" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
   </ItemGroup>
 
   <ItemGroup>
