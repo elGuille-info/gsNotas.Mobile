@@ -1,5 +1,8 @@
 //
 // v2.3.0.1     15-oct-22   Cambio nuevamente a System.Data.SqlClient Version 4.8.3
+// v2.4.0.0     31-may-23   No cambiar los retornos de carro según sea UWP o no.
+//                          Actualizo los NuGet de Google Api, Xamarin y Newtonsoft.
+//                          También System.Data.SqlClient Version 4.8.3 a 4.8.5
 //
 
 using System;
@@ -22,15 +25,24 @@ namespace gsNotasNET
 {
     public partial class App : Application
     {
+        // Intentar no pasar de estas marcas: 60 caracteres. 2         3         4         5         6
+        //                                ---------|---------|---------|---------|---------|---------|
+        //[COPIAR]AppDescripcionCopia = " No cambiar retornos de carro en UWP"
+
+        /// <summary>
+        /// La fecha de la última revisión.
+        /// </summary>
+        public static string AppFechaVersion { get; } = "31-may-2023";
+
         /// <summary>
         /// La versión de la aplicación
         /// </summary>
-        public static string AppVersion { get; } = "v2.3.0";
+        public static string AppVersion { get; } = "v2.4.0";
 
         /// <summary>
         /// La versión completa (con el build)
         /// </summary>
-        public static string AppVersionFull { get; } = "2.3.0.1";
+        public static string AppFileVersion { get; } = "2.4.0.0";
 
         /// <summary>
         /// El nombre de la aplicación.
@@ -204,173 +216,23 @@ namespace gsNotasNET
         }
 
         public static string UltimoUsuario { get; set; }
-        //{
-        //    get 
-        //    {
-        //        if (Application.Current.Properties["UltimoUsuario"] is null)
-        //            return "";
-        //        return Application.Current.Properties["UltimoUsuario"].ToString(); 
-        //    }
-        //    set { Application.Current.Properties["UltimoUsuario"] = value; }
-        //}
         public static string UltimoPassword { get; set; }
-        //{
-        //    get 
-        //    {
-        //        if (Application.Current.Properties["UltimoPassword"] is null)
-        //            return "";
-        //        return Application.Current.Properties["UltimoPassword"].ToString(); 
-        //    }
-        //    set { Application.Current.Properties["UltimoPassword"] = value; }
-        //}
         public static bool RecordarUsuario { get; set; }
-        //{
-        //    get 
-        //    {
-        //        if (Application.Current.Properties["RecordarUsuario"] is null)
-        //            return true;
-        //        return (bool)Application.Current.Properties["RecordarUsuario"]; 
-        //    }
-        //    set { Application.Current.Properties["RecordarUsuario"] = value; }
-        //}
         public static bool RecordarPassword { get; set; }
-        //{
-        //    get 
-        //    {
-        //        if (Application.Current.Properties["RecordarPassword"] is null)
-        //            return false;
-        //        return (bool)Application.Current.Properties["RecordarPassword"]; 
-        //    }
-        //    set { Application.Current.Properties["RecordarPassword"] = value; } 
-        //}
         public static bool IniciarConUsuario { get; set; }
-        //{
-        //    get 
-        //    {
-        //        if (Application.Current.Properties["IniciarConUsuario"] is null)
-        //            return false;
-        //        return (bool)Application.Current.Properties["IniciarConUsuario"]; 
-        //    }
-        //    set { Application.Current.Properties["IniciarConUsuario"] = value; }
-        //}
         //
         public static string BuscarTexto { get; set; }
-        //{
-        //    get 
-        //    {
-        //        if (Application.Current.Properties["BuscarTexto"] is null)
-        //            return "";
-        //        return Application.Current.Properties["BuscarTexto"].ToString(); 
-        //    }
-        //    set { Application.Current.Properties["BuscarTexto"] = value; }
-        //}
         public static string BuscarGrupo { get; set; }
-        //{
-        //    get
-        //    {
-        //        if (Application.Current.Properties["BuscarGrupo"] is null)
-        //            return "";
-        //        return Application.Current.Properties["BuscarGrupo"].ToString();
-        //    }
-        //    set { Application.Current.Properties["BuscarGrupo"] = value; }
-        //}
         public static bool BuscarFavoritas { get; set; }
-        //{
-        //    get 
-        //    {
-        //        if (Application.Current.Properties["BuscarFavoritas"] is null)
-        //            return false;
-        //        return (bool)Application.Current.Properties["BuscarFavoritas"]; }
-        //    set { Application.Current.Properties["BuscarFavoritas"] = value; }
-        //}
         public static bool BuscarArchivadas { get; set; }
-        //{
-        //    get 
-        //    {
-        //        if (Application.Current.Properties["BuscarArchivadas"] is null)
-        //            return false;
-        //        return (bool)Application.Current.Properties["BuscarArchivadas"]; 
-        //    }
-        //    set { Application.Current.Properties["BuscarArchivadas"] = value; }
-        //}
         public static bool BuscarEliminadas { get; set; }
-        //{
-        //    get 
-        //    {
-        //        if (Application.Current.Properties["BuscarEliminadas"] is null)
-        //            return false;
-        //        return (bool)Application.Current.Properties["BuscarEliminadas"]; 
-        //    }
-        //    set { Application.Current.Properties["BuscarEliminadas"] = value; }
-        //}
         public static bool BuscarNotificar { get; set; }
-        //{
-        //    get 
-        //    {
-        //        if (Application.Current.Properties["BuscarNotificar"] is null)
-        //            return false;
-        //        return (bool)Application.Current.Properties["BuscarNotificar"]; 
-        //    }
-        //    set { Application.Current.Properties["BuscarNotificar"] = value; }
-        //}
         // Sinconizar y usar base local
         public static bool SincronizarAuto { get; set; }
-        //{
-        //    get 
-        //    { 
-        //        if(Application.Current.Properties["SincronizarAuto"] is null)
-        //                return true;
-        //        return (bool)Application.Current.Properties["SincronizarAuto"];
-        //    }
-        //    set { Application.Current.Properties["SincronizarAuto"] = value; }
-        //}
         public static bool UsarNotasLocal { get; set; }
-        //{
-        //    get 
-        //    {
-        //        if (Application.Current.Properties["UsarNotasLocal"] is null)
-        //            return false;
-        //        return (bool)Application.Current.Properties["UsarNotasLocal"]; 
-        //    }
-        //    set { Application.Current.Properties["UsarNotasLocal"] = value; }
-        //}
         public static bool Notificar { get; set; }
-        //{
-        //    get 
-        //    {
-        //        if (Application.Current.Properties["Notificar"] is null)
-        //            return true;
-        //        return (bool)Application.Current.Properties["Notificar"]; 
-        //    }
-        //    set { Application.Current.Properties["Notificar"] = value; }
-        //}
         //
         public static string UltimoGrupo { get; set; }
-        //{
-        //    get 
-        //    {
-        //        if (Application.Current.Properties["UltimoGrupo"] is null)
-        //            return "";
-        //        return Application.Current.Properties["UltimoGrupo"].ToString(); 
-        //    }
-        //    set { Application.Current.Properties["UltimoGrupo"] = value; }
-        //}
-
-        //private static bool _UsarNotasMaxConfig;
-        //public static bool UsarNotasMaxConfig 
-        //{
-        //    get 
-        //    {
-        //        return NotaSQL.UsarNotasMaxConfig;
-        //        //return _UsarNotasMaxConfig; 
-        //    }
-        //    set 
-        //    {
-        //        //_UsarNotasMaxConfig = value;
-        //        //NotaSQL.UsarNotasMaxConfig = _UsarNotasMaxConfig;
-        //        NotaSQL.UsarNotasMaxConfig = value;
-        //    } 
-        //}
 
         /// <summary>
         /// Leer los datos de configuración.
@@ -443,50 +305,6 @@ namespace gsNotasNET
             }
         }
 
-        ///// <summary>
-        ///// Crear las propiedades en Application.Properties.
-        ///// Pero parece que no siempre funciona, al menos a mi me da esa impresión.
-        ///// </summary>
-        ///// <remarks>Usar datos guardados en un fichero de texto.</remarks>
-        //private void CrearPropiedadesApp()
-        //{
-        //    if (!Application.Current.Properties.ContainsKey("UltimoUsuario"))
-        //        Application.Current.Properties.Add("UltimoUsuario", "");
-        //    if (!Application.Current.Properties.ContainsKey("UltimoPassword"))
-        //        Application.Current.Properties.Add("UltimoPassword", "");
-        //    if (!Application.Current.Properties.ContainsKey("RecordarUsuario"))
-        //        Application.Current.Properties.Add("RecordarUsuario", true);
-        //    if (!Application.Current.Properties.ContainsKey("RecordarPassword"))
-        //        Application.Current.Properties.Add("RecordarPassword",false);
-        //    if (!Application.Current.Properties.ContainsKey("IniciarConUsuario"))
-        //        Application.Current.Properties.Add("IniciarConUsuario", false);
-        //    // Para la búsqueda
-        //    if (!Application.Current.Properties.ContainsKey("BuscarTexto"))
-        //        Application.Current.Properties.Add("BuscarTexto", "");
-        //    if (!Application.Current.Properties.ContainsKey("BuscarGrupo"))
-        //        Application.Current.Properties.Add("BuscarGrupo", "");
-        //    if (!Application.Current.Properties.ContainsKey("BuscarFavoritas"))
-        //        Application.Current.Properties.Add("BuscarFavoritas", false);
-        //    if (!Application.Current.Properties.ContainsKey("BuscarArchivadas"))
-        //        Application.Current.Properties.Add("BuscarArchivadas", false);
-        //    if (!Application.Current.Properties.ContainsKey("BuscarEliminadas"))
-        //        Application.Current.Properties.Add("BuscarEliminadas", false);
-        //    if (!Application.Current.Properties.ContainsKey("BuscarNotificar"))
-        //        Application.Current.Properties.Add("BuscarNotificar", false);
-        //    // Para sincronizar las notas
-        //    if (!Application.Current.Properties.ContainsKey("SincronizarAuto"))
-        //        Application.Current.Properties.Add("SincronizarAuto", true);
-        //    if (!Application.Current.Properties.ContainsKey("UsarNotasLocal"))
-        //        Application.Current.Properties.Add("UsarNotasLocal", false);
-        //    // Notificar las notas marcadas como notificar
-        //    if (!Application.Current.Properties.ContainsKey("Notificar"))
-        //        Application.Current.Properties.Add("Notificar", true);
-        //    // El último grupo indicado en editar notas
-        //    if (!Application.Current.Properties.ContainsKey("UltimoGrupo"))
-        //        Application.Current.Properties.Add("UltimoGrupo", "");
-
-        //}
-
         /// <summary>
         /// Generar un código de validación y enviarlo al email.
         /// </summary>
@@ -523,6 +341,7 @@ namespace gsNotasNET
         }
 
         // https://www.c-sharpcorner.com/article/xamarin-forms-send-email-using-smtp2/
+
         /// <summary>
         /// Enviar un email usando una cuenta de gmail.
         /// Usando la cuenta configurada en la aplicación.

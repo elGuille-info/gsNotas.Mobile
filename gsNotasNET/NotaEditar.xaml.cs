@@ -37,8 +37,9 @@ namespace gsNotasNET
                 return;
             }
 
+            // No reemplazar nada.                          (31/may/23 19.29)
             // Para guardar, que siempre tenga crLf.
-            ReemplazarCrLf(ref nota, ponerCrLf: true);
+            //ReemplazarCrLf(ref nota, ponerCrLf: true);
 
             nota.Modificada = DateTime.UtcNow;
             nota.Archivada = chkArchivada.IsToggled;
@@ -213,8 +214,9 @@ namespace gsNotasNET
 
             if (nota.Texto.Any())
             {
+                // No reemplazar nada.                      (31/may/23 19.30)
                 // No ponerlo al mostrar.
-                ReemplazarCrLf(ref nota, ponerCrLf: false);
+                //ReemplazarCrLf(ref nota, ponerCrLf: false);
 
                 char[] returns = { '\r', '\n' };
                 if (nota.Texto.IndexOfAny(returns) > -1)

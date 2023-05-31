@@ -116,17 +116,30 @@ namespace gsNotasNET.APIs //gsGoogleDriveDocsAPINET
             var credDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var credPath = System.IO.Path.Combine(credDir, ".credentials/gsNotasNET.Android");
 
+            //using (var stream = App.ClientSecretJson)
+            //{
+            //    //string credPath = "token.json";
+
+            //    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+            //        GoogleClientSecrets.Load(stream).Secrets,
+            //        Scopes,
+            //        "user",
+            //        CancellationToken.None,
+            //        new FileDataStore(credPath, true)).Result;
+            //}
             using (var stream = App.ClientSecretJson)
             {
                 //string credPath = "token.json";
 
+                // Usar FromStream en vez de Load.          (31/may/23 19.44)
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
+                    GoogleClientSecrets.FromStream(stream).Secrets,
                     Scopes,
                     "user",
                     CancellationToken.None,
                     new FileDataStore(credPath, true)).Result;
             }
+
 
             // Create Google Docs API service.
             docService = new DocsService(new BaseClientService.Initializer()

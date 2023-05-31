@@ -9,8 +9,8 @@
 Se utiliza una base de datos para guardar las notas.
 Lamentablemente no se pueden copiar las notas a Google Drive.
 
-(para .NET Standard 2.0 revisión del 15-octubre-2022)</Description>
-    <Copyright>(c) Guillermo Som (elGuille), 2020-2022</Copyright>
+(para .NET Standard 2.0 revisión del 31-mayo-2023)</Description>
+    <Copyright>(c) Guillermo Som (elGuille), 2020-20243</Copyright>
     <PackageProjectUrl>http://www.elguillemola.com/utilidades-net/utilidades-para-net-framework-4-8/gsnotasnetf/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/elGuille-info/gsNotasNETF</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -33,16 +33,16 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
         21. Nueva compilación y actualización de los paquetes de NuGet.v2.0.0.33 30-dic-2020 Nuevas características.</PackageReleaseNotes>
     <NeutralLanguage>es-ES</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-      <PackageVersion>2.3.0.1</PackageVersion>
-      <Version>2.3.0</Version>
-      <FileVersion>2.3.0.1</FileVersion>
+      <PackageVersion>2.4.0.0</PackageVersion>
+      <Version>2.4.0</Version>
+      <FileVersion>2.4.0.0</FileVersion>
     <!--<SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>E:\gsCodigo_00\elGuille\elGuille.snk</AssemblyOriginatorKeyFile>-->
   </PropertyGroup>
     
     <PropertyGroup>
         <LangVersion>latest</LangVersion>
-        <AssemblyVersion>2.3.0.0</AssemblyVersion>
+        <AssemblyVersion>2.4.0.0</AssemblyVersion>
         <Authors>elGuille</Authors>
         <Product>gsNotas.Mobile</Product>
     </PropertyGroup>
@@ -58,16 +58,16 @@ Lamentablemente no se pueden copiar las notas a Google Drive.
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Apis" Version="1.57.0" />
-    <PackageReference Include="Google.Apis.Auth" Version="1.57.0" />
-    <PackageReference Include="Google.Apis.Core" Version="1.57.0" />
-    <PackageReference Include="Google.Apis.Docs.v1" Version="1.57.0.2716" />
-    <PackageReference Include="Google.Apis.Drive.v3" Version="1.57.0.2789" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Google.Apis" Version="1.60.0" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.60.0" />
+    <PackageReference Include="Google.Apis.Core" Version="1.60.0" />
+    <PackageReference Include="Google.Apis.Docs.v1" Version="1.60.0.2979" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.60.0.3061" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2515" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2578" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
   </ItemGroup>
 
   <ItemGroup>
